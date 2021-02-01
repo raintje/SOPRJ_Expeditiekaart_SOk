@@ -8,7 +8,7 @@ Project leider: ...
 | :------------- | :----------------- | :------------ |
 | @...    | ...       | ...       |
 | @...     | ...         | ...       |
-| @... | ...          | ...       |
+| @GXZheng312 | Jacky Zheng          | 2164239       | 
 | @tommydr     | Tommy den Reijer    | 2167744       |
 | @jasontonk    | Jason Tonk | 2163027       |
 | @raintje       | Wessel van Dorsten | 2153442       |
