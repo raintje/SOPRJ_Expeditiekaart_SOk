@@ -1,2 +1,31 @@
 # SOPRJ_Agile
-Repository used in the project of semester 3 of year 2.
+
+Project leider: ...
+
+## Groepsleden
+
+| Usernames      | Naam               | Studentnummer |
+| :------------- | :----------------- | :------------ |
+| @...    | ...       | ...       |
+| @...     | ...         | ...       |
+| @... | ...          | ...       |
+| @...      | ...       | ...       |
+| @...    | ... | ...       |
+| @raintje       | Wessel van Dorsten | 2153442       |
+
+---
+
+### Git guidelines
+
+...
+
+---
+
+### Code guidelines
+
+...
+
+---
+
+### Project inner workings
+...
