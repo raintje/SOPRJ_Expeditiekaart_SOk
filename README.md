@@ -9,7 +9,7 @@ Project leider: ...
 | @...    | ...       | ...       |
 | @...     | ...         | ...       |
 | @... | ...          | ...       |
-| @...      | ...       | ...       |
+| @tommydr     | Tommy den Reijer    | 2167744       |
 | @jasontonk    | Jason Tonk | 2163027       |
 | @raintje       | Wessel van Dorsten | 2153442       |
 
@@ -35,7 +35,7 @@ Project leider: ...
 * Geen duplicate code.
 * Pascal en CamelCase.
 * Tabs zijn 4 spaties lang.
-* Houd standaard coding conventions voor C# aan.
+* Houd standaard coding conventions voor PHP aan.
 * Leesbaarheid en netheid over grootte in de code.
 * Maak tests aan voor classes en methods.
 * Gebruik logische benaming van variabelen.
