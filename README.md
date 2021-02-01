@@ -10,7 +10,7 @@ Project leider: ...
 | @...     | ...         | ...       |
 | @... | ...          | ...       |
 | @...      | ...       | ...       |
-| @...    | ... | ...       |
+| @jasontonk    | Jason Tonk | 2163027       |
 | @raintje       | Wessel van Dorsten | 2153442       |
 
 ---
