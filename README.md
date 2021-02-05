@@ -7,7 +7,7 @@ Project leider: ...
 | Usernames      | Naam               | Studentnummer |
 | :------------- | :----------------- | :------------ |
 | @...    | ...       | ...       |
-| @...     | ...         | ...       |
+| @Vincent2162102     | Vincent Jamont         | 2162102       |
 | @GXZheng312 | Jacky Zheng          | 2164239       | 
 | @tommydr     | Tommy den Reijer    | 2167744       |
 | @jasontonk    | Jason Tonk | 2163027       |
