@@ -1,12 +1,8 @@
 # SOPRJ_Agile
-
-Project leider: ...
-
 ## Groepsleden
 
 | Usernames      | Naam               | Studentnummer |
 | :------------- | :----------------- | :------------ |
-| @...    | ...       | ...       |
 | @Vincent2162102     | Vincent Jamont         | 2162102       |
 | @GXZheng312 | Jacky Zheng          | 2164239       | 
 | @tommydr     | Tommy den Reijer    | 2167744       |
@@ -47,4 +43,7 @@ Project leider: ...
 ---
 
 ### Project inner workings
-...
+
+* Voor IOC gebruiken we de constructor injection.
+* Voor elk Model die benodigd is in de presentatie van de applicatie, wordt er een ViewModel gemaakt. In deze ViewModels worden Modellen als paramter opgenomen. In een ViewModel wordt de meegegeven Model omgezet naar het ViewModel.
+* Naamgeving van Viewmodels is 'Model naam'+VM
