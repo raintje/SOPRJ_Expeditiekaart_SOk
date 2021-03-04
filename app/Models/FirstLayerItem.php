@@ -9,5 +9,8 @@ class FirstLayerItem extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public function layerItem()
+    {
+        return $this->hasOne(LayerItem::class);
+    }
 }

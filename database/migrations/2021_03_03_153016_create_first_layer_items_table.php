@@ -18,6 +18,7 @@ class CreateFirstLayerItemsTable extends Migration
             $table->unsignedBigInteger('layer_item_id');
             $table->integer('x_pos');
             $table->integer('y_pos');
+            $table->timestamps();
 
             $table->foreign('layer_item_id')->references('id')->on('layer_items');
         });
