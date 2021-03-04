@@ -16,9 +16,12 @@ class CreateFirstLayerItemsTable extends Migration
         Schema::create('first_layer_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('layer_item_id');
+            $table->enum('categorie', ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling']);
             $table->integer('x_pos');
             $table->integer('y_pos');
             $table->timestamps();
+
+
 
             $table->foreign('layer_item_id')->references('id')->on('layer_items');
         });

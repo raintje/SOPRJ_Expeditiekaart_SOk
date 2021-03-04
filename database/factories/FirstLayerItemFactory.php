@@ -23,8 +23,10 @@ class FirstLayerItemFactory extends Factory
     public function definition()
     {
         $layerItems = LayerItem::pluck('id')->toArray();
+        $categories = ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling'];
         return [
             'layer_item_id' => $this->faker->randomElement($layerItems),
+            'categorie' => $this->faker->randomElement($categories),
             'x_pos' => $this->faker->numberBetween(0,300),
             'y_pos' =>$this->faker->numberBetween(0,300)
         ];
