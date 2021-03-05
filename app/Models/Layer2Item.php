@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 class Layer2Item extends Model
 {
     protected $attributes = [
+        'id',
         'title',
         'description'
     ];
