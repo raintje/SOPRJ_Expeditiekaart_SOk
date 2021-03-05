@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use DateTime;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 
 class Layer2Item extends Model
 {
+
+    use HasFactory;
+
     protected $attributes = [
         'id',
         'title',
@@ -18,6 +20,4 @@ class Layer2Item extends Model
         'date_created' => 'datetime',
         'date_updated' => 'datetime'
     ];
-    
-
 }
