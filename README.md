@@ -3,8 +3,9 @@
 
 | Usernames      | Naam               | Studentnummer |
 | :------------- | :----------------- | :------------ |
-| @Vincent2162102     | Vincent Jamont         | 2162102       |
-| @GXZheng312 | Jacky Zheng          | 2164239       | 
+| @JasperMooren | Jasper Mooren | 2126574 |
+| @Vincent2162102 | Vincent Jamont | 2162102 |
+| @GXZheng312 | Jacky Zheng | 2164239 | 
 | @tommydr     | Tommy den Reijer    | 2167744       |
 | @jasontonk    | Jason Tonk | 2163027       |
 | @raintje       | Wessel van Dorsten | 2153442       |
@@ -18,8 +19,6 @@
 * Voor feature branches wordt de volgende naamgeving gebruikt: `feature/JouwFeatureHier`.
 * Link nieuwe features aan bestaande issues.
 * Maak geen dubbele features aan.
-* Zet eerst de issue in github boards. Maak dan de branch aan. Maak daarna eventueel een PR aan en koppel die aan de issue.
-* Gebruik zoveel mogelijk het project board op github.
 * Hou de status van jouw `feature`, `bugfix` of `hotfix` bij in github issues met comments.
 * Als je klaar bent met je `feature` maak dan een PR aan en koppel het aan de issue.
 * PR's worden door minimaal 2 mensen gecheckt en getest lokaal op hun machine.
