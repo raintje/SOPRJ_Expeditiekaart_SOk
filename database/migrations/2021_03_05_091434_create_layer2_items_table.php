@@ -15,6 +15,8 @@ class CreateLayer2ItemsTable extends Migration
     {
         Schema::create('layer2_items', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->unique();
+            $table->text('description');
             $table->timestamps();
         });
     }
