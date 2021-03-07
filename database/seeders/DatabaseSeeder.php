@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\FirstLayerItem;
+use App\Models\LayerItem;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,8 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(10)->create();
-        \App\Models\LayerItem::factory(10)->create();
-        \App\Models\FirstLayerItem::factory(10)->create();
+        User::factory(10)->create();
+        LayerItem::factory(10)->create();
+        FirstLayerItem::factory(10)->create();
     }
 }

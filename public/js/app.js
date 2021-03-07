@@ -1877,6 +1877,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1889,10 +1891,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      url: "http://localhost:8000/img/wallpaper.svg",
+      url: "http://localhost:8000/img/wallpaper_2.svg",
       bounds: [[-26.5, -25], [1021.5, 1023]],
-      minZoom: -2,
+      maxBounds: [[450, 450], [450, 450]],
+      minZoom: 1.4,
       crs: leaflet__WEBPACK_IMPORTED_MODULE_0__.CRS.Simple,
+      center: [2000, 3023],
       stars: [{
         name: "Sol",
         lng: 175.2,
@@ -1910,11 +1914,22 @@ __webpack_require__.r(__webpack_exports__);
         lng: 218.7,
         lat: 8.3
       }],
+      items: [],
       travel: [[145.0, 175.2], [8.3, 218.7]]
     };
   },
   mounted: function mounted() {
-    this.$refs.map.mapObject.setView([70, 120], 1);
+    var _this = this;
+
+    this.$refs.map.mapObject.setView([520, 450], 1);
+    axios.get('/layeritems').then(function (response) {
+      return _this.items = response.data;
+    });
+  },
+  methods: {
+    location: function location(x, y) {
+      return new leaflet__WEBPACK_IMPORTED_MODULE_0__.latLng(x, y);
+    }
   }
 });
 
@@ -34079,24 +34094,29 @@ var render = function() {
         "l-map",
         {
           ref: "map",
-          staticStyle: { height: "1080px", width: "1080px" },
+          staticStyle: { height: "100vh", width: "100%" },
           attrs: { "min-zoom": _vm.minZoom, crs: _vm.crs }
         },
         [
           _c("l-image-overlay", {
-            attrs: { url: _vm.url, bounds: _vm.bounds }
+            attrs: {
+              url: _vm.url,
+              bounds: _vm.bounds,
+              "max-bounds": _vm.maxBounds
+            }
           }),
           _vm._v(" "),
-          _vm._l(_vm.stars, function(star) {
+          _vm._l(_vm.items, function(item) {
             return _c(
               "l-marker",
-              { key: star.name, attrs: { "lat-lng": star } },
-              [_c("l-popup", { attrs: { content: star.name } })],
+              {
+                key: item.id,
+                attrs: { "lat-lng": _vm.location(item.y_pos, item.x_pos) }
+              },
+              [_c("l-popup", { attrs: { content: item.categorie } })],
               1
             )
-          }),
-          _vm._v(" "),
-          _c("l-polyline", { attrs: { "lat-lngs": _vm.travel } })
+          })
         ],
         2
       )

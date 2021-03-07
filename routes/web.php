@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FirstLayerItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
