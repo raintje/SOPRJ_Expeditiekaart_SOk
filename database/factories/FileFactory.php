@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\files;
+use App\Models\File;
 use App\Models\LayerItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class FilesFactory extends Factory
+class FileFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = files::class;
+    protected $model = File::class;
 
     /**
      * Define the model's default state.
@@ -24,14 +24,13 @@ class FilesFactory extends Factory
     {
         $layerItems = LayerItem::pluck('id')->toArray();
         $categories = ['image', 'video'];
-        $fileName = "fileName";
-        $filePath = "~/Path/To/Item/";
+        $testBlurbs = ['testblurb one', 'testblurb two', 'testblurb three', 'testblurb four'];
         return [
             'id' => $this->faker->numberBetween(0, 20),
-            'name' => $this->$fileName,
+            'layer_item_id' => $this->faker->randomElement($layerItems),
+            'name' => $this->faker->randomElement($testBlurbs),
             'type' => $this->faker->randomElement($categories),
-            'path' => $this->$filePath,
-            'layer_item_id' => $this->faker->randomElement($layerItems)
+            'path' => $this->faker->randomElement($testBlurbs)
         ];
     }
 }
