@@ -21,8 +21,15 @@ class FilesFactory extends Factory
      */
     public function definition()
     {
+
+        $categories = ['image', 'video'];
+        $fileName = "fileName";
+        $filePath = "~/Path/To/Item/";
         return [
-            //
+            'id' => $this->faker->numberBetween(0, 20),
+            'name' => $this->$fileName,
+            'type' => $this->faker->randomElement($categories),
+            'path' => $this->$filePath,
         ];
     }
 }
