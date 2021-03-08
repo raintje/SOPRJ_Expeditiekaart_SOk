@@ -1,0 +1,101 @@
+.Nav--right {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+}
+.Nav--right button,
+.Nav--right a {
+  border-radius: 50%;
+  background-color: #F9F9F9;
+  border: none;
+  outline: none;
+  width: 48px;
+  line-height: 48px;
+  height: 48px;
+  font-size: 18px;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.Nav--right button svg,
+.Nav--right a svg {
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.Nav--right button:not(:last-child),
+.Nav--right a:not(:last-child) {
+  margin-bottom: 12px;
+}
+.Nav--right button > .Tooltip,
+.Nav--right a > .Tooltip {
+  opacity: 0;
+  transition: ease-in-out clip-path 0.2s;
+  -webkit-clip-path: circle(0% at 100% 50%);
+          clip-path: circle(0% at 100% 50%);
+  pointer-events: none;
+}
+.Nav--right button:hover, .Nav--right button:focus,
+.Nav--right a:hover,
+.Nav--right a:focus {
+  transform: scale(1.05);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+}
+.Nav--right button:hover > .Tooltip, .Nav--right button:focus > .Tooltip,
+.Nav--right a:hover > .Tooltip,
+.Nav--right a:focus > .Tooltip {
+  opacity: 1;
+  -webkit-clip-path: circle(200% at 100% 50%);
+          clip-path: circle(200% at 100% 50%);
+}
+.Nav--right button:active,
+.Nav--right a:active {
+  transform: scale(0.95);
+}
+.Nav--right .Dropdown {
+  transition: opacity 0.2s, -webkit-clip-path 0.2s;
+  transition: opacity 0.2s, clip-path 0.2s;
+  transition: opacity 0.2s, clip-path 0.2s, -webkit-clip-path 0.2s;
+}
+.Nav--right .Dropdown > div {
+  opacity: 0;
+  -webkit-clip-path: circle(0% at 5% 5%);
+          clip-path: circle(0% at 5% 5%);
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+.Nav--right .Dropdown > button:focus {
+  background-color: #19C97D;
+}
+.Nav--right .Dropdown > button:focus svg {
+  fill: #FFF;
+}
+.Nav--right .Dropdown > button:focus + div,
+.Nav--right .Dropdown > div:hover {
+  opacity: 1;
+  -webkit-clip-path: circle(200% at 5% 5%);
+          clip-path: circle(200% at 5% 5%);
+  pointer-events: auto;
+}
+.Nav--right button > .Tooltip {
+  display: inline-block;
+  position: absolute;
+  color: #FFF;
+  padding: 6px 12px;
+  line-height: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 100%;
+  white-space: nowrap;
+  margin-right: 12px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 4px;
+  font-size: 13px;
+}
