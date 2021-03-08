@@ -21,7 +21,6 @@ class FilesFactory extends Factory
      */
     public function definition()
     {
-
         $categories = ['image', 'video'];
         $fileName = "fileName";
         $filePath = "~/Path/To/Item/";

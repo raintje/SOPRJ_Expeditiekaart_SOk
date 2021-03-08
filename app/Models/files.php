@@ -20,4 +20,8 @@ class File extends Model
         'date_uploaded' => 'datetime',
     ];
 
+    public function layerItem() {
+        return $this->hasOne(LayerItem::class);
+    }
+
 }
