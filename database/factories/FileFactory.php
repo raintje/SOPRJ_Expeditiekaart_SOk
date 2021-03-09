@@ -26,7 +26,6 @@ class FileFactory extends Factory
         $categories = ['image', 'video'];
         $testBlurbs = ['testblurb one', 'testblurb two', 'testblurb three', 'testblurb four'];
         return [
-            'id' => $this->faker->numberBetween(0, 20),
             'layer_item_id' => $this->faker->randomElement($layerItems),
             'name' => $this->faker->randomElement($testBlurbs),
             'type' => $this->faker->randomElement($categories),
