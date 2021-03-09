@@ -14,39 +14,28 @@
                 :url="url"
                 :bounds="bounds"
             />
-            <!-- Create HTML icon (divIcon) by providing content inside the l-icon tag -->
-            <l-marker @add="openPopup"  v-for="item in items" :lat-lng="location(item.y_pos, item.x_pos)" :key="item.id">
+
+            <l-marker @add="openPopup" v-for="item in items" :lat-lng="location(item.y_pos, item.x_pos)" :key="item.id">
                 <l-icon
                     :icon-anchor="staticAnchor"
                     class-name="marker blue"
 
                 >
-                    <l-tooltip content="Dit is een voorbeeld text om meer informatie te krijgen over deze categorie<br> fsdfsfsfsdfsdfsdfsdfsdfsdsdd" />
-                    <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.categorie" />
+                    <l-tooltip
+                        content="Dit is een voorbeeld text om meer informatie te krijgen over deze categorie<br> fsdfsfsfsdfsdfsdfsdfsdfsdsdd"/>
+                    <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.categorie"/>
                 </l-icon>
             </l-marker>
-<!--            <l-polyline :lat-lngs="travel" />-->
+            <!--            <l-polyline :lat-lngs="travel" />-->
         </l-map>
     </div>
 </template>
 
 <script>
 import {CRS, latLng, icon} from "leaflet";
-import {LImageOverlay, LMap, LMarker, LPolyline, LPopup, LIcon, LTooltip } from "vue2-leaflet";
 import Vue from 'vue';
 
-
 export default {
-    components: {
-        LMap,
-        LImageOverlay,
-        LMarker,
-        LPopup,
-        LPolyline,
-        LIcon,
-        LTooltip,
-        Vue
-    },
     data() {
         return {
             url: "http://localhost:8000/img/wallpaper_2.svg",
@@ -57,10 +46,10 @@ export default {
             crs: CRS.Simple,
             center: [2000, 3023],
             stars: [
-                { name: "Sol", lng: 175.2, lat: 145.0 },
-                { name: "Mizar", lng: 41.6, lat: 130.1 },
-                { name: "Krueger-Z", lng: 13.4, lat: 56.5 },
-                { name: "Deneb", lng: 218.7, lat: 8.3 }
+                {name: "Sol", lng: 175.2, lat: 145.0},
+                {name: "Mizar", lng: 41.6, lat: 130.1},
+                {name: "Krueger-Z", lng: 13.4, lat: 56.5},
+                {name: "Deneb", lng: 218.7, lat: 8.3}
             ],
             items: [],
             staticAnchor: [16, 37],
@@ -119,9 +108,11 @@ export default {
 .blue {
     background-color: blue;
 }
+
 .red {
     background-color: red;
 }
+
 .green {
     background-color: lawngreen;
 }
