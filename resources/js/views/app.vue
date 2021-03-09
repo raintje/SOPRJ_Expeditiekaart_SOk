@@ -14,12 +14,16 @@
                 :url="url"
                 :bounds="bounds"
             />
-            <l-marker
-                v-for="item in items"
-                :key="item.id"
-                :lat-lng="location(item.y_pos, item.x_pos)"
-            >
-                <l-popup :content="item.categorie" />
+            <!-- Create HTML icon (divIcon) by providing content inside the l-icon tag -->
+            <l-marker @add="openPopup"  v-for="item in items" :lat-lng="location(item.y_pos, item.x_pos)" :key="item.id">
+                <l-icon
+                    :icon-anchor="staticAnchor"
+                    class-name="marker blue"
+
+                >
+                    <l-tooltip content="Dit is een voorbeeld text om meer informatie te krijgen over deze categorie<br> fsdfsfsfsdfsdfsdfsdfsdfsdsdd" />
+                    <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.categorie" />
+                </l-icon>
             </l-marker>
 <!--            <l-polyline :lat-lngs="travel" />-->
         </l-map>
@@ -27,8 +31,10 @@
 </template>
 
 <script>
-import {CRS, latLng} from "leaflet";
-import {LImageOverlay, LMap, LMarker, LPolyline, LPopup} from "vue2-leaflet";
+import {CRS, latLng, icon} from "leaflet";
+import {LImageOverlay, LMap, LMarker, LPolyline, LPopup, LIcon, LTooltip } from "vue2-leaflet";
+import Vue from 'vue';
+
 
 export default {
     components: {
@@ -36,7 +42,10 @@ export default {
         LImageOverlay,
         LMarker,
         LPopup,
-        LPolyline
+        LPolyline,
+        LIcon,
+        LTooltip,
+        Vue
     },
     data() {
         return {
@@ -54,6 +63,7 @@ export default {
                 { name: "Deneb", lng: 218.7, lat: 8.3 }
             ],
             items: [],
+            staticAnchor: [16, 37],
             travel: [[145.0, 175.2], [8.3, 218.7]]
         };
     },
@@ -69,8 +79,50 @@ export default {
     methods: {
         location: function (x, y) {
             return new latLng(x, y);
-        }
+        },
+        getClass: function (item) {
+
+            var result = [];
+            result.push(' marker ');
+            if (item.categorie === "bedrijfskunde") {
+                result.push(' green');
+            }
+            if (item.categorie === "familie/sociaal") {
+                result.push(' red');
+            }
+            if (item.categorie === "persoonlijke ontwikkeling") {
+                result.push(' blue');
+            }
+            return result;
+        },
+        openPopup: function (event) {
+            Vue.nextTick(() => {
+                event.target.openPopup();
+            })
+        },
+
     }
 
 };
 </script>
+
+<style>
+.marker {
+    border: 1px solid #333;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.blue {
+    background-color: blue;
+}
+.red {
+    background-color: red;
+}
+.green {
+    background-color: lawngreen;
+}
+</style>
