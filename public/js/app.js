@@ -1879,6 +1879,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1892,8 +1893,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       url: "http://localhost:8000/img/wallpaper_2.svg",
-      bounds: [[-26.5, -25], [1021.5, 1023]],
-      maxBounds: [[450, 450], [450, 450]],
+      bounds: [[-120, -27], [1049, 1053]],
+      // maxBounds: [[393, 85], [575, 820]],
+      maxBounds: [[290, 89], [659, 833]],
       minZoom: 1.4,
       crs: leaflet__WEBPACK_IMPORTED_MODULE_0__.CRS.Simple,
       center: [2000, 3023],
@@ -34095,15 +34097,15 @@ var render = function() {
         {
           ref: "map",
           staticStyle: { height: "100vh", width: "100%" },
-          attrs: { "min-zoom": _vm.minZoom, crs: _vm.crs }
+          attrs: {
+            "min-zoom": _vm.minZoom,
+            crs: _vm.crs,
+            "max-bounds": _vm.maxBounds
+          }
         },
         [
           _c("l-image-overlay", {
-            attrs: {
-              url: _vm.url,
-              bounds: _vm.bounds,
-              "max-bounds": _vm.maxBounds
-            }
+            attrs: { url: _vm.url, bounds: _vm.bounds }
           }),
           _vm._v(" "),
           _vm._l(_vm.items, function(item) {

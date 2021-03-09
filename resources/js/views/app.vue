@@ -7,11 +7,12 @@
             :crs="crs"
             style="height: 100vh; width: 100%;"
 
+            :max-bounds="maxBounds"
+
         >
             <l-image-overlay
                 :url="url"
                 :bounds="bounds"
-                :max-bounds="maxBounds"
             />
             <l-marker
                 v-for="item in items"
@@ -40,8 +41,9 @@ export default {
     data() {
         return {
             url: "http://localhost:8000/img/wallpaper_2.svg",
-            bounds: [[-26.5, -25], [1021.5, 1023]],
-            maxBounds: [[450, 450], [450, 450]],
+            bounds: [[-120, -27], [1049, 1053]],
+            // maxBounds: [[393, 85], [575, 820]],
+            maxBounds: [[290, 89], [659, 833]],
             minZoom: 1.4,
             crs: CRS.Simple,
             center: [2000, 3023],
