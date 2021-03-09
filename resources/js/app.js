@@ -5,7 +5,6 @@ import {LImageOverlay, LMap, LMarker, LPopup, LIcon, LTooltip, LTileLayer } from
 
 import 'leaflet/dist/leaflet.css';
 
-
 //Main pages
 import App from './views/app.vue'
 

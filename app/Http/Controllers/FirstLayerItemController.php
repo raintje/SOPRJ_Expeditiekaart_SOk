@@ -9,7 +9,6 @@ class FirstLayerItemController extends Controller
 {
     public function all()
     {
-        $layerItems = FirstLayerItem::all();
-        return $layerItems;
+        return FirstLayerItem::all();
     }
 }

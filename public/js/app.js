@@ -1881,6 +1881,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1888,30 +1889,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       url: "http://localhost:8000/img/wallpaper_2.svg",
       bounds: [[-120, -27], [1049, 1053]],
-      // maxBounds: [[393, 85], [575, 820]],
       maxBounds: [[290, 89], [659, 833]],
       minZoom: 1.4,
       crs: leaflet__WEBPACK_IMPORTED_MODULE_0__.CRS.Simple,
       center: [2000, 3023],
-      stars: [{
-        name: "Sol",
-        lng: 175.2,
-        lat: 145.0
-      }, {
-        name: "Mizar",
-        lng: 41.6,
-        lat: 130.1
-      }, {
-        name: "Krueger-Z",
-        lng: 13.4,
-        lat: 56.5
-      }, {
-        name: "Deneb",
-        lng: 218.7,
-        lat: 8.3
-      }],
       items: [],
-      staticAnchor: [16, 37],
+      staticAnchor: [15, 0],
+      tooltipAnchor: [15, 0],
       travel: [[145.0, 175.2], [8.3, 218.7]]
     };
   },
@@ -1926,24 +1910,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     location: function location(x, y) {
       return new leaflet__WEBPACK_IMPORTED_MODULE_0__.latLng(x, y);
-    },
-    getClass: function getClass(item) {
-      var result = [];
-      result.push(' marker ');
-
-      if (item.categorie === "bedrijfskunde") {
-        result.push(' green');
-      }
-
-      if (item.categorie === "familie/sociaal") {
-        result.push(' red');
-      }
-
-      if (item.categorie === "persoonlijke ontwikkeling") {
-        result.push(' blue');
-      }
-
-      return result;
     },
     openPopup: function openPopup(event) {
       vue__WEBPACK_IMPORTED_MODULE_1__.default.nextTick(function () {
@@ -34219,16 +34185,17 @@ var render = function() {
                 _c(
                   "l-icon",
                   {
+                    style: { "background-color": item.color },
                     attrs: {
                       "icon-anchor": _vm.staticAnchor,
-                      "class-name": "marker blue"
+                      "class-name": item.color + " marker"
                     }
                   },
                   [
                     _c("l-tooltip", {
                       attrs: {
-                        content:
-                          "Dit is een voorbeeld text om meer informatie te krijgen over deze categorie<br> fsdfsfsfsdfsdfsdfsdfsdfsdsdd"
+                        "tooltip-anchor": _vm.tooltipAnchor,
+                        content: item.description
                       }
                     }),
                     _vm._v(" "),
