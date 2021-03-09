@@ -59,32 +59,36 @@
   transform: scale(0.95);
 }
 .Nav--right .Dropdown {
-  transition: opacity 0.2s, -webkit-clip-path 0.2s;
-  transition: opacity 0.2s, clip-path 0.2s;
-  transition: opacity 0.2s, clip-path 0.2s, -webkit-clip-path 0.2s;
+  position: relative;
+  transition: ease-in-out opacity 0.2s, ease-in-out clip-path 0.2s;
 }
 .Nav--right .Dropdown > div {
   opacity: 0;
-  -webkit-clip-path: circle(0% at 5% 5%);
-          clip-path: circle(0% at 5% 5%);
+  -webkit-clip-path: circle(0% at 50% 50%);
+          clip-path: circle(0% at 50% 50%);
   display: flex;
   flex-direction: column;
   pointer-events: none;
+  position: absolute;
 }
-.Nav--right .Dropdown > button:focus {
+.Nav--right .Dropdown > button:focus,
+.Nav--right .Dropdown > a:focus {
   background-color: #19C97D;
 }
-.Nav--right .Dropdown > button:focus svg {
+.Nav--right .Dropdown > button:focus svg,
+.Nav--right .Dropdown > a:focus svg {
   fill: #FFF;
 }
+.Nav--right .Dropdown > a:focus + div,
 .Nav--right .Dropdown > button:focus + div,
 .Nav--right .Dropdown > div:hover {
   opacity: 1;
-  -webkit-clip-path: circle(200% at 5% 5%);
-          clip-path: circle(200% at 5% 5%);
+  -webkit-clip-path: circle(200% at 50% 50%);
+          clip-path: circle(200% at 50% 50%);
   pointer-events: auto;
 }
-.Nav--right button > .Tooltip {
+.Nav--right .Dropdown a > .Tooltip,
+.Nav--right .Dropdown button > .Tooltip {
   display: inline-block;
   position: absolute;
   color: #FFF;
@@ -98,4 +102,26 @@
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 4px;
   font-size: 13px;
+}
+@media (max-width: 1024px) {
+  .Nav--right a > .Tooltip,
+.Nav--right button > .Tooltip {
+    opacity: 1;
+    -webkit-clip-path: circle(200% at 100% 50%);
+            clip-path: circle(200% at 100% 50%);
+  }
+}
+@media (max-width: 600px) {
+  .Nav--right {
+    bottom: 6px;
+    top: auto;
+    right: 18px;
+  }
+  .Nav--right button, .Nav--right a {
+    margin-bottom: 12px;
+  }
+  .Nav--right .Dropdown > div {
+    flex-direction: column-reverse;
+    bottom: 100%;
+  }
 }
