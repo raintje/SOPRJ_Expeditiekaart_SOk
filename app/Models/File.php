@@ -9,19 +9,7 @@ class File extends Model
 {
     use HasFactory;
 
-    protected $attributes = [
-        'id',
-        'name',
-        'type',
-        'path'
-    ];
-
-    protected $casts = [
-        'date_uploaded' => 'datetime',
-    ];
-
     public function layerItem() {
         return $this->hasOne(LayerItem::class);
     }
-
 }
