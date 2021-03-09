@@ -55,18 +55,22 @@
             transform: scale(.95);
         }
     }
+
     .Dropdown {
-        transition: opacity .2s, clip-path .2s;
+        position: relative;
+        transition: ease-in-out opacity .2s, ease-in-out clip-path .2s;
 
         > div {
             opacity: 0;
-            clip-path: circle(0% at 5% 5%);
+            clip-path: circle(0% at 50% 50%);
             display: flex;
             flex-direction: column;
             pointer-events: none;
+            position: absolute;
         }
 
-        > button:focus {
+        > button:focus,
+        > a:focus {
             svg {
                 fill: #FFF;
             }
@@ -74,30 +78,54 @@
             background-color: #19C97D;
         }
 
-
+        > a:focus + div,
         > button:focus + div,
         > div:hover {
             opacity: 1;
-            clip-path: circle(200% at 5% 5%);
+            clip-path: circle(200% at 50% 50%);
             pointer-events: auto;
+        }
+
+        a > .Tooltip,
+        button > .Tooltip {
+            display: inline-block;
+            position: absolute;
+            color: #FFF;
+            padding: 6px 12px;
+            line-height: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 100%;
+            white-space: nowrap;
+            margin-right: 12px;
+            background-color: rgba(0,0,0,.9);
+            border-radius: 4px;
+            font-size: 13px;
         }
     }
 
-    button > .Tooltip {
-        display: inline-block;
-        position: absolute;
-        color: #FFF;
-        padding: 6px 12px;
-        line-height: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 100%;
-        white-space: nowrap;
-        margin-right: 12px;
-        background-color: rgba(0,0,0,.9);
-        border-radius: 4px;
-        font-size: 13px;
+    @media(max-width: 1024px) {
+
+        a > .Tooltip,
+        button > .Tooltip {
+            opacity: 1;
+            clip-path: circle(200% at 100% 50%);
+        }
+    }
+
+
+    @media (max-width: 600px) {
+        bottom: 6px;
+        top: auto;
+        right: 18px;
+
+        button, a {
+            margin-bottom: 12px;
+        }
+
+        .Dropdown > div {
+            flex-direction: column-reverse;
+            bottom: 100%;
+        }
     }
 }
-
-
