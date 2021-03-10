@@ -2,40 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LayerItem;
 use Illuminate\Http\Request;
 
 class LayerItemController extends Controller
 {
-    public function index(){
-
-
+   
+    public function index()
+    {
+        //
     }
 
-    public function show($id){
-
-
+    public function create()
+    {
+        //
     }
 
-    public function create(){
-
-
-    }
-    public function store(){
-
-
-    }
-    public function edit($id){
-
-
+    public function store(Request $request)
+    {
+        //
     }
 
-    public function update(){
-
-
+    public function show(LayerItem $layerItem)
+    {
+        //
     }
 
-    public function destroy(){
+    public function edit(LayerItem $layerItem)
+    {
+        //
+    }
 
+    public function update(Request $request, LayerItem $layerItem)
+    {
+        //
+    }
 
+    public function destroy(LayerItem $layerItem)
+    {
+        //
     }
 }
