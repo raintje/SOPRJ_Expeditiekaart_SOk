@@ -1889,7 +1889,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       url: "http://localhost:8000/img/wallpaper_2.svg",
       bounds: [[-120, -27], [1049, 1053]],
-      maxBounds: [[290, 89], [659, 833]],
+      maxBounds: [[298, 89], [659, 833]],
       minZoom: 1.4,
       crs: leaflet__WEBPACK_IMPORTED_MODULE_0__.CRS.Simple,
       center: [2000, 3023],
@@ -34161,7 +34161,7 @@ var render = function() {
         "l-map",
         {
           ref: "map",
-          staticStyle: { height: "100vh", width: "100%" },
+          staticStyle: { height: "98vh", width: "100%" },
           attrs: {
             "min-zoom": _vm.minZoom,
             crs: _vm.crs,
@@ -34195,14 +34195,14 @@ var render = function() {
                     _c("l-tooltip", {
                       attrs: {
                         "tooltip-anchor": _vm.tooltipAnchor,
-                        content: item.description
+                        content: item.layer_item.body_preview
                       }
                     }),
                     _vm._v(" "),
                     _c("l-popup", {
                       attrs: {
                         options: { autoClose: false, closeOnClick: false },
-                        content: item.categorie
+                        content: item.layer_item.title
                       }
                     })
                   ],

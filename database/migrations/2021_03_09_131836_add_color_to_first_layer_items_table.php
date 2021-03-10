@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDescriptionToFirstLayerItemsTable extends Migration
+class AddColorToFirstLayerItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,6 @@ class AddDescriptionToFirstLayerItemsTable extends Migration
     public function up()
     {
         Schema::table('first_layer_items', function (Blueprint $table) {
-            $table->string("description");
             $table->string("color");
         });
     }

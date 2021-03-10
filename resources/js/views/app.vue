@@ -5,7 +5,7 @@
             ref="map"
             :min-zoom="minZoom"
             :crs="crs"
-            style="height: 100vh; width: 100%;"
+            style="height: 98vh; width: 100%;"
             :max-bounds="maxBounds"
 
         >
@@ -24,8 +24,8 @@
 
                 >
 
-                    <l-tooltip :tooltip-anchor="tooltipAnchor" :content="item.description"/>
-                    <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.categorie"/>
+                    <l-tooltip :tooltip-anchor="tooltipAnchor" :content="item.layer_item.body_preview"/>
+                    <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.layer_item.title"/>
                 </l-icon>
             </l-marker>
         </l-map>
@@ -41,7 +41,7 @@ export default {
         return {
             url: "http://localhost:8000/img/wallpaper_2.svg",
             bounds: [[-120, -27], [1049, 1053]],
-            maxBounds: [[290, 89], [659, 833]],
+            maxBounds: [[298, 89], [659, 833]],
             minZoom: 1.4,
             crs: CRS.Simple,
             center: [2000, 3023],

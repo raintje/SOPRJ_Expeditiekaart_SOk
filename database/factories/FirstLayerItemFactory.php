@@ -29,7 +29,6 @@ class FirstLayerItemFactory extends Factory
             'layer_item_id' => $this->faker->randomElement($layerItems),
             'categorie' => $this->faker->randomElement($categories),
             'color' => $this->faker->randomElement($colors),
-            'description' => $this->faker->sentence(10),
             'x_pos' => $this->faker->numberBetween(120,750),
             'y_pos' =>$this->faker->numberBetween(320,620)
         ];

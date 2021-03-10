@@ -11,6 +11,6 @@ class FirstLayerItem extends Model
 
     public function layerItem()
     {
-        return $this->hasOne(LayerItem::class);
+        return $this->hasOne(LayerItem::class, 'id', 'layer_item_id');
     }
 }
