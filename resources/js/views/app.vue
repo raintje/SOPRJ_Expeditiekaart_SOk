@@ -39,7 +39,7 @@ import Vue from 'vue';
 export default {
     data() {
         return {
-            url: "http://localhost:8000/img/wallpaper_2.svg",
+            url: "/img/wallpaper_2.svg",
             bounds: [[-120, -27], [1049, 1053]],
             maxBounds: [[298, 89], [659, 833]],
             minZoom: 1.4,
