@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\FirstLayerItem;
+use App\Models\LayerItem;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use \App\Models\User;
 use \App\Models\LayerItem;
