@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/items', [LayerItemController::class, 'index']);
-Route::get('/items/{id}', [LayerItemController::class, 'show']);
+Route::post('/items', [LayerItemController::class, 'store']);
 Route::get('/items/create', [LayerItemController::class, 'create']);
-Route::get('/items/edit/{id}', [LayerItemController::class, 'edit']);
+Route::get('/items/{id}', [LayerItemController::class, 'show']);
+Route::get('/items/{id}/edit', [LayerItemController::class, 'edit']);
+Route::put('/items/{id}', [LayerItemController::class, 'update']);

@@ -24,18 +24,19 @@ class LayerItemController extends Controller
 
     public function store(Request $request)
     {
+
         $body = $request->input('body');
 
         $item = new LayerItem();
         $item->title = $request->input('title');
-        $item->bodyPreview = implode(' ', array_slice(explode(' ', $body), 0, 5));
+        $item->body_preview = implode(' ', array_slice(explode(' ', $body), 0, 15));
         $item->body = $body;
         $item->save();
 
-        $id = LayerItem::latest()->get(1)->id;
-        return redirect($this->show($id));
+        dump($item->attributesToArray());
+//        return redirect($this->show($item->id));
 
-        //TODO improve strore method
+        //TODO add files and linked items to store method
     }
 
     public function show($id)
@@ -50,7 +51,7 @@ class LayerItemController extends Controller
 
     public function edit($id)
     {
-
+        die("i can edit");
         $item = LayerItem::find($id);
         if($item != null)
         {
