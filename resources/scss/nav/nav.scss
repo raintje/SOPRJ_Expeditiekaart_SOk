@@ -1,7 +1,15 @@
+html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    line-height: 1.5
+}
+
+// Navigation
+
 .Nav--right {
     position: fixed;
     top: 24px;
     right: 24px;
+    z-index: 999;
 
     button,
     a {
@@ -43,7 +51,7 @@
         &:hover,
         &:focus {
             transform: scale(1.05);
-            background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.05));
+            background: white;
 
             > .Tooltip {
                 opacity: 1;

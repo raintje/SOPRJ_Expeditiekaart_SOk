@@ -1,7 +1,13 @@
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  line-height: 1.5;
+}
+
 .Nav--right {
   position: fixed;
   top: 24px;
   right: 24px;
+  z-index: 999;
 }
 .Nav--right button,
 .Nav--right a {
@@ -45,7 +51,7 @@
 .Nav--right a:hover,
 .Nav--right a:focus {
   transform: scale(1.05);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+  background: white;
 }
 .Nav--right button:hover > .Tooltip, .Nav--right button:focus > .Tooltip,
 .Nav--right a:hover > .Tooltip,
@@ -125,3 +131,4 @@
     bottom: 100%;
   }
 }
+
