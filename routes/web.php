@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\FirstLayerItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
-
-Route::get('/test', function () {
-    return view('items/create');
-});
+Route::get('/items', [LayerItemController::class, 'index']);
+Route::post('/items', [LayerItemController::class, 'store']);
+Route::get('/items/create', [LayerItemController::class, 'create']);
+Route::get('/items/{id}', [LayerItemController::class, 'show']);
+Route::get('/items/{id}/edit', [LayerItemController::class, 'edit']);
+Route::put('/items/{id}', [LayerItemController::class, 'update']);
