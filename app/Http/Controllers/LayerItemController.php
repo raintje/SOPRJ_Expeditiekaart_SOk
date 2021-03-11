@@ -24,7 +24,7 @@ class LayerItemController extends Controller
 
     public function store(Request $request)
     {
-
+        return dump($request);
         $body = $request->input('body');
 
         $item = new LayerItem();
