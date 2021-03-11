@@ -6,6 +6,11 @@ use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use \App\Models\User;
+use \App\Models\LayerItem;
+use \App\Models\FirstLayerItem;
+use \App\Models\File;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +24,6 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         LayerItem::factory(10)->create();
         FirstLayerItem::factory(10)->create();
+        File::factory(10)->create();
     }
 }
