@@ -34,7 +34,7 @@ class LayerItemController extends Controller
         $item->save();
 
         dump($item->attributesToArray());
-//        return redirect($this->show($item->id));
+//      return redirect($this->show($item->id));
 
         //TODO add files and linked items to store method
     }
