@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
+
+Route::get('/test', function () {
+    return view('items/create');
+});

@@ -31,20 +31,13 @@
         </div>
         <div class="form-group">
             <label for="inhoudInput">Inhoudelijke informatie</label>
-            <div>
-                <div> 
-                    <select class="form-control">
-                        <option>Tekst</option>
-                        <option>Titel</option>
-                    </select>
-                    <button><strong>B</strong></button>
-                    <button><em>I</em></button>
-                    <button><u>U</u></button>
-                    <button><img src=""></button>
-                    <button><img src=""></button>
-                </div> 
-                <textarea class="form-control" id="inhoudInput" rows="15"> </textarea>  
-            </div>
+            <textarea class="form-control" id="inhoudInput" rows="15"> </textarea>
         </div>
     </form>
 </div>
+<script src="https://cdn.tiny.cloud/1/2t1jg49md5wferhnxq0lnsjm72c9ghml73cho300vr1sgv9w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+      selector: '#inhoudi'
+    });
+</script>
