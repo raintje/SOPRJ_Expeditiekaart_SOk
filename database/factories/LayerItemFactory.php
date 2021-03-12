@@ -23,7 +23,6 @@ class LayerItemFactory extends Factory
     {
         return [
             'title' => $this->faker->unique()->name,
-            'body_preview' => $this->faker->text,
             'body' => $this->faker->text
         ];
     }
