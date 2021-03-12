@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FirstLayerItemController;
 use App\Http\Controllers\LayerItemController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
 
 Route::get('/items', [LayerItemController::class, 'index'])->name('items');
 Route::post('/items', [LayerItemController::class, 'store'])->name('store.item');
