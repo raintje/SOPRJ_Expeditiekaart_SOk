@@ -10,14 +10,14 @@
 
                         <SvgIcon icon="account"></SvgIcon>
                         <span class="Tooltip">
-          Account
-        </span>
+                     Account
+                    </span>
 
                     </a>
                     <a aria-label="Dashboard">
                         <SvgIcon icon="dashboard"></SvgIcon>
                         <span class="Tooltip">
-          Dashboard
+                        Dashboard
                     </span>
                     </a>
                     <a :href="Laravel.routes['home']" aria-label="Item toevoegen">
