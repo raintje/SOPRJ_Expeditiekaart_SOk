@@ -34506,7 +34506,9 @@ var render = function() {
           [
             _c("SvgIcon", { attrs: { icon: "account" } }),
             _vm._v(" "),
-            _c("span", { staticClass: "Tooltip" }, [_vm._v("\n  Account\n")])
+            _c("span", { staticClass: "Tooltip" }, [
+              _vm._v("\n             Account\n            ")
+            ])
           ],
           1
         ),
@@ -34518,7 +34520,7 @@ var render = function() {
             _c("SvgIcon", { attrs: { icon: "dashboard" } }),
             _vm._v(" "),
             _c("span", { staticClass: "Tooltip" }, [
-              _vm._v("\n  Dashboard\n            ")
+              _vm._v("\n                Dashboard\n            ")
             ])
           ],
           1
