@@ -37,8 +37,6 @@
 * Probeer niet het wiel opnieuw uit te vinden maar maak gebruik van libaries bij complete taken (let er op dat je niet te veel dependencies gebruikt).
 * Voeg comments toe als dat de leesbaarheid bevordert. 
 
-[![CodeFactor](https://www.codefactor.io/repository/github/raintje/soprj_agile/badge?s=23e3518ad7c30badf60b9bbac37884e5f13021c5)](https://www.codefactor.io/repository/github/raintje/soprj_agile)
-
 ---
 
 ### Project inner workings

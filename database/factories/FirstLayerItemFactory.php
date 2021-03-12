@@ -23,12 +23,14 @@ class FirstLayerItemFactory extends Factory
     public function definition()
     {
         $layerItems = LayerItem::pluck('id')->toArray();
-        $categories = ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling']; //TODO define in one place
+        $categories = ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling'];
+        $colors = ['blue','red','green'];
         return [
             'layer_item_id' => $this->faker->randomElement($layerItems),
             'categorie' => $this->faker->randomElement($categories),
-            'x_pos' => $this->faker->numberBetween(0,300),
-            'y_pos' =>$this->faker->numberBetween(0,300)
+            'color' => $this->faker->randomElement($colors),
+            'x_pos' => $this->faker->numberBetween(120,750),
+            'y_pos' =>$this->faker->numberBetween(320,620)
         ];
     }
 }
