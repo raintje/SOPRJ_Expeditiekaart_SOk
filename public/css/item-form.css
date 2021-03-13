@@ -1,0 +1,35 @@
+#item-links-container{
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.tag {
+    border: 1px solid black;
+    border-radius: 24px;
+    margin: 5px;
+    padding: 3px 12px;
+    display: flex;
+    align-items: baseline;
+
+}
+
+.tag-close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    opacity: .2;
+    margin-bottom: .25rem;
+    margin-right: .5rem;
+    cursor: pointer;
+}
+
+.tag-close:hover {
+    opacity: 1;
+}
+
+.tag-text {
+    cursor: default;
+}
