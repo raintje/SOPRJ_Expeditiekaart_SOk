@@ -29,7 +29,7 @@ function createTagElement(elem){
     //tag (Main body) 
     let tagElem = document.createElement("DIV");
     tagElem.classList.add("tag");
-    
+
     //close button
     let closeElem = document.createElement("DIV");
     closeElem.classList.add("tag-close");
@@ -48,8 +48,9 @@ function createTagElement(elem){
     inputElem.setAttribute("value", elem.value);
 
     //append
-    tagElem.appendChild(closeElem);
+    
     tagElem.appendChild(textElem);
+    tagElem.appendChild(closeElem);
     tagElem.appendChild(inputElem);
 
     return tagElem;

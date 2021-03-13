@@ -2,6 +2,21 @@
     display: flex;
 }
 
+.orange-category {
+    background-color: #F1975A;
+    color: white;
+}
+
+.blue-category {
+    background-color: #00B0F0;
+    color: white;
+}
+
+.green-category {
+    background-color: #95C573;
+    color: white;
+}
+
 .custom-category-check{
     margin-right: 1.5em;
     padding: 3px 3px 3px 25px;
@@ -34,7 +49,7 @@
     color: #000;
     opacity: .2;
     margin-bottom: .25rem;
-    margin-right: .5rem;
+    margin-left: .5rem;
     cursor: pointer;
 }
 
