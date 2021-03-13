@@ -1,6 +1,9 @@
 <template>
 
     <div>
+
+        <Navigation></Navigation>
+
         <l-map
             ref="map"
             :min-zoom="minZoom"
@@ -35,8 +38,13 @@
 <script>
 import {CRS, latLng, icon} from "leaflet";
 import Vue from 'vue';
+import SvgIcon from "../components/SvgIcon";
+import Navigation from "../components/Navigation";
 
 export default {
+    components: {
+        SvgIcon, Navigation
+    },
     data() {
         return {
             url: "/img/wallpaper_2.svg",

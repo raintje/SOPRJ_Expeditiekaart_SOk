@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -19,6 +15,7 @@
             height: 100px;
             position: relative;
         }
+
         #navi,
         #infoi {
             width: 100%;
@@ -27,16 +24,13 @@
             top: 0;
             left: 0;
         }
+
         #infoi {
             z-index: 10;
         }
     </style>
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}"/>
 </head>
 <body>
 <div>
@@ -54,10 +48,19 @@
         </div>
     @endif
 
-        <div id="app">
-            <app ></app>
-        </div>
+    <div id="app">
+        <app></app>
+    </div>
 </div>
+
+
+<script>
+    window.Laravel = {!! json_encode([
+	'csrfToken' => csrf_token(),
+	'baseUrl' => url('/'),
+	'routes' => collect(\Route::getRoutes())->mapWithKeys(function ($route) { return [$route->getName() => $route->uri()]; })
+]) !!};
+</script>
 <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
