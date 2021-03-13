@@ -1,4 +1,16 @@
+.item-row {
+    display: flex;
+}
+
+.custom-category-check{
+    margin-right: 1.5em;
+    padding: 3px 3px 3px 25px;
+    border: 1px solid black;
+}
+
+
 #item-links-container{
+    margin-top: 1em;
     display: flex;
     align-content: flex-start;
     flex-wrap: wrap;

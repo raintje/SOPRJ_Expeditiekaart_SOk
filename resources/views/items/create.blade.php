@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/css/item-form.css"/>
 <script src="/js/item-form.js"></script>
 
-<div class="container">.
+<div class="container">
     <h1>Items aanmaken</h1>
 
     <form method="POST" action="/items">
@@ -30,12 +30,17 @@
             <input type="text" class="form-control" name="name" id="TitelInput" placeholder="Title">
         </div>
         <div class="form-group">
-            <label for="categories">Categorie(n)</label>
-            <select multiple class="form-control" id="categories" name="categories">
+            <label> Categorie </label>
+            <div class="item-row">
                 @foreach($categories as $category)
-                    <option value="{{ $category }}">{{ $category }}</option>
+                <div class="form-check custom-category-check">
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category }}" id="category-{{ $category }}">
+                    <label class="form-check-label" for="category-{{ $category }}">
+                        {{ $category }}
+                    </label>
+                </div>
                 @endforeach
-            </select>
+            </div>
         </div>
         <div class="form-group">
             <label for="titelInput">Vervolg pad</label>
@@ -64,7 +69,8 @@
 
 <script>
     tinymce.init({
-      selector: '#inhoudInput'
+      selector: '#inhoudInput',
+      language: 'nl'
     });
 
     $("#input-krajee").fileinput({
