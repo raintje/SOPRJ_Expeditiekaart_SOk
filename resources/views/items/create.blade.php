@@ -1,15 +1,25 @@
 <!DOCTYPE html> <!--standard mode for Tiny plugin -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!--standard mode for Tiny plugin -->
 <script src="https://cdn.tiny.cloud/1/2t1jg49md5wferhnxq0lnsjm72c9ghml73cho300vr1sgv9w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="/js/item-form.js"></script>
+<!-- external lib -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- the main fileinput plugin file -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/piexif.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/nl.js"></script>
+
 <link rel="stylesheet" href="/css/item-form.css"/>
-<script>
-    tinymce.init({
-      selector: '#inhoudInput'
-    });
-</script>
+<script src="/js/item-form.js"></script>
+
 <div class="container">.
     <h1>Items aanmaken</h1>
 
@@ -44,10 +54,28 @@
             <textarea class="form-control" id="inhoudInput" name="inhoudInput" rows="15"> </textarea>
         </div>
 
-        <div class="custom-file">
-            <input id="input-id" type="file" class="file" data-preview-file-type="text" >
+        <div class="form-group">
+            <input id="input-krajee" type="file" name="files" class="file" data-preview-file-type="text" >
         </div>
 
         <button type="submit" class="btn btn-primary"> Opslaan </button>
     </form>
 </div>
+
+<script>
+    tinymce.init({
+      selector: '#inhoudInput'
+    });
+
+    $("#input-krajee").fileinput({
+        theme: "fas",
+        uploadUrl: "/items",
+        language: "nl"
+    });
+
+    $('option').mousedown(function(e) {
+        e.preventDefault();
+        $(this).prop('selected', !$(this).prop('selected'));
+        return false;
+    });
+</script>
