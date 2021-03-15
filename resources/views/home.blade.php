@@ -49,7 +49,7 @@
     @endif
 
     <div id="app">
-        <app></app>
+        <app dusk="home-component"></app>
     </div>
 </div>
 
