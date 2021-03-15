@@ -5,7 +5,7 @@ html {
 
 .Nav--right {
   position: fixed;
-  top: 30px;
+  top: 24px;
   right: 24px;
   z-index: 999;
 }
