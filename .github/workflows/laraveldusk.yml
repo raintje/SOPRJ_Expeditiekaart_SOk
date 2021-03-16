@@ -1,0 +1,31 @@
+name: Dusk Test
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+  PHPUnit:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0.21
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: expeditiekaart_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
+      steps:
+        - uses: actions/checkout@v2
+        - name: Configure Application
+          run: bin/ci
+        - name: Configure Laravel Dusk
+          run: bin/ci-dusk
+        - name: Execute Dusk tests via PHPUnit
+          run: php artisan dusk
+
+
