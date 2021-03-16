@@ -1,7 +1,7 @@
 <template>
         <nav class="Nav--right">
             <div class="Dropdown">
-                <button aria-label="Menu">
+                <button id="NavButton" aria-label="Menu">
                     <SvgIcon icon="menu"></SvgIcon>
                 </button>
 
