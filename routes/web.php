@@ -16,7 +16,7 @@ use App\Http\Controllers\LayerItemController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name("home");
 
 Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
 Route::get('/items', [LayerItemController::class, 'index']);

@@ -25,10 +25,12 @@ class FirstLayerItemFactory extends Factory
         $layerItems = LayerItem::pluck('id')->toArray();
         $categories = ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling']; //TODO define in one place
         $colors = ['blue','red','green'];
+        $number = $this->faker->numberBetween(0,2);
+
         return [
             'layer_item_id' => $this->faker->randomElement($layerItems),
-            'categorie' => $this->faker->randomElement($categories),
-            'color' => $this->faker->randomElement($colors),
+            'categorie' => $categories[$number],
+            'color' => $colors[$number],
             'x_pos' => $this->faker->numberBetween(120,750),
             'y_pos' =>$this->faker->numberBetween(320,620)
         ];
