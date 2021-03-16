@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use function PHPUnit\Framework\isEmpty;
 
 class LayerItemController extends Controller
@@ -20,7 +22,7 @@ class LayerItemController extends Controller
     public function create()
     {
         $items = LayerItem::all();
-        $categories = ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling']; //TODO define in one place
+        $categories = ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling'];
         return view('items.create', ['existingItems' => $items, 'categories' => $categories]);
     }
 
@@ -31,29 +33,43 @@ class LayerItemController extends Controller
 
         $layerItem = new LayerItem();
         $layerItem->title = $request->input('title');
-        //TODO remove body preview from database
-        $layerItem->body_preview = implode(' ', array_slice(explode(' ', $body), 0, 15));
         $layerItem->body = $body;
         $layerItem->save();
 
-        $array = null;
-        if(isset($request->categories)){
+        if(isset($request->categories))
+        {
            $firstLayerItem = new FirstLayerItem();
            $firstLayerItem->layer_item_id = $layerItem->id;
            $firstLayerItem->categorie = $request->categories;
            $firstLayerItem->save();
-           $array = [$layerItem, $firstLayerItem];
-        }
-        if($array != null){
-            dump($array);
-        }
-        else{
-            dump($layerItem->attributesToArray());
         }
 
-//        return redirect($this->show($item->id));
+        if(isset($request->itemLinks))
+        {
+            foreach ($request->itemLinks as $link)
+            {
+                //TODO add item link
+            }
+        }
 
-        //TODO add files and linked items to store method
+        if($request->hasFile('files'))
+        {
+            foreach ($request->file('files') as $formFile)
+            {
+                $name = time().'_'.$formFile->getClientOriginalName();
+                $filePath = $formFile->storeAs('files', $name, 'public');
+
+                $file = new File();
+                $file->layer_item_id = $layerItem->id;
+                $file->title = $name;
+                $file->type = $formFile->getClientOriginalExtension();
+                $file->path = $filePath;
+                $file->save();
+            }
+        }
+
+        return redirect($this->index());
+//        return redirect($this->show($layerItem->id));
     }
 
     public function show($id)
@@ -82,7 +98,6 @@ class LayerItemController extends Controller
         $oldItem = LayerItem::find($id);
         if($oldItem != null)
         {
-            //TODO write update method
         }
         return redirect($this->show($id));
 
@@ -95,11 +110,7 @@ class LayerItemController extends Controller
         {
             LayerItem::destroy($itemToDestroy);
             return redirect($this->index());
-            //TODO notify user of item destroyed
         }
         return redirect($this->index());
-        //TODO notify user item could not be destroyed
-
-
     }
 }
