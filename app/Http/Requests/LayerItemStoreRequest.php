@@ -29,6 +29,11 @@ class LayerItemStoreRequest extends FormRequest
         ];
     }
 
+    /**
+     * Returns the customized messages to be used in the front end.
+     * 
+     * @return array
+     */
     public function messages()
     {
         return [
