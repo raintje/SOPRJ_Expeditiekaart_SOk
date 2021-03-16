@@ -28,7 +28,7 @@
 
                 >
 
-                    <l-tooltip :tooltip-anchor="tooltipAnchor" :content="item.layer_item.body_preview"/>
+                    <l-tooltip :tooltip-anchor="tooltipAnchor" :content="item.layer_item.body.slice(0, 200)"/>
                     <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.layer_item.title"/>
                 </l-icon>
             </l-marker>

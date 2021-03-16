@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class LayerItemController extends Controller
 {
@@ -27,14 +29,29 @@ class LayerItemController extends Controller
         return dump($request);
         $body = $request->input('body');
 
-        $item = new LayerItem();
-        $item->title = $request->input('title');
-        $item->body_preview = implode(' ', array_slice(explode(' ', $body), 0, 15));
-        $item->body = $body;
-        $item->save();
+        $layerItem = new LayerItem();
+        $layerItem->title = $request->input('title');
+        //TODO remove body preview from database
+        $layerItem->body_preview = implode(' ', array_slice(explode(' ', $body), 0, 15));
+        $layerItem->body = $body;
+        $layerItem->save();
 
-        dump($item->attributesToArray());
-//      return redirect($this->show($item->id));
+        $array = null;
+        if(isset($request->categories)){
+           $firstLayerItem = new FirstLayerItem();
+           $firstLayerItem->layer_item_id = $layerItem->id;
+           $firstLayerItem->categorie = $request->categories;
+           $firstLayerItem->save();
+           $array = [$layerItem, $firstLayerItem];
+        }
+        if($array != null){
+            dump($array);
+        }
+        else{
+            dump($layerItem->attributesToArray());
+        }
+
+//        return redirect($this->show($item->id));
 
         //TODO add files and linked items to store method
     }

@@ -16,7 +16,6 @@ class CreateLayerItemsTable extends Migration
         Schema::create('layer_items', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
-            $table->text('body_preview');
             $table->text('body');
             $table->timestamps();
 

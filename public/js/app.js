@@ -34866,7 +34866,7 @@ var render = function() {
                     _c("l-tooltip", {
                       attrs: {
                         "tooltip-anchor": _vm.tooltipAnchor,
-                        content: item.layer_item.body_preview
+                        content: item.layer_item.body.slice(0, 200)
                       }
                     }),
                     _vm._v(" "),
