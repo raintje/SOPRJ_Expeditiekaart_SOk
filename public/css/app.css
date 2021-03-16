@@ -167,3 +167,64 @@ html {
   background-color: white;
 }
 
+.orange-category {
+  background-color: #F1975A;
+  color: white;
+}
+
+.blue-category {
+  background-color: #00B0F0;
+  color: white;
+}
+
+.green-category {
+  background-color: #95C573;
+  color: white;
+}
+
+.custom-category-check {
+  margin-right: 1.5em;
+  padding: 3px 3px 3px 25px;
+  border: 1px solid black;
+}
+
+#item-links-container {
+  margin-top: 1em;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.tag {
+  border: 1px solid black;
+  border-radius: 24px;
+  margin: 5px;
+  padding: 3px 12px;
+  display: flex;
+  align-items: baseline;
+}
+
+.tag-close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  opacity: 0.2;
+  margin-bottom: 0.25rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.tag-close:hover {
+  opacity: 1;
+}
+
+.tag-text {
+  cursor: default;
+}
+
+.outline--none {
+  outline: none;
+}
+

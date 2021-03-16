@@ -5,8 +5,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- custom -->
-<link rel="stylesheet" href="/css/item-form.css"/>
-<script src="/js/item-form.js"></script>
+<link rel="stylesheet" href="{{ mix('css/app.css') }}"/>
 
 <div class="container">
     <h1>Items aanmaken</h1>
@@ -32,7 +31,7 @@
         </div>
         <div class="form-group">
             <label for="titelInput">Vervolg pad</label>
-            <select onchange="AddItemPath(this, 'item-links-container')" class="custom-select">
+            <select id="itemPathSelect" class="custom-select">
                 <option selected>Opties</option>
                 @foreach($existingItems as $item)
                     <option value="{{ $item->id }}">{{$item->title}}</option>
@@ -48,7 +47,7 @@
         </div>
 
         <div class="form-group">
-            <input type="file" name="files[]" class="file" multiple>
+            <input type="file" name="files[]" class="file outline--none" multiple>
         </div>
 
         <button type="submit" class="btn btn-primary"> Opslaan </button>
@@ -61,3 +60,4 @@
       language: 'nl'
     });
 </script>
+<script src="{{ mix('js/app.js') }}"></script>

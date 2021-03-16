@@ -16,7 +16,6 @@ function RemoveItemPath(tagElem, selectElem, text, value){
     selectElem.add(optionElem);
 
     tagElem.parentNode.removeChild(tagElem);
-
 }
 
 function RemoveItemFromSelect(selectElement){
@@ -48,10 +47,15 @@ function createTagElement(elem){
     inputElem.setAttribute("value", elem.value);
 
     //append
-    
     tagElem.appendChild(textElem);
     tagElem.appendChild(closeElem);
     tagElem.appendChild(inputElem);
 
     return tagElem;
+}
+
+window.onload = function(){
+    document.getElementById("itemPathSelect").onchange = function() {
+        AddItemPath(this, 'item-links-container');
+    };
 }
