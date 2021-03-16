@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Sort Permissions
-        run: git update-index --chmod=+x ./bin/
+        run: git update-index --chmod=+x ./bin/ci ./bin/ci-dusk
       - name: Configure Application
         run: bin/ci
       - name: Configure Laravel Dusk
