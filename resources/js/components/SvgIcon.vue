@@ -1,5 +1,5 @@
 <template>
-    <span v-html="svg" class="SvgIcon" />
+    <span v-html="svg" :class="color + ' SvgIcon red'"/>
 </template>
 
 <script>
@@ -11,8 +11,9 @@ export default {
     props: {
         icon: {
             type: String,
-            required: true
-        }
+            required: false
+        },
+        color: String,
     },
     mounted() {
        const {icon} = this;

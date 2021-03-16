@@ -3,6 +3,7 @@
     <div>
 
         <Navigation></Navigation>
+        <Legenda></Legenda>
 
         <l-map
             ref="map"
@@ -40,10 +41,11 @@ import {CRS, latLng, icon} from "leaflet";
 import Vue from 'vue';
 import SvgIcon from "../components/SvgIcon";
 import Navigation from "../components/Navigation";
+import Legenda from "../components/Legenda";
 
 export default {
     components: {
-        SvgIcon, Navigation
+        SvgIcon, Navigation, Legenda
     },
     data() {
         return {
