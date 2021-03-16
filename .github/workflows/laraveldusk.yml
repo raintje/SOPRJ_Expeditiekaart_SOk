@@ -21,6 +21,9 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v2
-      - run: bin/ci
-      - run: bin/ci-dusk
-      - run: php artisan dusk
+      - name: Configure Application
+          run: bin/ci
+      - name: Configure Laravel Dusk
+          run: bin/ci-dusk
+      - name: Execute Dusk tests
+          run: php artisan dusk
