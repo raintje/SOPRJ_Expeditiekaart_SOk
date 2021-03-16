@@ -54,8 +54,6 @@ function createTagElement(elem){
     return tagElem;
 }
 
-window.onload = function(){
-    document.getElementById("itemPathSelect").onchange = function() {
-        AddItemPath(this, 'item-links-container');
-    };
-}
+document.getElementById("itemPathSelect").onchange = function() {
+    AddItemPath(this, 'item-links-container');
+};
