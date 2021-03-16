@@ -8,6 +8,7 @@ on:
 
 jobs:
   PHPUnit:
+    name: Dusk Tests
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -18,11 +19,8 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-      steps:
-        - uses: actions/checkout@v2
-        - name: Configure Application
-        - run: bin/ci
-        - name: Configure Laravel Dusk
-        - run: bin/ci-dusk
-        - name: Execute Dusk tests via PHPUnit
-        - run: php artisan dusk
+    steps:
+      - uses: actions/checkout@v2
+      - run: bin/ci
+      - run: bin/ci-dusk
+      - run: php artisan dusk
