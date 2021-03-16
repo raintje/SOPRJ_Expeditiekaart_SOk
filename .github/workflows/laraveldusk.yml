@@ -22,8 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Configure Application
-          run: bin/ci
+        run: bin/ci
       - name: Configure Laravel Dusk
-          run: bin/ci-dusk
+        run: bin/ci-dusk
       - name: Execute Dusk tests
-          run: php artisan dusk
+        run: php artisan dusk
