@@ -27,7 +27,7 @@ class FileFactory extends Factory
         $testBlurbs = ['testblurb one', 'testblurb two', 'testblurb three', 'testblurb four'];
         return [
             'layer_item_id' => $this->faker->randomElement($layerItems),
-            'name' => $this->faker->randomElement($testBlurbs),
+            'title' => $this->faker->randomElement($testBlurbs),
             'type' => $this->faker->randomElement($categories),
             'path' => $this->faker->randomElement($testBlurbs)
         ];
