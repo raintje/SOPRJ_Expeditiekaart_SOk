@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
@@ -40,15 +41,21 @@ class LayerItemController extends Controller
         {
            $firstLayerItem = new FirstLayerItem();
            $firstLayerItem->layer_item_id = $layerItem->id;
-           $firstLayerItem->categorie = $request->categories;
            $firstLayerItem->save();
+
+           foreach ($request->categories as $categoryName)
+           {
+               $categoryId = Category::find()->where('name', $categoryName)->id;
+               $firstLayerItem->categories()->attach($categoryId);
+           }
+
         }
 
         if(isset($request->itemLinks))
         {
-            foreach ($request->itemLinks as $link)
+            foreach ($request->itemLinks as $linkedItemId)
             {
-                //TODO add item link
+                $layerItem->referencesLayerItems()->attach($linkedItemId);
             }
         }
 
@@ -69,7 +76,7 @@ class LayerItemController extends Controller
         }
 
         return redirect($this->index());
-//        return redirect($this->show($layerItem->id));
+//        return redirect($this->show($layerItem->id)); -> kan gebruikt worden wanneer de show method werkt.
     }
 
     public function show($id)

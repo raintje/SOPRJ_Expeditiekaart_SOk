@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColorToFirstLayerItemsTable extends Migration
+class DropColorAndCategoryFromFirstLayerItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddColorToFirstLayerItemsTable extends Migration
     public function up()
     {
         Schema::table('first_layer_items', function (Blueprint $table) {
-            $table->string("color");
+            $table->dropColumn('categorie');
+            $table->dropColumn('color');
         });
     }
 
@@ -26,7 +27,8 @@ class AddColorToFirstLayerItemsTable extends Migration
     public function down()
     {
         Schema::table('first_layer_items', function (Blueprint $table) {
-            $table->dropColumn('color');
+            $table->enum('categorie', ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling']);
+            $table->string("color");
         });
     }
 }
