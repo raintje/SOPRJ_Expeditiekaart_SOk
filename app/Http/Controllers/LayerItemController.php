@@ -45,7 +45,8 @@ class LayerItemController extends Controller
 
            foreach ($request->categories as $categoryName)
            {
-               $categoryId = Category::find()->where('name', $categoryName)->id;
+//               dd($categoryName);
+               $categoryId = Category::where('name', $categoryName)->pluck('id');
                $firstLayerItem->categories()->attach($categoryId);
            }
 
@@ -63,6 +64,7 @@ class LayerItemController extends Controller
         {
             foreach ($request->file('files') as $formFile)
             {
+                dd($formFile);
                 $name = time().'_'.$formFile->getClientOriginalName();
                 $filePath = $formFile->storeAs('files', $name, 'public');
 
@@ -75,7 +77,7 @@ class LayerItemController extends Controller
             }
         }
 
-        return redirect($this->index());
+        return redirect()->route('items');
 //        return redirect($this->show($layerItem->id)); -> kan gebruikt worden wanneer de show method werkt.
     }
 
@@ -121,3 +123,4 @@ class LayerItemController extends Controller
         return redirect($this->index());
     }
 }
+
