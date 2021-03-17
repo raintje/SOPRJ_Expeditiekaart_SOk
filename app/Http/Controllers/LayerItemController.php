@@ -7,8 +7,6 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use function PHPUnit\Framework\isEmpty;
 
 class LayerItemController extends Controller
 {
@@ -23,7 +21,7 @@ class LayerItemController extends Controller
     public function create()
     {
         $items = LayerItem::all();
-        $categories = ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling'];
+        $categories = Category::all()->toArray();
         return view('items.create', ['existingItems' => $items, 'categories' => $categories]);
     }
 
@@ -45,7 +43,6 @@ class LayerItemController extends Controller
 
            foreach ($request->categories as $categoryName)
            {
-//               dd($categoryName);
                $categoryId = Category::where('name', $categoryName)->pluck('id');
                $firstLayerItem->categories()->attach($categoryId);
            }
@@ -64,7 +61,6 @@ class LayerItemController extends Controller
         {
             foreach ($request->file('files') as $formFile)
             {
-                dd($formFile);
                 $name = time().'_'.$formFile->getClientOriginalName();
                 $filePath = $formFile->storeAs('files', $name, 'public');
 
