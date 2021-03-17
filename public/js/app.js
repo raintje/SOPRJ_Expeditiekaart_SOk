@@ -2030,7 +2030,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2072,6 +2071,24 @@ __webpack_require__.r(__webpack_exports__);
       vue__WEBPACK_IMPORTED_MODULE_4__.default.nextTick(function () {
         event.target.openPopup();
       });
+    },
+    getClass: function getClass(item) {
+      var baseClass = "marker";
+      var colors = item.categories.map(function (i) {
+        return i.color;
+      });
+
+      if (colors.length === 1) {
+        return baseClass + " " + item.categories[0].color;
+      } else if (colors.includes("red", "green")) {
+        return baseClass + " red-green";
+      } else if (colors.includes("red", "blue")) {
+        return baseClass + " blue-red";
+      } else if (colors.includes("blue", "green")) {
+        return baseClass + " blue-green";
+      } else {
+        return baseClass;
+      }
     }
   }
 });
@@ -2207,7 +2224,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.marker {\n    border: 1px solid #333;\n    border-radius: 20px 20px 20px 20px;\n    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);\n    text-align: center;\n    width: 30px !important;\n    height: 30px !important;\n}\n.blue {\n    background-color: blue;\n}\n.red {\n    background-color: red;\n}\n.green {\n    background-color: lawngreen;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.marker {\n    border: 1px solid #333;\n    border-radius: 20px 20px 20px 20px;\n    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);\n    text-align: center;\n    width: 30px !important;\n    height: 30px !important;\n}\n.blue {\n    background-color: blue;\n}\n.red {\n    background-color: red;\n}\n.green {\n    background-color: lawngreen;\n}\n.blue-green {\n    background-image: linear-gradient(blue, lawngreen);\n}\n.blue-red {\n    background-image: linear-gradient(blue, red);\n}\n.red-green {\n    background-image: linear-gradient(red, lawngreen);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34791,10 +34808,9 @@ var render = function() {
                 _c(
                   "l-icon",
                   {
-                    style: { "background-color": item.color },
                     attrs: {
                       "icon-anchor": _vm.staticAnchor,
-                      "class-name": item.categories[0].color + " marker"
+                      "class-name": _vm.getClass(item)
                     }
                   },
                   [
