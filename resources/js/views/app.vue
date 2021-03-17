@@ -24,7 +24,7 @@
                 <l-icon
                     :icon-anchor="staticAnchor"
                     :style="{ 'background-color': item.color }"
-                    :class-name="item.color + ' marker'"
+                    :class-name="item.categories[0].color + ' marker'"
 
                 >
 
