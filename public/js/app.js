@@ -2100,6 +2100,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_app_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/app.vue */ "./resources/js/views/app.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./item-form */ "./resources/js/item-form.js");
+
 
 
 
@@ -2151,6 +2153,69 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/item-form.js":
+/*!***********************************!*\
+  !*** ./resources/js/item-form.js ***!
+  \***********************************/
+/***/ (() => {
+
+function AddItemPath(elem, source) {
+  if (elem.selectedIndex != 0) {
+    var sourceElem = document.getElementById(source);
+    var tagElem = createTagElement(elem);
+    sourceElem.appendChild(tagElem);
+    RemoveItemFromSelect(elem);
+  }
+}
+
+function RemoveItemPath(tagElem, selectElem, text, value) {
+  var optionElem = document.createElement("OPTION");
+  optionElem.text = text;
+  optionElem.setAttribute("value", value);
+  selectElem.add(optionElem);
+  tagElem.parentNode.removeChild(tagElem);
+}
+
+function RemoveItemFromSelect(selectElement) {
+  selectElement.remove(selectElement.selectedIndex);
+}
+
+function createTagElement(elem) {
+  var text = elem.options[elem.selectedIndex].text; //tag (Main body) 
+
+  var tagElem = document.createElement("DIV");
+  tagElem.classList.add("tag"); //close button
+
+  var closeElem = document.createElement("DIV");
+  closeElem.classList.add("tag-close");
+  closeElem.innerHTML = "x";
+
+  closeElem.onclick = function () {
+    RemoveItemPath(tagElem, elem, text, elem.value);
+  }; //text
+
+
+  var textElem = document.createElement("DIV");
+  textElem.classList.add("tag-text");
+  textElem.innerHTML = text; //hidden input
+
+  var inputElem = document.createElement("INPUT");
+  inputElem.setAttribute("type", "hidden");
+  inputElem.setAttribute("name", "itemLinks[]");
+  inputElem.setAttribute("value", elem.value); //append
+
+  tagElem.appendChild(textElem);
+  tagElem.appendChild(closeElem);
+  tagElem.appendChild(inputElem);
+  return tagElem;
+}
+
+document.getElementById("itemPathSelect").onchange = function () {
+  AddItemPath(this, 'item-links-container');
+};
 
 /***/ }),
 
@@ -34801,7 +34866,7 @@ var render = function() {
                     _c("l-tooltip", {
                       attrs: {
                         "tooltip-anchor": _vm.tooltipAnchor,
-                        content: item.layer_item.body_preview
+                        content: item.layer_item.body.slice(0, 200)
                       }
                     }),
                     _vm._v(" "),

@@ -22,8 +22,7 @@ class LayerItemFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->unique()->name,
-            'body_preview' => $this->faker->text,
+            'title' => $this->faker->unique()->sentence,
             'body' => $this->faker->text
         ];
     }
