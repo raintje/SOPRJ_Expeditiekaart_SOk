@@ -24,14 +24,15 @@ class LayerItemStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:posts|max:255',
-            'body' => 'required|max:255',
+            'title' => 'required|unique:layer_items|max:255',
+            'body' => 'required|max:10000',
+            'files.*' => 'mimes:jpg,jpeg,png,mp4,mpeg,pdf'
         ];
     }
 
     /**
      * Returns the customized messages to be used in the front end.
-     * 
+     *
      * @return array
      */
     public function messages()
@@ -39,7 +40,8 @@ class LayerItemStoreRequest extends FormRequest
         return [
             'title.required' => 'De titel van een item is verplicht.',
             'title.unique' => 'De titel moet uniek zijn.',
-            'body.required' => 'Dit veld kan niet leeg worden gelaten.',
+            'body.required' => 'De inhoud van het item mag niet leeg zijn.',
+            'files.*.mimes' => 'Bestanden moeten een van de volgende extensies hebben: .jpg, .jpeg, .png, .mp4, .mpeg, .pdf'
         ];
     }
 }
