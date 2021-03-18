@@ -48,7 +48,7 @@ export default {
     },
     data() {
         return {
-            url: "/img/wallpaper_2.svg",
+            url: "/img/wallpaper.svg",
             bounds: [[-120, -27], [1049, 1053]],
             maxBounds: [[298, 89], [659, 833]],
             minZoom: 1.4,
