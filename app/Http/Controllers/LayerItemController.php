@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LayerItemStoreRequest;
 use App\Models\Category;
 use App\Models\File;
 use App\Models\FirstLayerItem;
@@ -25,57 +26,50 @@ class LayerItemController extends Controller
         return view('items.create', ['existingItems' => $items, 'categories' => $categories]);
     }
 
-    public function store(Request $request)
+    public function store(LayerItemStoreRequest $request)
     {
+            $body = $request->input('body');
 
-        $body = $request->input('body');
+            $layerItem = new LayerItem();
+            $layerItem->title = $request->input('title');
+            $layerItem->body = $body;
+            $layerItem->save();
 
-        $layerItem = new LayerItem();
-        $layerItem->title = $request->input('title');
-        $layerItem->body = $body;
-        $layerItem->save();
+            if (isset($request->categories)) {
+                $firstLayerItem = new FirstLayerItem();
+                $firstLayerItem->layer_item_id = $layerItem->id;
+                $firstLayerItem->x_pos = rand(120, 750);
+                $firstLayerItem->y_pos = rand(320, 620);
 
-        if(isset($request->categories))
-        {
-           $firstLayerItem = new FirstLayerItem();
-           $firstLayerItem->layer_item_id = $layerItem->id;
-           $firstLayerItem->x_pos = rand(120, 750);
-           $firstLayerItem->y_pos = rand(320, 620);
+                $firstLayerItem->save();
 
-           $firstLayerItem->save();
+                foreach ($request->categories as $categoryId) {
+                    $firstLayerItem->categories()->attach($categoryId);
+                }
 
-           foreach ($request->categories as $categoryId)
-           {
-               $firstLayerItem->categories()->attach($categoryId);
-           }
-
-        }
-
-        if(isset($request->itemLinks))
-        {
-            foreach ($request->itemLinks as $linkedItemId)
-            {
-                $layerItem->referencesLayerItems()->attach($linkedItemId);
             }
-        }
 
-        if($request->hasFile('files'))
-        {
-            foreach ($request->file('files') as $formFile)
-            {
-                $name = time().'_'.$formFile->getClientOriginalName();
-                $filePath = $formFile->storeAs('files', $name, 'public');
-
-                $file = new File();
-                $file->layer_item_id = $layerItem->id;
-                $file->title = $name;
-                $file->type = $formFile->getClientOriginalExtension();
-                $file->path = $filePath;
-                $file->save();
+            if (isset($request->itemLinks)) {
+                foreach ($request->itemLinks as $linkedItemId) {
+                    $layerItem->referencesLayerItems()->attach($linkedItemId);
+                }
             }
-        }
 
-        return redirect()->route('items');
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $formFile) {
+                    $name = time() . '_' . $formFile->getClientOriginalName();
+                    $filePath = $formFile->storeAs('files', $name, 'public');
+
+                    $file = new File();
+                    $file->layer_item_id = $layerItem->id;
+                    $file->title = $name;
+                    $file->type = $formFile->getClientOriginalExtension();
+                    $file->path = $filePath;
+                    $file->save();
+                }
+            }
+
+            return redirect()->route('items');
 //        return redirect($this->show($layerItem->id)); -> kan gebruikt worden wanneer de show method werkt.
     }
 

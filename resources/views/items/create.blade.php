@@ -9,12 +9,23 @@
 
 <div class="container">
     <h1>Items aanmaken</h1>
-
+    @if(count($errors) > 0 )
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <ul class="p-0 m-0" style="list-style: none;">
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form method="POST" action="/items" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="titelInput">Titel</label>
-            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Title">
+            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel" value="{{old('title','')}}">
         </div>
         <div class="form-group">
             <label> Categorie </label>
@@ -43,7 +54,7 @@
         </div>
         <div class="form-group">
             <label for="inhoudInput">Inhoud</label>
-            <textarea class="form-control" id="inhoudInput" name="body" rows="15"> </textarea>
+            <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{old('body','')}}</textarea>
         </div>
 
         <div class="form-group">
