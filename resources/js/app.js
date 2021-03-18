@@ -1,5 +1,4 @@
 require('./bootstrap');
-require('./item-form');
 import Vue from 'vue';
 import {CRS, latLng, icon} from "leaflet";
 import {LImageOverlay, LMap, LMarker, LPopup, LIcon, LTooltip, LTileLayer } from "vue2-leaflet";

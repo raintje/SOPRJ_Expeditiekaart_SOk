@@ -3,7 +3,6 @@
 use App\Http\Controllers\FirstLayerItemController;
 use App\Http\Controllers\LayerItemController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LayerItemController;
 
 /*
 |--------------------------------------------------------------------------

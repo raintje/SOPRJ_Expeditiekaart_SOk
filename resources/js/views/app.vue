@@ -23,8 +23,7 @@
 
                 <l-icon
                     :icon-anchor="staticAnchor"
-                    :style="{ 'background-color': item.color }"
-                    :class-name="item.color + ' marker'"
+                    :class-name="getClass(item)"
 
                 >
 
@@ -77,6 +76,28 @@ export default {
                 event.target.openPopup();
             })
         },
+        getClass: function (item) {
+
+            let baseClass = "marker";
+
+            let colors = item.categories.map(i => i.color);
+
+            if(colors.length === 1){
+                return baseClass +" "+ item.categories[0].color;
+            }
+            else if(colors.includes("red", "green")){
+                return baseClass + " red-green"
+            }
+            else if(colors.includes("red", "blue")){
+                return baseClass + " blue-red"
+            }
+            else if(colors.includes("blue", "green")){
+                return baseClass + " blue-green"
+            }
+            else{
+                return baseClass;
+            }
+        },
 
     }
 
@@ -103,5 +124,17 @@ export default {
 
 .green {
     background-color: lawngreen;
+}
+
+.blue-green {
+    background-image: linear-gradient(blue, lawngreen);
+}
+
+.blue-red {
+    background-image: linear-gradient(blue, red);
+}
+
+.red-green {
+    background-image: linear-gradient(red, lawngreen);
 }
 </style>

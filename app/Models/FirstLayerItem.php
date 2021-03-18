@@ -13,4 +13,12 @@ class FirstLayerItem extends Model
     {
         return $this->hasOne(LayerItem::class, 'id', 'layer_item_id');
     }
+    public function categories()
+    {
+        return $this->belongsToMany(
+            Category::class,
+            'categories_first_layer_items',
+            'first_layer_item_id',
+            'category_id');
+    }
 }

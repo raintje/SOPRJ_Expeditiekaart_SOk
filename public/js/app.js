@@ -2030,7 +2030,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2072,6 +2071,24 @@ __webpack_require__.r(__webpack_exports__);
       vue__WEBPACK_IMPORTED_MODULE_4__.default.nextTick(function () {
         event.target.openPopup();
       });
+    },
+    getClass: function getClass(item) {
+      var baseClass = "marker";
+      var colors = item.categories.map(function (i) {
+        return i.color;
+      });
+
+      if (colors.length === 1) {
+        return baseClass + " " + item.categories[0].color;
+      } else if (colors.includes("red", "green")) {
+        return baseClass + " red-green";
+      } else if (colors.includes("red", "blue")) {
+        return baseClass + " blue-red";
+      } else if (colors.includes("blue", "green")) {
+        return baseClass + " blue-green";
+      } else {
+        return baseClass;
+      }
     }
   }
 });
@@ -2099,8 +2116,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
 /* harmony import */ var _views_app_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/app.vue */ "./resources/js/views/app.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-__webpack_require__(/*! ./item-form */ "./resources/js/item-form.js");
 
 
 
@@ -2153,69 +2168,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
-
-/***/ }),
-
-/***/ "./resources/js/item-form.js":
-/*!***********************************!*\
-  !*** ./resources/js/item-form.js ***!
-  \***********************************/
-/***/ (() => {
-
-function AddItemPath(elem, source) {
-  if (elem.selectedIndex != 0) {
-    var sourceElem = document.getElementById(source);
-    var tagElem = createTagElement(elem);
-    sourceElem.appendChild(tagElem);
-    RemoveItemFromSelect(elem);
-  }
-}
-
-function RemoveItemPath(tagElem, selectElem, text, value) {
-  var optionElem = document.createElement("OPTION");
-  optionElem.text = text;
-  optionElem.setAttribute("value", value);
-  selectElem.add(optionElem);
-  tagElem.parentNode.removeChild(tagElem);
-}
-
-function RemoveItemFromSelect(selectElement) {
-  selectElement.remove(selectElement.selectedIndex);
-}
-
-function createTagElement(elem) {
-  var text = elem.options[elem.selectedIndex].text; //tag (Main body) 
-
-  var tagElem = document.createElement("DIV");
-  tagElem.classList.add("tag"); //close button
-
-  var closeElem = document.createElement("DIV");
-  closeElem.classList.add("tag-close");
-  closeElem.innerHTML = "x";
-
-  closeElem.onclick = function () {
-    RemoveItemPath(tagElem, elem, text, elem.value);
-  }; //text
-
-
-  var textElem = document.createElement("DIV");
-  textElem.classList.add("tag-text");
-  textElem.innerHTML = text; //hidden input
-
-  var inputElem = document.createElement("INPUT");
-  inputElem.setAttribute("type", "hidden");
-  inputElem.setAttribute("name", "itemLinks[]");
-  inputElem.setAttribute("value", elem.value); //append
-
-  tagElem.appendChild(textElem);
-  tagElem.appendChild(closeElem);
-  tagElem.appendChild(inputElem);
-  return tagElem;
-}
-
-document.getElementById("itemPathSelect").onchange = function () {
-  AddItemPath(this, 'item-links-container');
-};
 
 /***/ }),
 
@@ -2272,7 +2224,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.marker {\r\n    border: 1px solid #333;\r\n    border-radius: 20px 20px 20px 20px;\r\n    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);\r\n    text-align: center;\r\n    width: 30px !important;\r\n    height: 30px !important;\n}\n.blue {\r\n    background-color: blue;\n}\n.red {\r\n    background-color: red;\n}\n.green {\r\n    background-color: lawngreen;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.marker {\n    border: 1px solid #333;\n    border-radius: 20px 20px 20px 20px;\n    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);\n    text-align: center;\n    width: 30px !important;\n    height: 30px !important;\n}\n.blue {\n    background-color: blue;\n}\n.red {\n    background-color: red;\n}\n.green {\n    background-color: lawngreen;\n}\n.blue-green {\n    background-image: linear-gradient(blue, lawngreen);\n}\n.blue-red {\n    background-image: linear-gradient(blue, red);\n}\n.red-green {\n    background-image: linear-gradient(red, lawngreen);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34856,10 +34808,9 @@ var render = function() {
                 _c(
                   "l-icon",
                   {
-                    style: { "background-color": item.color },
                     attrs: {
                       "icon-anchor": _vm.staticAnchor,
-                      "class-name": item.color + " marker"
+                      "class-name": _vm.getClass(item)
                     }
                   },
                   [

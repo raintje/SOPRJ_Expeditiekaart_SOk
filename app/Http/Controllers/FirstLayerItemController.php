@@ -9,6 +9,6 @@ class FirstLayerItemController extends Controller
 {
     public function all()
     {
-        return FirstLayerItem::with('layerItem')->get();
+        return FirstLayerItem::with('layerItem')->with('categories')->get();
     }
 }

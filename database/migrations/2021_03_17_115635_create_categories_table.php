@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColorToFirstLayerItemsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddColorToFirstLayerItemsTable extends Migration
      */
     public function up()
     {
-        Schema::table('first_layer_items', function (Blueprint $table) {
-            $table->string("color");
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('color')->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddColorToFirstLayerItemsTable extends Migration
      */
     public function down()
     {
-        Schema::table('first_layer_items', function (Blueprint $table) {
-            $table->dropColumn('color');
-        });
+        Schema::dropIfExists('categories');
     }
 }

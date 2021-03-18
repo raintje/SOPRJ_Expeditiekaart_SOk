@@ -17,7 +17,7 @@ class CreateFilesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('layer_item_id');
             $table->string('title');
-            $table->enum('type', ['image', 'video']);
+            $table->string('type');
             $table->string('path');
             $table->timestamps();
             $table->foreign('layer_item_id')->references('id')->on('layer_items');

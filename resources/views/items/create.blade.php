@@ -14,7 +14,7 @@
         @csrf
         <div class="form-group">
             <label for="titelInput">Titel</label>
-            <input type="text" class="form-control" name="name" id="TitelInput" placeholder="Title">
+            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Title">
         </div>
         <div class="form-group">
             <label> Categorie </label>
@@ -37,13 +37,13 @@
                     <option value="{{ $item->id }}">{{$item->title}}</option>
                 @endforeach
             </select>
-            <div id="item-links-container"> 
+            <div id="item-links-container">
 
             </div>
         </div>
         <div class="form-group">
             <label for="inhoudInput">Inhoud</label>
-            <textarea class="form-control" id="inhoudInput" name="inhoudInput" rows="15"> </textarea>
+            <textarea class="form-control" id="inhoudInput" name="body" rows="15"> </textarea>
         </div>
 
         <div class="form-group">
@@ -61,3 +61,4 @@
     });
 </script>
 <script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ asset('js/item-form.js') }}"></script>
