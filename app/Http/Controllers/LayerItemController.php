@@ -21,7 +21,7 @@ class LayerItemController extends Controller
     public function create()
     {
         $items = LayerItem::all();
-        $categories = Category::all()->toArray();
+        $categories = Category::all();
         return view('items.create', ['existingItems' => $items, 'categories' => $categories]);
     }
 
@@ -39,11 +39,13 @@ class LayerItemController extends Controller
         {
            $firstLayerItem = new FirstLayerItem();
            $firstLayerItem->layer_item_id = $layerItem->id;
+           $firstLayerItem->x_pos = rand(120, 750);
+           $firstLayerItem->y_pos = rand(320, 620);
+
            $firstLayerItem->save();
 
-           foreach ($request->categories as $categoryName)
+           foreach ($request->categories as $categoryId)
            {
-               $categoryId = Category::where('name', $categoryName)->pluck('id');
                $firstLayerItem->categories()->attach($categoryId);
            }
 
