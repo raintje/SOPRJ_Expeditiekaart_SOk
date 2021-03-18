@@ -20,7 +20,7 @@
                         Dashboard
                     </span>
                     </a>
-                    <a :href="Laravel.routes['home']" aria-label="Item toevoegen">
+                    <a :href="Laravel.routes['create.item']" aria-label="Item toevoegen">
                         <SvgIcon icon="plus"></SvgIcon>
                         <span class="Tooltip">
                             Item toevoegen
