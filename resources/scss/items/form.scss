@@ -1,0 +1,68 @@
+/* The colors will be used later*/ 
+$orange: #F1975A;
+$blue: #00B0F0;
+$green: #95C573;
+
+.orange-category {
+    background-color: $orange;
+    color: white;
+}
+
+.blue-category {
+    background-color: $blue;
+    color: white;
+}
+
+.green-category {
+    background-color: $green;
+    color: white;
+}
+
+
+.custom-category-check{
+    margin-right: 1.5em;
+    padding: 3px 3px 3px 25px;
+    border: 1px solid black;
+}
+
+
+#item-links-container{
+    margin-top: 1em;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.tag {
+    border: 1px solid black;
+    border-radius: 24px;
+    margin: 5px;
+    padding: 3px 12px;
+    display: flex;
+    align-items: baseline;
+
+}
+
+.tag-close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    opacity: .2;
+    margin-bottom: .25rem;
+    margin-left: .5rem;
+    cursor: pointer;
+}
+
+.tag-close:hover {
+    opacity: 1;
+}
+
+.tag-text {
+    cursor: default;
+}
+
+.outline--none {
+    outline: none;    
+}
