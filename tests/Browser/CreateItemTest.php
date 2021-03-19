@@ -56,10 +56,9 @@ class CreateItemTest extends DuskTestCase
     public function testDuplicateItemCreation()
     {
         $this->browse(function (Browser $browser) {
-            $titles = LayerItem::pluck('title')->toArray();
-            $mock = $this->faker->randomElement($titles);
+            $title = $this->faker->randomElement(LayerItem::pluck('title')->toArray());
             $browser->visit('/items/create')
-                ->type('title', $mock)
+                ->type('title', $title)
                 ->press('Opslaan')->pause(2000)
                 ->assertSee('De titel moet uniek zijn.')
                 ->assertSee('De inhoud van het item mag niet leeg zijn.')
