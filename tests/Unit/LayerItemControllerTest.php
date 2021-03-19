@@ -30,18 +30,6 @@ class LayerItemControllerTest extends TestCase
     }
 
     /**
-     * Tests if we return an error when selecting an out of bounds item
-     * expected failure
-     * @return void
-     */
-    public function test_layeritems_out_of_bounds_returns_error() 
-    {
-        $haystack = LayerItem::all();
-        $id = 99999;
-        $this->assertContains($haystack->find($id), $haystack);
-    }
-
-    /**
      * Tests if all the information from the database is correctly parsed to a list.
      * @return void
      */
@@ -49,18 +37,6 @@ class LayerItemControllerTest extends TestCase
     {
         $haystack = Category::all();
         $id = rand(1, 3);
-        $this->assertContains($haystack->find($id), $haystack);
-    }
-
-    /**
-     * Tests if we return an error when selecting an out of bounds item
-     * expected failure
-     * @return void
-     */
-    public function test_category_out_of_bounds_returns_error() 
-    {
-        $haystack = Category::all();
-        $id = 9999;
         $this->assertContains($haystack->find($id), $haystack);
     }
 
