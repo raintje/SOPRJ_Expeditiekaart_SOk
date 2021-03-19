@@ -3,7 +3,6 @@
 
 | Usernames      | Naam               | Studentnummer |
 | :------------- | :----------------- | :------------ |
-| @JasperMooren | Jasper Mooren | 2126574 |
 | @Vincent2162102 | Vincent Jamont | 2162102 |
 | @GXZheng312 | Jacky Zheng | 2164239 | 
 | @tommydr     | Tommy den Reijer    | 2167744       |
@@ -17,10 +16,9 @@
 * We werken vanaf de `develop` branch waar feature branches op gecommit worden. De `develop` branch wordt niet direct gebruikt.
 * Op de `master` branch kunnen alleen hotfixes direct worden gecommit.
 * Voor feature branches wordt de volgende naamgeving gebruikt: `feature/JouwFeatureHier`.
-* Link nieuwe features aan bestaande issues.
+* Voor test branches wordt de volgende naamgeving gebruikt: `testing/branchnaam`.
 * Maak geen dubbele features aan.
-* Hou de status van jouw `feature`, `bugfix` of `hotfix` bij in github issues met comments.
-* Als je klaar bent met je `feature` maak dan een PR aan en koppel het aan de issue.
+* Als je klaar bent met je `feature` maak dan een PR aan. 
 * PR's worden door minimaal 2 mensen gecheckt en getest lokaal op hun machine.
 
 ---
