@@ -12,46 +12,52 @@
 <!-- custom -->
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
-<h1>Aanpassen van item {{ $item->title }}</h1>
-
-{{--<!-- Display errors -->--}}
-{{--<div class="alert alert-danger alert-dismissible fade show" role="alert">--}}
-{{--    <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
-{{--        <span aria-hidden="true">&times;</span>--}}
-{{--    </button>--}}
-{{--    {{ Html::ul($errors->all()) }}--}}
-{{--</div>--}}
-
-{{ Form::model($item, array('route' => array('edit.item', $item->id), 'method' => 'PUT')) }}
-
-<div class="form-group">
-    {{ Form::label('title', 'Titel') }}
-    {{ Form::text('title', $item->title, array('class'=>'form-control')) }}
-</div>
-
-<div class="form-group">
-    {{ Form::label('category', 'Categorie') }}
-    <div class="d-flex">
-        @foreach($categories as $category)
-            @if($category->id == $item->category->id)
-            {{ Form::checkbox('category', $category->id, true, array('class' => 'form-check-input')) }}
-            {{ Form::label('category', $category->name, array('class' => 'form-check-label', 'for' => $category->id)) }}
-            @else
-            {{ Form::checkbox('category', $category->id, false, array('class' => 'form-check-input')) }}
-            @endif
-        @endforeach
+<div class="container">
+    <h1>Item {{ $item->title }} aanpassen </h1>
+    @if(count($errors) > 0 )
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <ul class="p-0 m-0" style="list-style: none;">
+            @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+            @endforeach
+        </ul>
     </div>
+    @endif
 
+    <form method="PUT" action="/items/{{ $item->id }}" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            <label for="titelInput">Titel</label>
+            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel" value={{ $item->title }}>
+        </div>
+        <div class="form-group">
+            <label> Categorie </label>
+            <div class="d-flex">
+                @foreach($categories as $category)
+                <div class="form-check custom-category-check">
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}">
+                    <label class="form-check-label" for="category-{{ $category->id }}">
+                        {{ $category->name }}
+                    </label>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inhoudInput">Inhoud</label>
+            <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ $item->body }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="file" name="files[]" class="file outline--none" multiple>
+        </div>
+
+        <button type="submit" class="btn btn-primary"> Opslaan </button>
+    </form>
 </div>
-
-<div class="form-group">
-    {{ Form::label('body', 'Beschrijving') }}
-    {{ Form::text('title') }}
-</div>
-
-{{ Form::submit('Wijzigingen opslaan', array('class' => 'btn btn-primary')) }}
-
-{{ Form::close() }}
 
 <script>
     tinymce.init({
