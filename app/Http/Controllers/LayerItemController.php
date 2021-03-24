@@ -82,7 +82,7 @@ class LayerItemController extends Controller
             $categories = $firstLayerItem->categories;
         }
 
-        $files = File::where('layer_item_id', $id);
+        $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
         return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems]);
