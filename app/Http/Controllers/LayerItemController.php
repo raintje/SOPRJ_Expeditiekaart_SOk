@@ -99,25 +99,7 @@ class LayerItemController extends Controller
         return view('items.edit_location');
     }
 
-    public function saveLocations(Request $request)
-    {
-        foreach ($request->json()->all() as $item){
 
-            $editItem = FirstLayerItem::findOrFail($item['id']);
-//            var_dump($editItem);die();
-            $editItem->x_pos = $item['x_pos'];
-            $editItem->y_pos = $item['y_pos'];
-//                        var_dump($editItem->x_pos);die();
-
-//            $editItem->update([
-//                'x_pos' => $item['x_pos'],
-//                'y_pos' => $item['y_pos'],
-//            ]);
-            $editItem->save();
-        }
-
-        return "succes";
-    }
 
     public function update(Request $request, $id)
     {
