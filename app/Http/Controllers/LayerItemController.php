@@ -85,15 +85,20 @@ class LayerItemController extends Controller
 
     public function edit($id)
     {
-        $firstLayerItem = FirstLayerItem::find($id);
-        $layerItem = LayerItem::find($firstLayerItem->layer_item_id);
+        $item = LayerItem::findOrFail($id);
+        $existingItems = LayerItem::all()->except($id);
         $categories = Category::all();
-        
+        $itemcategories = null;
+
+        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
         if ($firstLayerItem != null) {
-            return view('items.edit', ['item' => $layerItem, 'categories' => $categories]);
+            $itemcategories = $firstLayerItem->categories;
         }
         
-        abort(404);
+        $files = File::where('layer_item_id', $id)->get();
+        $linkedItems = $item->referencesLayerItems;
+
+        return view('items.edit', ['item' => $item, 'categories' => $categories, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
     }
 
     public function update(Request $request, $id)

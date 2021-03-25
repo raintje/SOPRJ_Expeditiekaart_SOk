@@ -31,14 +31,18 @@
         @csrf
         <div class="form-group">
             <label for="titelInput">Titel</label>
-            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel" value={{ $item->title }}>
+            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel" value="{{ $item->title }}">
         </div>
         <div class="form-group">
             <label> Categorie </label>
             <div class="d-flex">
                 @foreach($categories as $category)
                 <div class="form-check custom-category-check">
-                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}">
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" @if($itemcategories->contains($category))
+                    checked>
+                    @else
+                    >
+                    @endif
                     <label class="form-check-label" for="category-{{ $category->id }}">
                         {{ $category->name }}
                     </label>
@@ -51,11 +55,51 @@
             <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ $item->body }}</textarea>
         </div>
 
+        @if(!empty($files))
+        <div class="m-2">
+            <h3>Bijlages:</h3>
+            <div class="m-2 row justify-content-start">
+                @foreach($files as $file)
+                <div class="card align-items-center text-center m-2 col-md-3">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ $file->title }}</h5>
+                        <a href="#" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         <div class="form-group">
             <input type="file" name="files[]" class="file outline--none" multiple>
         </div>
 
-        <button type="submit" class="btn btn-primary"> Opslaan </button>
+        @if(!empty($linkedItems))
+        <div class="m-2">
+            <h3>Vervolg paden:</h3>
+            <div class="m-2 row justify-content-start">
+                @foreach ($linkedItems as $linkedItem)
+                <div class="card align-items-center text-center m-2 col-md-3">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ $linkedItem->id }}: {{ $linkedItem->title }}</h5>
+                        <a href="#" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
+            <select id="itemPathSelect" class="custom-select mb-2">
+                <option selected>Opties</option>
+                @foreach($existingItems as $item)
+                @if(!$linkedItems->contains($item))
+                <option value="{{ $item->id }}">{{$item->title}}</option>
+                @endif
+                @endforeach
+            </select>
+
+            <button type="submit" class="btn btn-primary"> Wijzigingen opslaan </button>
     </form>
 </div>
 
@@ -68,4 +112,3 @@
 </script>
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="{{ asset('js/item-form.js') }}"></script>
-
