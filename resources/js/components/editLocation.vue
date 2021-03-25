@@ -23,7 +23,7 @@
             </l-control>
 
             <l-marker @add="openPopup" v-for="item in items"
-                      :lat-lng="location(item.y_pos, item.x_pos)" :draggable="true" :key="item.id">
+                      :lat-lng="{ lng: item.x_pos, lat: item.y_pos }" :draggable="true" :key="item.id">
 
                 <l-icon
                     :icon-anchor="staticAnchor"

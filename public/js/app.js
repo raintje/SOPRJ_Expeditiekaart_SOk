@@ -35906,7 +35906,7 @@ var render = function() {
               {
                 key: item.id,
                 attrs: {
-                  "lat-lng": _vm.location(item.y_pos, item.x_pos),
+                  "lat-lng": { lng: item.x_pos, lat: item.y_pos },
                   draggable: true
                 },
                 on: { add: _vm.openPopup }

@@ -25,7 +25,7 @@ Route::get('/items', [LayerItemController::class, 'index'])->name('items');
 Route::post('/items', [LayerItemController::class, 'store'])->name('store.item');
 Route::get('/items/create', [LayerItemController::class, 'create'])->name('create.item');
 Route::get('/items/edit/location', [LayerItemController::class, 'editLocation'])->name('edit.item.location');
-Route::post('/items/edit/location/save', [LayerItemController::class, 'saveLocations'])->name('edit.item.location.save');
+Route::post('/items/edit/location/save', [FirstLayerItemController::class, 'saveLocations'])->name('edit.item.location.save');
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::put('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');

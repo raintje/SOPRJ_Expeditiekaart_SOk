@@ -10,7 +10,7 @@ class FirstLayerItem extends Model
     use HasFactory;
 
 
-//    protected $fillable = ['id', 'layer_item_id', 'x_pos', 'y_pos'];
+    protected $fillable = ['id', 'layer_item_id', 'x_pos', 'y_pos'];
 
     public function layerItem()
     {
