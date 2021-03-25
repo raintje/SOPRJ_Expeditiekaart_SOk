@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LayerItemController extends Controller
 {
@@ -86,6 +87,10 @@ class LayerItemController extends Controller
         $linkedItems = $item->referencesLayerItems;
 
         return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems]);
+    }
+    public function downloadFile($id){
+        $databaseFile = File::findOrFail($id);
+        return Storage::disk('public')->download($databaseFile->path);
     }
 
     public function edit($id)

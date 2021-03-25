@@ -1,4 +1,17 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+
+
+
 
 <div class="container">
     <h1 class="text-center">{{$item->title}}</h1>
@@ -21,9 +34,12 @@
             <div class="m-2 row justify-content-start">
                 @foreach($files as $file)
                     <div class="card align-items-center text-center m-2 col-md-3">
+                        @if(in_array($file->type, ['jpg','jpeg','png']))
+                            <img class="card-img-top"  src="{{ asset('storage/'.$file->path) }}" alt="Afbeelding kan niet worden geladen" title="{{$file->title}}" >
+                        @endif
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{$file->title}}</h5>
-                            <a href="#" class="btn btn-primary w-100 mt-auto">Download</a>
+                            <a href="{{route('download.file', [$file->id])}}" class="btn btn-info w-100 mt-auto">Download</a>
                         </div>
                     </div>
                 @endforeach
@@ -44,3 +60,5 @@
         </div>
     @endif
 </div>
+</body>
+</html>
