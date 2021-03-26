@@ -20,6 +20,12 @@
                         Dashboard
                     </span>
                     </a>
+                    <a :href="Laravel.routes['edit.item.location']" aria-label="Dashboard">
+                        <SvgIcon icon="edit"></SvgIcon>
+                        <span class="Tooltip">
+                        Locatie aanpassen
+                    </span>
+                    </a>
                     <a :href="Laravel.routes['create.item']" aria-label="Item toevoegen">
                         <SvgIcon icon="plus"></SvgIcon>
                         <span class="Tooltip">
