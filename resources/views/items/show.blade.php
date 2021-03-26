@@ -14,6 +14,7 @@
 
 
 <div class="container">
+    <a class="btn btn-outline-secondary float-right" href="{{route('edit.item', $item->id)}}">Aanpassen</a>
     <h1 class="text-center">{{$item->title}}</h1>
 
     @if($categories != null)
@@ -35,10 +36,15 @@
                 @foreach($files as $file)
                     <div class="card align-items-center text-center m-2 col-md-3">
                         @if(in_array($file->type, ['jpg','jpeg','png']))
-                            <img class="card-img-top"  src="{{ asset('storage/'.$file->path) }}" alt="Afbeelding kan niet worden geladen" title="{{$file->title}}" >
+                            <img class="card-img-top mt-1"  src="{{ asset('storage/'.$file->path) }}" alt="Afbeelding kan niet worden geladen" title="{{$file->title}}" >
                         @endif
+                        @if(in_array($file->type, ['mp4', 'mpeg']))
+                                <video class="card-img-top mt-1" controls preload="auto" title="{{$file->title}}" >
+                                    <source src="{{ asset('storage/'.$file->path) }}" type="video/{{$file->type }}">
+                                </video>
+                            @endif
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{$file->title}}</h5>
+                            <h5 class="card-title text-break">{{$file->title}}</h5>
                             <a href="{{route('download.file', [$file->id])}}" class="btn btn-info w-100 mt-auto">Download</a>
                         </div>
                     </div>
