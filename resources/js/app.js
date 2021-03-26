@@ -1,9 +1,12 @@
 require('./bootstrap');
 import Vue from 'vue';
 import {CRS, latLng, icon} from "leaflet";
-import {LImageOverlay, LMap, LMarker, LPopup, LIcon, LTooltip, LTileLayer, LControl  } from "vue2-leaflet";
+import {LImageOverlay, LMap, LMarker, LPopup, LIcon, LTooltip, LTileLayer, LControl , LRectangle } from "vue2-leaflet";
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'leaflet/dist/leaflet.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 //Main pages
 import App from './views/app.vue';
@@ -17,7 +20,12 @@ Vue.component('l-map', LMap);
 Vue.component('l-control', LControl);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
+Vue.component('l-rectangle', LRectangle);
 Vue.component('edit-location', editLocation);
+
+Vue.use(IconsPlugin);
+Vue.use(BootstrapVue);
+
 window.Vue = require('vue');
 
 const app = new Vue({

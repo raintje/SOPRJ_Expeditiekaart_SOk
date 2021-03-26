@@ -9,7 +9,7 @@
             ref="map"
             :min-zoom="minZoom"
             :crs="crs"
-            style="height: 98vh; width: 100%;"
+            style="height: 100vh; width: 100%;"
             :max-bounds="maxBounds"
 
         >
@@ -19,7 +19,7 @@
             />
 
             <l-marker @add="openPopup" v-for="item in items"
-                      :lat-lng="location(item.y_pos, item.x_pos)" :key="item.id">
+                      :lat-lng="item.position" :key="item.id">
 
                 <l-icon
                     :icon-anchor="staticAnchor"
