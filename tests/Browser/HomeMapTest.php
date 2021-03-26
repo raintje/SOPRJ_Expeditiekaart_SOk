@@ -55,6 +55,7 @@ class HomeMapTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->resize(360, 640);
             $browser->press('#NavButton')
+                ->pause(1000)
                 ->assertSee("Account")
                 ->assertSee("Dashboard")
                 ->assertSee("Item toevoegen");
