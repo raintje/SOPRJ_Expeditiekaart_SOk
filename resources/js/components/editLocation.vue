@@ -24,7 +24,7 @@
 
 
             <l-control class="example-custom-control">
-                <b-button variant="primary" @click="saveLocations">Opslaan</b-button>
+                <b-button dusk="save-button" id="saveLocation" variant="primary" @click="saveLocations">Opslaan</b-button>
             </l-control>
 
             <l-marker @add="openPopup" v-for="item in items"
