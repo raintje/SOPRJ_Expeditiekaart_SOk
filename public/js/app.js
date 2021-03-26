@@ -2043,7 +2043,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      url: "/img/wallpaper_2.svg",
+      url: "/img/wallpaper.svg",
       bounds: [[-120, -27], [1049, 1053]],
       maxBounds: [[298, 89], [659, 833]],
       minZoom: 1.4,
@@ -2052,7 +2052,8 @@ __webpack_require__.r(__webpack_exports__);
       items: [],
       staticAnchor: [15, 0],
       tooltipAnchor: [15, 0],
-      travel: [[145.0, 175.2], [8.3, 218.7]]
+      travel: [[145.0, 175.2], [8.3, 218.7]],
+      Laravel: window.Laravel
     };
   },
   mounted: function mounted() {
@@ -2064,6 +2065,10 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    navigate: function navigate(id) {
+      console.log(Laravel.routes['show.item']);
+      window.location.href = "/items/".concat(id);
+    },
     location: function location(x, y) {
       return new leaflet__WEBPACK_IMPORTED_MODULE_0__.latLng(x, y);
     },
@@ -2224,7 +2229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.marker {\r\n    border: 1px solid #333;\r\n    border-radius: 20px 20px 20px 20px;\r\n    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);\r\n    text-align: center;\r\n    width: 30px !important;\r\n    height: 30px !important;\n}\n.blue {\r\n    background-color: blue;\n}\n.red {\r\n    background-color: red;\n}\n.green {\r\n    background-color: lawngreen;\n}\n.blue-green {\r\n    background-image: linear-gradient(blue, lawngreen);\n}\n.blue-red {\r\n    background-image: linear-gradient(blue, red);\n}\n.red-green {\r\n    background-image: linear-gradient(red, lawngreen);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.marker {\n    border: 1px solid #333;\n    border-radius: 20px 20px 20px 20px;\n    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);\n    text-align: center;\n    width: 30px !important;\n    height: 30px !important;\n}\n.blue {\n    background-color: blue;\n}\n.red {\n    background-color: red;\n}\n.green {\n    background-color: lawngreen;\n}\n.blue-green {\n    background-image: linear-gradient(blue, lawngreen);\n}\n.blue-red {\n    background-image: linear-gradient(blue, red);\n}\n.red-green {\n    background-image: linear-gradient(red, lawngreen);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34821,12 +34826,27 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("l-popup", {
-                      attrs: {
-                        options: { autoClose: false, closeOnClick: false },
-                        content: item.layer_item.title
-                      }
-                    })
+                    _c(
+                      "l-popup",
+                      {
+                        attrs: {
+                          options: { autoClose: false, closeOnClick: false }
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.navigate(item.layer_item_id)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(item.layer_item.title))]
+                        )
+                      ]
+                    )
                   ],
                   1
                 )
@@ -35171,8 +35191,10 @@ var script = {
     var this$1 = this;
 
     this.parentContainer = findRealParent(this.$parent);
-
-    propsBinder(this, this.$parent.mapObject, this.$options.props);
+    if (!this.parentContainer) {
+      throw new Error('No parent container with mapObject found for LIcon');
+    }
+    propsBinder(this, this.parentContainer.mapObject, this.$options.props);
 
     this.observer = new MutationObserver(function () {
       this$1.scheduleHtmlSwap();
@@ -36235,7 +36257,7 @@ var script = {
     );
     this.mapObject = (0,leaflet__WEBPACK_IMPORTED_MODULE_0__.map)(this.$el, options);
     if (this.bounds) {
-      this.mapObject.fitBounds(this.bounds);
+      this.fitBounds(this.bounds);
     }
     this.debouncedMoveEndHandler = debounce(this.moveEndHandler, 100);
     this.mapObject.on('moveend', this.debouncedMoveEndHandler);
@@ -36339,7 +36361,7 @@ var script = {
       var oldBounds = this.lastSetBounds || this.mapObject.getBounds();
       var boundsChanged = !oldBounds.equals(newBounds, 0); // set maxMargin to 0 - check exact equals
       if (boundsChanged) {
-        this.mapObject.fitBounds(newBounds, this.fitBoundsOptions);
+        this.fitBounds(newBounds);
         this.cacheMapView(newBounds);
       }
     },
@@ -36356,12 +36378,10 @@ var script = {
       var mapObject = this.mapObject,
         prevBounds = mapObject.getBounds();
       mapObject.options.crs = newVal;
-      mapObject.fitBounds(prevBounds, { animate: false, padding: [0, 0] });
+      this.fitBounds(prevBounds, { animate: false });
     },
-    fitBounds: function fitBounds(bounds) {
-      this.mapObject.fitBounds(bounds, {
-        animate: this.noBlockingAnimations ? false : null,
-      });
+    fitBounds: function fitBounds(bounds, overrideOptions) {
+      this.mapObject.fitBounds(bounds, Object.assign({}, this.fitBoundsOptions, overrideOptions));
     },
     moveEndHandler: function moveEndHandler() {
       /**
@@ -36540,7 +36560,7 @@ var __vue_staticRenderFns__ = [];
   /* style */
   var __vue_inject_styles__ = function (inject) {
     if (!inject) { return }
-    inject("data-v-64f90fd7_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
+    inject("data-v-09f270aa_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -36850,6 +36870,11 @@ var script = {
       custom: false,
       default: function () { return new leaflet__WEBPACK_IMPORTED_MODULE_0__.Icon.Default(); },
     },
+    opacity: {
+      type: Number,
+      custom: false,
+      default: 1.0,
+    },
     zIndexOffset: {
       type: Number,
       custom: false,
@@ -36873,7 +36898,8 @@ var script = {
       Object.assign({}, this.layerOptions,
         {icon: this.icon,
         zIndexOffset: this.zIndexOffset,
-        draggable: this.draggable}),
+        draggable: this.draggable,
+        opacity: this.opacity}),
       this
     );
     this.mapObject = (0,leaflet__WEBPACK_IMPORTED_MODULE_0__.marker)(this.latLng, options);

@@ -28,7 +28,7 @@
                 >
 
                     <l-tooltip :tooltip-anchor="tooltipAnchor" :content="item.layer_item.body.slice(0, 200)"/>
-                    <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.layer_item.title"/>
+                    <l-popup  :options="{ autoClose: false, closeOnClick: false }" ><div @click="navigate(item.layer_item_id)">{{item.layer_item.title}}</div></l-popup>
                 </l-icon>
             </l-marker>
         </l-map>
@@ -57,7 +57,8 @@ export default {
             items: [],
             staticAnchor: [15, 0],
             tooltipAnchor: [15, 0],
-            travel: [[145.0, 175.2], [8.3, 218.7]]
+            travel: [[145.0, 175.2], [8.3, 218.7]],
+            Laravel: window.Laravel,
         };
     },
     mounted() {
@@ -68,6 +69,10 @@ export default {
     },
 
     methods: {
+        navigate: function (id){
+            console.log(Laravel.routes['show.item']);
+            window.location.href = `/items/${id}`;
+        },
         location: function (x, y) {
             return new latLng(x, y);
         },
