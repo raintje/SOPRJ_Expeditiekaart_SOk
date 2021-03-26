@@ -38,10 +38,15 @@
             <div class="d-flex">
                 @foreach($categories as $category)
                 <div class="form-check custom-category-check">
-                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" @if($itemcategories->contains($category))
-                    checked>
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" 
+                    @if(!empty($itemcategories)) 
+                        @if($itemcategories->contains($category))
+                            checked>
+                        @else
+                            >   
+                        @endif
                     @else
-                    >
+                        >
                     @endif
                     <label class="form-check-label" for="category-{{ $category->id }}">
                         {{ $category->name }}

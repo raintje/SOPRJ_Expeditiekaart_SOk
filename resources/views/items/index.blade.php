@@ -1,4 +1,4 @@
 @foreach($items as $item)
-    <p>This is item {{$item->title}} - <a href="{{ url('/items/' . $item->id . '/edit') }}" class="btn btn-primary mt-auto">Aanpassen</a></p>
+    <p>This is item {{$item->title}} - <button type="button" onclick="window.location='{{ route('edit.item', array('id' => $item->id)) }}'" class="btn btn-primary">Item aanpassen</button></p>
 @endforeach
 
