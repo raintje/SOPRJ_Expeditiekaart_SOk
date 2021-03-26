@@ -4,26 +4,31 @@
 
         <Legenda></Legenda>
 
+
         <l-map
             ref="map"
             :min-zoom="minZoom"
             :crs="crs"
-            style="height: 98vh; width: 100%;"
+            style="height: 100vh; width: 100%;"
             :max-bounds="maxBounds"
 
         >
+            <l-rectangle
+                :bounds="maxBounds"
+                :l-style="rectangle.style"
+            />
             <l-image-overlay
                 :url="url"
                 :bounds="bounds"
             />
+
+
             <l-control class="example-custom-control">
-                <p @click="saveLocations">
-                    Opslaan
-                </p>
+                <b-button variant="primary" @click="saveLocations">Opslaan</b-button>
             </l-control>
 
             <l-marker @add="openPopup" v-for="item in items"
-                      :lat-lng="{ lng: item.x_pos, lat: item.y_pos }" :draggable="true" :key="item.id">
+                      :lat-lng.sync="item.position" :draggable="true" :key="item.id">
 
                 <l-icon
                     :icon-anchor="staticAnchor"
@@ -40,7 +45,7 @@
 </template>
 
 <script>
-import {CRS, latLng, icon} from "leaflet";
+import {CRS} from "leaflet";
 import Vue from 'vue';
 import SvgIcon from "./SvgIcon";
 import Navigation from "./Navigation";
@@ -52,17 +57,22 @@ export default {
     },
     data() {
         return {
+            dismissSecs: 5,
+            dismissCountDown: 0,
             url: "/img/wallpaper.svg",
             bounds: [[-120, -27], [1049, 1053]],
             maxBounds: [[298, 89], [659, 833]],
-            minZoom: 1.4,
+            minZoom: 1,
             crs: CRS.Simple,
             center: [2000, 3023],
             items: [],
             staticAnchor: [15, 0],
             tooltipAnchor: [15, 0],
             travel: [[145.0, 175.2], [8.3, 218.7]],
-            Laravel: window.Laravel
+            Laravel: window.Laravel,
+            rectangle: {
+                style: { color: "red", weight: 5 }
+            },
 
         };
     },
@@ -74,8 +84,13 @@ export default {
     },
 
     methods: {
-        location: function (x, y) {
-            return new latLng(x, y);
+        makeToast(variant = null, body = null) {
+            this.$bvToast.toast(body, {
+                title: `${variant || 'default'}`,
+                toaster: 'b-toaster-top-left',
+                variant: variant,
+                solid: true
+            })
         },
         openPopup: function (event) {
             Vue.nextTick(() => {
@@ -91,17 +106,18 @@ export default {
             fetch('/items/edit/location/save', requestOptions)
                 .then(async response => {
                     const data = await response.json();
-                    console.log(data);
-                    // // check for error response
-                    // if (!response.ok) {
-                    //     // get error message from body or default to response status
-                    //     const error = (data && data.message) || response.status;
-                    //     return Promise.reject(error);
-                    // }
-                    //
-                    // this.postId = data.id;
+
+                    if (!response.ok) {
+                        // get error message from body or default to response status
+                        this.makeToast('danger', 'Er is iets mis gegaan, probeer het opnieuw.');
+                        const error = (data && data.message) || response.status;
+                        return Promise.reject(error);
+                    }
+                    this.makeToast('success', 'De locaties zijn succesvol opgeslagen.');
+
                 })
                 .catch(error => {
+                    this.makeToast('danger', 'Er is iets mis gegaan, probeer het opnieuw.');
                     this.errorMessage = error;
                     console.error('There was an error!', error);
                 });
@@ -168,11 +184,6 @@ export default {
     background-image: linear-gradient(red, lawngreen);
 }
 
-.example-custom-control {
-    background: #fff;
-    padding: 0 0.5em;
-    border: 1px solid #aaa;
-    border-radius: 0.1em;
-}
+
 
 </style>

@@ -10,40 +10,27 @@ class FirstLayerItemController extends Controller
 {
     public function all()
     {
-        return FirstLayerItem::with('layerItem')->with('categories')->get();
+        $items = FirstLayerItem::with('layerItem')->with('categories')->get();
+
+        foreach ($items as $item) {
+
+            $item->position = (['lng' => $item->x_pos, 'lat' => $item->y_pos]);
+
+        }
+
+        return $items;
     }
 
     public function saveLocations(Request $request)
     {
-//        $counter = 1;
-        foreach ($request->json()->all() as $item){
+        foreach ($request->json()->all() as $item) {
 
-//            $editItem = FirstLayerItem::where('id', $item['id'])->first();
-//            var_dump($editItem); die();
-//            $editItem->layer_item_id = $item['layer_item_id'];
-//            $editItem->x_pos = $item['x_pos'];
-//            $editItem->y_pos = $item['y_pos'];
-////                        var_dump($editItem->x_pos);die();
-////            var_dump($editItem->save()->toSql());die();
-////            $editItem->update([
-////                'x_pos' => $item['x_pos'],
-////                'y_pos' => $item['y_pos'],
-////            ]);
-//            $editItem->save();
-////            $editItem->update($item[$counter]);
+            FirstLayerItem::where('id', $item['id'])
+                ->update(array('x_pos' => $item['position']['lng'], 'y_pos' => $item['position']['lat']));
 
-//            $counter++;
-//            var_dump($item['x_pos']);die();
-            FirstLayerItem::where('id', $item['id'])->update(array('x_pos' => $item['x_pos'], 'y_pos' => $item['y_pos'] ));
         }
 
-//        $editItem = FirstLayerItem::where('id', 1)->first();
-//        $editItem->x_pos = 530;
-//        $editItem->y_pos = 446;
-//        $editItem->save();
-
-
-
-        return "succes";
+        return response()
+            ->json(['status' => 'success']);
     }
 }
