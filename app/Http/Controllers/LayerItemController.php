@@ -96,11 +96,55 @@ class LayerItemController extends Controller
 
     public function update(Request $request, $id)
     {
-        $oldItem = LayerItem::find($id);
-        if($oldItem != null)
+//        $oldItem = LayerItem::find($id);
+        if(LayerItem::find($id) == null)
         {
+            return redirect($this->show($id));
         }
-        return redirect($this->show($id));
+        $oldItem = LayerItem::find($id);
+
+        $body = $request->input('body'); // wat is dit?
+
+
+        $oldItem->title = $request->input('title'); // wat is dit? zit dit niet gwn in de request variable?
+        $oldItem->body = $body;
+        $oldItem->save();
+
+        if (isset($request->categories)) {
+            $firstLayerItem = new FirstLayerItem(); // TODO remove
+            $firstLayerItem->layer_item_id = $oldItem->id;
+            $firstLayerItem->x_pos = rand(120, 750);
+            $firstLayerItem->y_pos = rand(320, 620);
+
+            $firstLayerItem->save();
+
+            foreach ($request->categories as $categoryId) {
+                $firstLayerItem->categories()->attach($categoryId);
+            }
+
+        }
+
+        if (isset($request->itemLinks)) {
+            foreach ($request->itemLinks as $linkedItemId) {
+                $oldItem->referencesLayerItems()->attach($linkedItemId);
+            }
+        }
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $formFile) {
+                $name = time() . '_' . $formFile->getClientOriginalName();
+                $filePath = $formFile->storeAs('files', $name, 'public');
+
+                $file = new File();
+                $file->layer_item_id = $oldItem->id;
+                $file->title = $name;
+                $file->type = $formFile->getClientOriginalExtension();
+                $file->path = $filePath;
+                $file->save();
+            }
+        }
+
+        return $this->index();
 
     }
 
