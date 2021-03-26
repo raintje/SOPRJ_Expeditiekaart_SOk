@@ -7,6 +7,9 @@ use Tests\DuskTestCase;
 
 class HomeMapTest extends DuskTestCase
 {
+    /**
+     * @group map
+     */
     public function testHasMap()
     {
         $this->browse(function (Browser $browser) {
@@ -17,6 +20,9 @@ class HomeMapTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group map
+     */
     public function testItems()
     {
         $this->browse(function (Browser $browser) {
@@ -25,6 +31,9 @@ class HomeMapTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group map
+     */
     public function testHasNav()
     {
         $this->browse(function (Browser $browser) {
@@ -33,6 +42,9 @@ class HomeMapTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group map
+     */
     public function testHasNavButtonDesktop()
     {
         $this->browse(function (Browser $browser) {
@@ -41,6 +53,9 @@ class HomeMapTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group map
+     */
     public function testHasNavButtonMobile()
     {
         $this->browse(function (Browser $browser) {
@@ -50,6 +65,9 @@ class HomeMapTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group map
+     */
     public function testHasNavItemsMobile()
     {
         $this->browse(function (Browser $browser) {
