@@ -27,3 +27,7 @@ Route::get('/items/create', [LayerItemController::class, 'create'])->name('creat
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::put('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
