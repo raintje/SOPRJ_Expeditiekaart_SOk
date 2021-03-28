@@ -27,7 +27,7 @@
     </div>
     @endif
 
-    <form method="PUT" action="/items/{{ $item->id }}" enctype="multipart/form-data">
+    <form method="PUT" action="{{ route('update.item', array('id' => $item->id)) }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="titelInput">Titel</label>
@@ -38,15 +38,13 @@
             <div class="d-flex">
                 @foreach($categories as $category)
                 <div class="form-check custom-category-check">
-                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" 
-                    @if(!empty($itemcategories)) 
-                        @if($itemcategories->contains($category))
-                            checked>
-                        @else
-                            >   
-                        @endif
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" @if(!empty($itemcategories)) @if($itemcategories->contains($category))
+                    checked>
                     @else
-                        >
+                    >
+                    @endif
+                    @else
+                    >
                     @endif
                     <label class="form-check-label" for="category-{{ $category->id }}">
                         {{ $category->name }}
@@ -55,6 +53,27 @@
                 @endforeach
             </div>
         </div>
+
+        <h3>Vervolg paden:</h3>
+        @if(!empty($linkedItems))
+        <select id="itemPathSelect" class="custom-select mb-2">
+            <option selected>Opties</option>
+            @foreach($existingItems as $item)
+            @if(!$linkedItems->contains($item))
+            <option value="{{ $item->id }}">{{$item->title}}</option>
+            @endif
+            @endforeach
+        </select>
+
+        <div class="m-2 row justify-content-start">
+            @foreach($linkedItems as $linkedItem)
+            <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
+                <a class="btn btn-outline-info w-100 h-100" href="{{ route('show.item', [$linkedItem->id]) }}">{{$linkedItem->title}}</a>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
         <div class="form-group">
             <label for="inhoudInput">Inhoud</label>
             <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ $item->body }}</textarea>
@@ -80,31 +99,7 @@
             <input type="file" name="files[]" class="file outline--none" multiple>
         </div>
 
-        @if(!empty($linkedItems))
-        <div class="m-2">
-            <h3>Vervolg paden:</h3>
-            <div class="m-2 row justify-content-start">
-                @foreach ($linkedItems as $linkedItem)
-                <div class="card align-items-center text-center m-2 col-md-3">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ $linkedItem->id }}: {{ $linkedItem->title }}</h5>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            @endif
-
-            <select id="itemPathSelect" class="custom-select mb-2">
-                <option selected>Opties</option>
-                @foreach($existingItems as $item)
-                @if(!$linkedItems->contains($item))
-                <option value="{{ $item->id }}">{{$item->title}}</option>
-                @endif
-                @endforeach
-            </select>
-
-            <button type="submit" class="btn btn-primary"> Wijzigingen opslaan </button>
+        <button type="submit" class="btn btn-primary"> Wijzigingen opslaan </button>
     </form>
 </div>
 
