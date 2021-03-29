@@ -29,7 +29,7 @@
         <?php echo $item->body; ?>
     </div>
 
-    @if($files != null) <!-- TODO check if files is empty not null -->
+    @if(!$files->isEmpty())
         <div class="m-2">
             <h3>Bijlages:</h3>
             <div class="m-2 row justify-content-start">
@@ -53,7 +53,7 @@
         </div>
     @endif
 
-    @if($linkedItems != null) <!-- TODO check if linkeditems is empty not null -->
+    @if(!$linkedItems->isEmpty())
         <div class="m-2">
             <h3>Vervolg paden:</h3>
             <div class="m-2 row justify-content-start">

@@ -88,6 +88,7 @@ class LayerItemController extends Controller
 
         return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems]);
     }
+
     public function downloadFile($id){
         $databaseFile = File::findOrFail($id);
         return Storage::disk('public')->download($databaseFile->path);

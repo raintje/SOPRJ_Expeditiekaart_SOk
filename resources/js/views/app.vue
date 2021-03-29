@@ -70,7 +70,6 @@ export default {
 
     methods: {
         navigate: function (id){
-            console.log(Laravel.routes['show.item']);
             window.location.href = `/items/${id}`;
         },
         location: function (x, y) {

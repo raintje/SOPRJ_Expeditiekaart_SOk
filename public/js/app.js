@@ -2066,7 +2066,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     navigate: function navigate(id) {
-      console.log(Laravel.routes['show.item']);
       window.location.href = "/items/".concat(id);
     },
     location: function location(x, y) {
