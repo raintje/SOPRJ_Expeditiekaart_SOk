@@ -9,16 +9,12 @@
     <title>Document</title>
 </head>
 <body>
-
-
-
-
 <div class="container">
-    <a class="btn btn-outline-secondary float-right" href="{{route('edit.item', $item->id)}}">Aanpassen</a>
+    <a class="btn btn-outline-secondary float-right mt-1" href="{{route('edit.item', $item->id)}}">Aanpassen</a>
     <h1 class="text-center">{{$item->title}}</h1>
 
     @if($categories != null)
-        <div class="row justify-content-center">
+        <div class="m-2 row justify-content-start">
             @foreach($categories as $categorie)
                 <p class="m-3 p-1 border border-dark">{{$categorie->name}}</p>
             @endforeach
