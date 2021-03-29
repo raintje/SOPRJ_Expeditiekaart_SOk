@@ -62,7 +62,7 @@
         </div>
 
         <div class="form-group">
-            <input type="file" name="files[]" class="file outline--none" multiple>
+            <input id="files" type="file" name="files[]" class="file outline--none" multiple onchange="ValidateSize(this)">
         </div>
 
         <button type="submit" class="btn btn-primary"> Opslaan </button>
@@ -74,6 +74,15 @@
       selector: '#inhoudInput',
       language: 'nl'
     });
+    function ValidateSize(file) {
+        let FileSize = file.files[0].size / 1024 / 1024; // in MB
+        if (FileSize > 2) {
+            alert('Bestand mag niet groter zijn dan 2MB');
+            $(file).val(''); //for clearing with Jquery
+        } else {
+
+        }
+    }
 </script>
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="{{ asset('js/item-form.js') }}"></script>

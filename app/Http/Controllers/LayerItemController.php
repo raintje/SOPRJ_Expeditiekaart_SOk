@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LayerItemController extends Controller
 {
@@ -15,7 +16,6 @@ class LayerItemController extends Controller
     public function index()
     {
         $items = LayerItem::all();
-
         return view('items.index', ['items' => $items]);
     }
 
@@ -75,12 +75,23 @@ class LayerItemController extends Controller
 
     public function show($id)
     {
-        $item = LayerItem::find($id);
-        if($item != null)
-        {
-            return view('items.show', ['item' => $item]);
+        $item = LayerItem::findOrFail($id);
+        $categories = null;
+
+        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
+        if ($firstLayerItem != null) {
+            $categories = $firstLayerItem->categories;
         }
-        abort(404);
+
+        $files = File::where('layer_item_id', $id)->get();
+        $linkedItems = $item->referencesLayerItems;
+
+        return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems]);
+    }
+
+    public function downloadFile($id){
+        $databaseFile = File::findOrFail($id);
+        return Storage::disk('public')->download($databaseFile->path);
     }
 
     public function edit($id)
@@ -113,13 +124,7 @@ class LayerItemController extends Controller
 
     public function destroy($id)
     {
-        $itemToDestroy = LayerItem::find($id);
-        if($itemToDestroy != null)
-        {
-            LayerItem::destroy($itemToDestroy);
-            return redirect($this->index());
-        }
-        return redirect($this->index());
+        abort(404);
     }
 }
 
