@@ -116,7 +116,7 @@
             </div>
 
             {{-- Form submit --}}
-            <button type="submit" class="btn btn-primary"> Wijzigingen opslaan </button>
+            <button type="submit" class="btn btn-primary mb-1"> Wijzigingen opslaan </button>
 
         </form>
 </div>
