@@ -27,7 +27,7 @@
     </div>
     @endif
 
-    <form method="PUT" action="/items/{{ $item->id }}" enctype="multipart/form-data">
+    <form method="POST" action="/items/{{ $item->id }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="titelInput">Titel</label>
@@ -38,12 +38,12 @@
             <div class="d-flex">
                 @foreach($categories as $category)
                 <div class="form-check custom-category-check">
-                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" 
-                    @if(!empty($itemcategories)) 
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}"
+                    @if(!empty($itemcategories))
                         @if($itemcategories->contains($category))
                             checked>
                         @else
-                            >   
+                            >
                         @endif
                     @else
                         >

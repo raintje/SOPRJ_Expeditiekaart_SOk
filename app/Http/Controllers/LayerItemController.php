@@ -94,7 +94,7 @@ class LayerItemController extends Controller
         if ($firstLayerItem != null) {
             $itemcategories = $firstLayerItem->categories;
         }
-        
+
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
@@ -104,11 +104,11 @@ class LayerItemController extends Controller
     public function update(Request $request, $id)
     {
 //        $oldItem = LayerItem::find($id);
-        if(LayerItem::find($id) == null)
+        if(LayerItem::findOrFail($id) == null)
         {
             return redirect($this->show($id));
         }
-        $oldItem = LayerItem::find($id);
+        $oldItem = LayerItem::findOrFail($id);
 
         $body = $request->input('body'); // wat is dit?
 
@@ -118,7 +118,7 @@ class LayerItemController extends Controller
         $oldItem->save();
 
         if (isset($request->categories)) {
-            $firstLayerItem = new FirstLayerItem(); // TODO remove
+            $firstLayerItem = FirstLayerItem::findOrFail();
             $firstLayerItem->layer_item_id = $oldItem->id;
             $firstLayerItem->x_pos = rand(120, 750);
             $firstLayerItem->y_pos = rand(320, 620);
@@ -128,7 +128,6 @@ class LayerItemController extends Controller
             foreach ($request->categories as $categoryId) {
                 $firstLayerItem->categories()->attach($categoryId);
             }
-
         }
 
         if (isset($request->itemLinks)) {
@@ -151,7 +150,7 @@ class LayerItemController extends Controller
             }
         }
 
-        return $this->index();
+        return $this->show($id);
 
     }
 
