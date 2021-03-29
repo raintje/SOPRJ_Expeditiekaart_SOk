@@ -105,6 +105,13 @@ class LayerItemController extends Controller
         abort(404);
     }
 
+    public function editLocation()
+    {
+        return view('items.edit_location');
+    }
+
+
+
     public function update(Request $request, $id)
     {
         $oldItem = LayerItem::find($id);

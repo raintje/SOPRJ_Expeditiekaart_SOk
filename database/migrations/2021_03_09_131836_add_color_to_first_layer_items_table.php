@@ -14,7 +14,7 @@ class AddColorToFirstLayerItemsTable extends Migration
     public function up()
     {
         Schema::table('first_layer_items', function (Blueprint $table) {
-            $table->string("color");
+            $table->string("color")->nullable();
         });
     }
 
