@@ -47,7 +47,6 @@
             @endauth
         </div>
     @endif
-
     <div id="app">
         <app dusk="home-component"></app>
     </div>
