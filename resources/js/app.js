@@ -11,6 +11,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 //Main pages
 import App from './views/app.vue';
 import editLocation from './components/editLocation';
+import Navigation from './components/Navigation';
+import Legenda from './components/Legenda';
 
 Vue.component('l-image-overlay', LImageOverlay);
 Vue.component('l-popup', LPopup);
@@ -22,6 +24,10 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-rectangle', LRectangle);
 Vue.component('edit-location', editLocation);
+// Vue.component('Legenda', Legenda);
+// Vue.component('Navigation', Navigation);
+
+
 
 Vue.use(IconsPlugin);
 Vue.use(BootstrapVue);

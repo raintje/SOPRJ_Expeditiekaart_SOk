@@ -51,35 +51,40 @@
                 </select>
                 <div id="item-links-container">
 
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="inhoudInput">Inhoud</label>
-            <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{old('body','')}}</textarea>
-        </div>
+            <div class="form-group">
+                <label for="inhoudInput">Inhoud</label>
+                <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{old('body','')}}</textarea>
+            </div>
 
         <div class="form-group">
             <input id="files" type="file" name="files[]" class="file outline--none" multiple onchange="ValidateSize(this)">
         </div>
 
-        <button type="submit" class="btn btn-primary"> Opslaan </button>
-    </form>
-</div>
+            <button type="submit" class="btn btn-primary"> Opslaan </button>
+        </form>
+    </div>
 
-<script>
-    tinymce.init({
-      selector: '#inhoudInput',
-      language: 'nl'
-    });
-    function ValidateSize(file) {
-        let FileSize = file.files[0].size / 1024 / 1024; // in MB
-        if (FileSize > 2) {
-            alert('Bestand mag niet groter zijn dan 2MB');
-            $(file).val(''); //for clearing with Jquery
-        } else {
+        @section('script')
+        <script>
+            tinymce.init({
+              selector: '#inhoudInput',
+              language: 'nl'
+            });
 
-        }
-    }
-</script>
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ asset('js/item-form.js') }}"></script>
+            function ValidateSize(file) {
+                let FileSize = file.files[0].size / 1024 / 1024; // in MB
+                if (FileSize > 2) {
+                    alert('Bestand mag niet groter zijn dan 2MB');
+                    $(file).val(''); //for clearing with Jquery
+                } else {
+
+                }
+            }
+        </script>
+
+        <script src="{{ asset('js/item-form.js') }}" defer></script>
+        <script src="{{ mix('js/app.js') }}"></script>
+        @endsection
+@endsection

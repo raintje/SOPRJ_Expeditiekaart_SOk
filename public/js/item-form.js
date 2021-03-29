@@ -1,4 +1,5 @@
 function AddItemPath(elem, source){
+
     if(elem.selectedIndex != 0){
         let sourceElem = document.getElementById(source);
         let tagElem = createTagElement(elem);
@@ -25,7 +26,7 @@ function RemoveItemFromSelect(selectElement){
 function createTagElement(elem){
     let text = elem.options[elem.selectedIndex].text;
 
-    //tag (Main body) 
+    //tag (Main body)
     let tagElem = document.createElement("DIV");
     tagElem.classList.add("tag");
 
