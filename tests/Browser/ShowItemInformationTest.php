@@ -2,11 +2,8 @@
 
 namespace Tests\Browser;
 
-use Database\Seeders\LayerItemLayerItemSeeder;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Illuminate\Support\Facades\Log;
 
 class ShowItemInformationTest extends DuskTestCase
 {
