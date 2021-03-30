@@ -17,20 +17,23 @@ class ShowItemInformationTest extends DuskTestCase
         });
     }
 
-    public function testLinkedItem(){
-        $this->browse(function (Browser $browser){
-            $value = $browser->visit('/items/1')->text('@link-button');
+    public function testLinkedItem()
+    {
+        $this->browse(function (Browser $browser) {
+            $value = $browser->visit('/items/1')
+                             ->text('@link-button');
+                             
             $browser->click('@link-button')
                     ->assertSee($value);
         });
     }
 
-    public function testCanEditlink(){
-        $this->browse(function (Browser $browser){
+    public function testCanEditlink()
+    {
+        $this->browse(function (Browser $browser) {
             $browser->visit('/items/1')
-                ->click('@edit-button')
-                ->assertPathIs('/items/1/edit');
+                    ->click('@edit-button')
+                    ->assertPathIs('/items/1/edit');
         });
     }
-
 }
