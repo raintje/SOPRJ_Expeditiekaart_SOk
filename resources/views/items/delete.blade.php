@@ -9,7 +9,7 @@
         </div>
         <div class="align-self-end mt-2">
             <a class="btn btn-danger" href="{{route('destroy.item', $item->id)}}">Verwijderen</a>
-            <a class="btn btn-primary" href="{{route('show.item', $item->id)}}">Annuleren</a>
+            <a class="btn btn-outline-secondary" href="{{route('show.item', $item->id)}}">Annuleren</a>
         </div>
     </div>
 @endsection
