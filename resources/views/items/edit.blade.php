@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<head>
-    <!--standard mode for Tiny plugin -->
-    <script src="https://cdn.tiny.cloud/1/2t1jg49md5wferhnxq0lnsjm72c9ghml73cho300vr1sgv9w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+@extends('layouts.app')
 
-    <!-- external lib -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-
-    <!-- custom -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ 'Aanpassen ' . $item->title }}</title>
-</head>
-
-
+@section('content')
 <div class="container">
     <h4 class="text-center">Item {{ $item->title }} aanpassen </h1>
         @if(count($errors) > 0 )
@@ -47,13 +30,11 @@
                 <div class="d-flex flex-column flex-sm-row">
                     @foreach($categories as $category)
                     <div class="form-check custom-category-check mb-1">
-                        <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" 
-                        @if(!empty($itemcategories)) 
-                            @if($itemcategories->contains($category))
-                            checked>
-                            @else
-                            >
-                            @endif
+                        <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" @if(!empty($itemcategories)) @if($itemcategories->contains($category))
+                        checked>
+                        @else
+                        >
+                        @endif
                         @else
                         >
                         @endif
@@ -66,26 +47,22 @@
             </div>
 
             {{-- Selectlist linked items --}}
-            <h3>Vervolg paden:</h3>
-            @if(!empty($linkedItems))
-            <select id="itemPathSelect" class="custom-select mb-2 sm:flex sm:flex-col">
-                <option selected>Opties</option>
-                @foreach($existingItems as $item)
-                @if(!$linkedItems->contains($item))
-                <option value="{{ $item->id }}">{{$item->title}}</option>
+            <div class="form-group">
+                <label for="itemPathSelect">Vervolgpaden</label>
+                @if(!empty($linkedItems))
+                <select id="itemPathSelect" class="custom-select mb-2 sm:flex sm:flex-col">
+                    <option selected>Opties</option>
+                    @foreach($existingItems as $item)
+                    @if(!$linkedItems->contains($item))
+                    <option value="{{ $item->id }}">{{$item->title}}</option>
+                    @endif
+                    @endforeach
+                </select>
                 @endif
-                @endforeach
-            </select>
-
-            {{-- Linked items --}}
-            <div class="m-2 row justify-content-start">
-                @foreach($linkedItems as $linkedItem)
-                <div class="align-items-center text-center mb-2 mt-2 col-md-3">
-                    <a class="btn btn-outline-info w-100 h-100" href="{{ route('show.item', [$linkedItem->id]) }}">{{$linkedItem->title}}</a>
+                <div id="item-links-container">
+                    {{-- TODO: Show existing links --}}
                 </div>
-                @endforeach
             </div>
-            @endif
 
             {{-- Body --}}
             <div class="form-group">
@@ -120,13 +97,26 @@
 
         </form>
 </div>
+@endsection
 
+@section('script')
 <script>
     tinymce.init({
         selector: '#inhoudInput'
         , language: 'nl'
     });
 
+    function ValidateSize(file) {
+        let FileSize = file.files[0].size / 1024 / 1024; // in MB
+        if (FileSize > 2) {
+            alert('Bestand mag niet groter zijn dan 2MB');
+            $(file).val(''); //for clearing with Jquery
+        } else {
+
+        }
+    }
+
 </script>
+<script src="{{ asset('js/item-form.js') }}" defer></script>
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ asset('js/item-form.js') }}"></script>
+@endsection
