@@ -7,7 +7,9 @@ use App\Models\Category;
 use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
+use App\Models\LayerItemsLayerItems;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LayerItemController extends Controller
 {
@@ -101,9 +103,24 @@ class LayerItemController extends Controller
         return view('items.edit', ['item' => $item, 'categories' => $categories, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
     }
 
+    public function deleteLayerItemAppendix($id, $fileId){
+        $file = File::findOrFail($fileId);
+        Storage::disk('public')->delete($file->path);
+        $file->delete();
+
+        return redirect()->route('edit.item', ['id' => $id]);
+    }
+
+    public function deleteLinkedLayerItem($id, $linkedItemId){
+        $link = LayerItemsLayerItems::where(['layer_item_id' => $id,'linked_layer_item_id' => $linkedItemId])->first();
+
+        $link->delete();
+
+        return redirect()->route('edit.item', ['id' => $id]);
+    }
+
     public function update(Request $request, $id)
     {
-//        $oldItem = LayerItem::find($id);
         if(LayerItem::findOrFail($id) == null)
         {
             return redirect($this->show($id));
@@ -113,12 +130,12 @@ class LayerItemController extends Controller
         $body = $request->input('body'); // wat is dit?
 
 
-        $oldItem->title = $request->input('title'); // wat is dit? zit dit niet gwn in de request variable?
+        $oldItem->title = $request->input('title');
         $oldItem->body = $body;
         $oldItem->save();
 
         if (isset($request->categories)) {
-            $firstLayerItem = FirstLayerItem::findOrFail();
+            $firstLayerItem = new FirstLayerItem();
             $firstLayerItem->layer_item_id = $oldItem->id;
             $firstLayerItem->x_pos = rand(120, 750);
             $firstLayerItem->y_pos = rand(320, 620);

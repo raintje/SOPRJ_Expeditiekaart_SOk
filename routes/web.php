@@ -27,3 +27,5 @@ Route::get('/items/create', [LayerItemController::class, 'create'])->name('creat
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
+Route::get('/items/{id}/deleteFile/{fileId}', [LayerItemController::class, 'deleteLayerItemAppendix'])->name('delete.file');
+Route::get('/items/{id}/deleteLinkedFile/{linkId}', [LayerItemController::class, 'deleteLinkedLayerItem'])->name('delete.linkedFile');

@@ -68,7 +68,7 @@
                 <div class="card align-items-center text-center m-2 col-md-3">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $file->title }}</h5>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
+                        <a href="{{route('delete.file',['id' => $item->id, 'fileId' => $file->id])}}" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
                     </div>
                 </div>
                 @endforeach
@@ -88,7 +88,7 @@
                 <div class="card align-items-center text-center m-2 col-md-3">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $linkedItem->id }}: {{ $linkedItem->title }}</h5>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
+                        <a href="{{route('delete.linkedFile',['id' => $item->id, 'linkId' => $linkedItem->id ])}}" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
                     </div>
                 </div>
                 @endforeach
