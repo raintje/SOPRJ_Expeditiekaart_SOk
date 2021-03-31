@@ -112,6 +112,13 @@ class LayerItemController extends Controller
         return view('items.edit', ['item' => $item, 'categories' => $categories, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
     }
 
+    public function editLocation()
+    {
+        return view('items.edit_location');
+    }
+
+
+
     public function update(Request $request, $id)
     {
         $oldItem = LayerItem::find($id);
