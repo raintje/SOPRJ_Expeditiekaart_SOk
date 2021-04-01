@@ -133,39 +133,60 @@ class LayerItemController extends Controller
         $oldItem->title = $request->input('title');
         $oldItem->body = $body;
         $oldItem->save();
+        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
+        if ($firstLayerItem != null ){
+            if (isset($request->categories)){
+                //check for alle catagorien of ze al gekoppeld zijn. anders koppelen of ontkoppelen.
+                $attributes = ['catagories', $request->catagories];
+                $firstLayerItem->catagories->updateExistingPivot($firstLayerItem->id, $attributes);
+            }
 
-        if (isset($request->categories)) {
-            $firstLayerItem = new FirstLayerItem();
-            $firstLayerItem->layer_item_id = $oldItem->id;
-            $firstLayerItem->x_pos = rand(120, 750);
-            $firstLayerItem->y_pos = rand(320, 620);
+            if(!isset($request->categories)){
+                //Verwijder alle catagorien van firstlyeritem
+//                dd('hoi!@');
 
-            $firstLayerItem->save();
+                $firstLayerItem->delete($firstLayerItem->id);
+//                dd($firstLayerItem);
+            }
+        }else{
+            if (isset($request->categories)){
+                // maak firstlayeritem en voeg catagorien toe.
+                    $firstLayerItem = new FirstLayerItem();
+                    $firstLayerItem->layer_item_id = $oldItem->id;
+                    $firstLayerItem->x_pos = rand(120, 750);
+                    $firstLayerItem->y_pos = rand(320, 620);
 
-            foreach ($request->categories as $categoryId) {
-                $firstLayerItem->categories()->attach($categoryId);
+                    $firstLayerItem->save();
+
+                    foreach ($request->categories as $categoryId) {
+                        $firstLayerItem->categories()->attach($categoryId);
+                    }
+
             }
         }
 
-        if (isset($request->itemLinks)) {
-            foreach ($request->itemLinks as $linkedItemId) {
-                $oldItem->referencesLayerItems()->attach($linkedItemId);
-            }
-        }
 
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $formFile) {
-                $name = time() . '_' . $formFile->getClientOriginalName();
-                $filePath = $formFile->storeAs('files', $name, 'public');
-
-                $file = new File();
-                $file->layer_item_id = $oldItem->id;
-                $file->title = $name;
-                $file->type = $formFile->getClientOriginalExtension();
-                $file->path = $filePath;
-                $file->save();
-            }
-        }
+//
+//
+//        if (isset($request->itemLinks)) {
+//            foreach ($request->itemLinks as $linkedItemId) {
+//                $oldItem->referencesLayerItems()->attach($linkedItemId);
+//            }
+//        }
+//
+//        if ($request->hasFile('files')) {
+//            foreach ($request->file('files') as $formFile) {
+//                $name = time() . '_' . $formFile->getClientOriginalName();
+//                $filePath = $formFile->storeAs('files', $name, 'public');
+//
+//                $file = new File();
+//                $file->layer_item_id = $oldItem->id;
+//                $file->title = $name;
+//                $file->type = $formFile->getClientOriginalExtension();
+//                $file->path = $filePath;
+//                $file->save();
+//            }
+//        }
 
         return $this->show($id);
 
