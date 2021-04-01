@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LayerItemEditRequest;
 use App\Http\Requests\LayerItemStoreRequest;
 use App\Models\Category;
 use App\Models\File;
@@ -142,7 +143,7 @@ class LayerItemController extends Controller
         return view('items.edit_location');
     }
 
-    public function update(Request $request, $id)
+    public function update(LayerItemEditRequest $request, $id)
     {
         if (LayerItem::findOrFail($id) == null) {
             return redirect($this->show($id));

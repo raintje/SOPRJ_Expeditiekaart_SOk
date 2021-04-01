@@ -14,7 +14,7 @@
 
 <div class="container">
     <h1>Item {{ $item->title }} aanpassen </h1>
-    @if(count($errors) > 0 )
+    @if($errors->any() )
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -31,7 +31,7 @@
         @csrf
         <div class="form-group">
             <label for="titelInput">Titel</label>
-            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel" value="{{ $item->title }}">
+            <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel" value="{{old('title',$item->title)}}">
         </div>
         <div class="form-group">
             <label> Categorie </label>
@@ -57,7 +57,7 @@
         </div>
         <div class="form-group">
             <label for="inhoudInput">Inhoud</label>
-            <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ $item->body }}</textarea>
+            <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ old('body', $item->body) }}</textarea>
         </div>
 
         @if(!empty($files))
