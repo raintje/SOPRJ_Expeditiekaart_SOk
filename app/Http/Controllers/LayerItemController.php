@@ -145,9 +145,6 @@ class LayerItemController extends Controller
 
     public function update(LayerItemEditRequest $request, $id)
     {
-        if (LayerItem::findOrFail($id) == null) {
-            return redirect($this->show($id));
-        }
         $oldItem = LayerItem::findOrFail($id);
 
         $body = $request->input('body');
