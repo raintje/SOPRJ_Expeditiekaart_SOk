@@ -131,14 +131,15 @@ class LayerItemController extends Controller
 
     public function destroy($id)
     {
-        $succesfull = true;
-        if($succesfull){
+        $layerItem = LayerItem::findOrFail($id);
+        $layerItem->delete($id);
+
+        if(LayerItem::find($id) == null){
             return view('items.confirmedDelete');
         }
         else{
             return redirect($this->show(id));
         }
-        abort(404);
     }
 }
 
