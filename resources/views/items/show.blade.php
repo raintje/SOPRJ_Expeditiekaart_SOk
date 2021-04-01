@@ -4,7 +4,7 @@
     <div class="container">
         @yield('alert')
         <div class="float-right">
-            <a class="btn btn-outline-secondary" href="{{route('edit.item', $item->id)}}">Aanpassen</a>
+            <a dusk="edit-button" class="btn btn-outline-secondary" href="{{route('edit.item', $item->id)}}">Aanpassen</a>
             <a class="btn btn-outline-danger" href="{{route('delete.item', $item->id)}}">Verwijderen</a>
         </div>
         <h1 class="text-center">{{$item->title}}</h1>
@@ -45,16 +45,15 @@
             </div>
         @endif
 
-        @if(!$linkedItems->isEmpty())
-            <div class="m-2">
-                <h3>Vervolg paden:</h3>
-                <div class="m-2 row justify-content-start">
-                    @foreach($linkedItems as $linkedItem)
-                        <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
-                            <a class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
-                        </div>
-                    @endforeach
-                </div>
+    @if(!$linkedItems->isEmpty())
+        <div class="m-2">
+            <h3>Vervolg paden:</h3>
+            <div class="m-2 row justify-content-start">
+                @foreach($linkedItems as $linkedItem)
+                    <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
+                        <a class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
+                    </div>
+                @endforeach
             </div>
         @endif
     </div>
