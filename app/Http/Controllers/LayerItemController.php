@@ -17,7 +17,6 @@ class LayerItemController extends Controller
     public function index()
     {
         $items = LayerItem::all();
-
         return view('items.index', ['items' => $items]);
     }
 
@@ -77,12 +76,30 @@ class LayerItemController extends Controller
 
     public function show($id)
     {
-        $item = LayerItem::find($id);
-        if($item != null)
-        {
-            return view('items.show', ['item' => $item]);
+        $item = LayerItem::findOrFail($id);
+        $categories = null;
+
+        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
+        if ($firstLayerItem != null) {
+            $categories = $firstLayerItem->categories;
         }
-        abort(404);
+
+        $files = File::where('layer_item_id', $id)->get();
+        $linkedItems = $item->referencesLayerItems;
+
+        return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems]);
+    }
+
+    public function downloadFile($id){
+        $databaseFile = File::findOrFail($id);
+        $exists = Storage::disk('public')->exists(($databaseFile->path));
+
+        if(!$exists){
+            abort(404);
+        }
+
+        return Storage::disk('public')->download($databaseFile->path);
+        
     }
 
     public function edit($id)
@@ -118,6 +135,13 @@ class LayerItemController extends Controller
 
         return redirect()->route('edit.item', ['id' => $id]);
     }
+
+    public function editLocation()
+    {
+        return view('items.edit_location');
+    }
+
+
 
     public function update(Request $request, $id)
     {
@@ -194,13 +218,7 @@ class LayerItemController extends Controller
 
     public function destroy($id)
     {
-        $itemToDestroy = LayerItem::find($id);
-        if($itemToDestroy != null)
-        {
-            LayerItem::destroy($itemToDestroy);
-            return redirect($this->index());
-        }
-        return redirect($this->index());
+        abort(404);
     }
 }
 
