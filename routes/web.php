@@ -31,7 +31,7 @@ Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::get('/items/{id}/deleteFile/{fileId}', [LayerItemController::class, 'deleteLayerItemAppendix'])->name('delete.file');
 Route::get('/items/{id}/deleteLinkedFile/{linkId}', [LayerItemController::class, 'deleteLinkedLayerItem'])->name('delete.linkedFile');
-Route::put('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
+Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 
 Auth::routes();
