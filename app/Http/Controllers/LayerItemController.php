@@ -9,6 +9,7 @@ use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\DataTables;
 
 class LayerItemController extends Controller
 {
@@ -126,5 +127,23 @@ class LayerItemController extends Controller
     {
         abort(404);
     }
+
+    public function getItems(Request $request){
+
+        if ($request->ajax()) {
+            $data = LayerItem::all();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    return "<a href='" . route('edit.item', $row->id) . "' class='edit btn btn-success btn-sm'>Edit</a><a href='" . route('edit.item', $row->id) ."' class='delete btn btn-danger btn-sm'>Delete</a>";
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+//
+//        $items = LayerItem::all();
+//        return datatables()->of($items)->toJson();
+    }
+
 }
 

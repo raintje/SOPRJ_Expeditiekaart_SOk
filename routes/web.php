@@ -30,6 +30,9 @@ Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::put('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 
+Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
+
+
 Auth::routes();
 
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
