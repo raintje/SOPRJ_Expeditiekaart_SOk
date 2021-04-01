@@ -29,8 +29,7 @@ Route::post('/items/edit/location/save', [FirstLayerItemController::class, 'save
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::put('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
-Route::get('/items/{id}/delete', [LayerItemController::class, 'delete'])->name('delete.item');
-Route::get('/items/{id}/confirmDelete', [LayerItemController::class, 'destroy'])->name('destroy.item');
+Route::get('/items/{id}/delete', [LayerItemController::class, 'destroy'])->name('destroy.item');
 
 Auth::routes();
 
