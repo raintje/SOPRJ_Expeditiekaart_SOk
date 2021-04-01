@@ -38,7 +38,7 @@
         @endif
 
         <div class="m-2">
-            <?php echo $item->body; ?>
+            {!! $item->body !!}
         </div>
 
         @if(!$files->isEmpty())
