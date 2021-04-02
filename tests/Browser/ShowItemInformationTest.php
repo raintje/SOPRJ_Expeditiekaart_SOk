@@ -2,7 +2,9 @@
 
 namespace Tests\Browser;
 
+use App\Models\File;
 use App\Models\FirstLayerItem;
+use App\Models\LayerItemsLayerItems;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -12,7 +14,7 @@ class ShowItemInformationTest extends DuskTestCase
     public function testCanDownload()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
+            $browser->visit('/items/' . strval(File::first()->layer_item_id))
                     ->clickLink('Download')
                     ->assertPathBeginsWith('/files/');
         });
@@ -21,7 +23,7 @@ class ShowItemInformationTest extends DuskTestCase
     public function testLinkedItem()
     {
         $this->browse(function (Browser $browser) {
-            $value = $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
+            $value = $browser->visit('/items/' . strval(LayerItemsLayerItems::first()->id))
                              ->text('@link-button');
                              
             $browser->click('@link-button')
@@ -42,7 +44,8 @@ class ShowItemInformationTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
                     ->clickLink('Verwijderen')
-                    ->clickLink('Verwijderen')
+                    ->pause(500)
+                    ->click('@modal-delete-button')
                     ->assertPathIs('/items/'. strval(FirstLayerItem::first()->id) . '/delete')
                     ->assertSee('Het item is succesvol verwijderd!')
                     ->clickLink('Terug naar de expeditiekaart')
