@@ -33,5 +33,7 @@ Route::get('/items/{id}/deleteFile/{fileId}', [LayerItemController::class, 'dele
 Route::get('/items/{id}/deleteLinkedFile/{linkId}', [LayerItemController::class, 'deleteLinkedLayerItem'])->name('delete.linkedFile');
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
+Route::get('/items/{id}/delete', [LayerItemController::class, 'destroy'])->name('destroy.item');
+
 
 Auth::routes();
