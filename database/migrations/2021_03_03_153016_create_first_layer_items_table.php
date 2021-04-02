@@ -20,7 +20,7 @@ class CreateFirstLayerItemsTable extends Migration
             $table->integer('x_pos')->nullable();
             $table->integer('y_pos')->nullable();
             $table->timestamps();
-            $table->foreign('layer_item_id')->references('id')->on('layer_items');
+            $table->foreign('layer_item_id')->references('id')->on('layer_items')->onDelete('cascade');
         });
     }
 
