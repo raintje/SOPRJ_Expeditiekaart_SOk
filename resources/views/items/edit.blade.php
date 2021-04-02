@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h4 class="text-center">Item {{ $item->title }} aanpassen </h1>
+        <h4 class="text-center">Item {{ $item->title }} aanpassen </h4>
             @if (count($errors) > 0)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="titelInput">Titel</label>
                     <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel"
-                        value="{{ $item->title }}">
+                        value="{{ old('title', $item->title) }}">
                 </div>
 
                 {{-- Categories --}}
@@ -75,7 +75,7 @@
     {{-- Body --}}
     <div class="form-group">
         <label for="inhoudInput">Inhoud</label>
-        <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ $item->body }}</textarea>
+        <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ old('body', item->body) }}</textarea>
     </div>
 
     {{-- Linked files --}}
