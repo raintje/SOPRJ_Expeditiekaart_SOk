@@ -16,7 +16,7 @@
                     <strong>Dit kan <u>niet</u> ongedaan gemaakt worden!</strong>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-danger" href="{{route('destroy.item', $item->id)}}">Verwijderen</a>
+                    <a class="btn btn-danger" dusk="modal-delete-button" href="{{route('destroy.item', $item->id)}}">Verwijderen</a>
                     <a class="btn btn-outline-secondary" href="javascript:void(0)" data-dismiss="modal" aria-label="Close">Annuleren</a>
                 </div>
             </div>
@@ -71,7 +71,7 @@
             <div class="m-2 row justify-content-start">
                 @foreach($linkedItems as $linkedItem)
                     <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
-                        <a class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
+                        <a dusk="link-button" class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
                     </div>
                 @endforeach
             </div>
