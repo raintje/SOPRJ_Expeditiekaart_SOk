@@ -208,6 +208,12 @@ class LayerItemController extends Controller
             $firstLayerItem->delete();
         }
 
+        $files = File::where('layer_item_id', $id);
+        foreach ($files as $file){
+            Storage::disk('public')->delete($file->path);
+            $file->delete();
+        }
+
         $layerItem->delete($id);
 
         if(LayerItem::find($id) == null){

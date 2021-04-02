@@ -15,7 +15,7 @@ class CreateFirstLayerItemsTable extends Migration
     {
         Schema::create('first_layer_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('layer_item_id');
+            $table->unsignedBigInteger('layer_item_id')->unique();
             $table->enum('categorie', ['familie/sociaal','bedrijfskunde','persoonlijke ontwikkeling']);
             $table->integer('x_pos')->nullable();
             $table->integer('y_pos')->nullable();
