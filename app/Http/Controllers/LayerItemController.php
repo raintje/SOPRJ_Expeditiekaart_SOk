@@ -91,7 +91,14 @@ class LayerItemController extends Controller
 
     public function downloadFile($id){
         $databaseFile = File::findOrFail($id);
+        $exists = Storage::disk('public')->exists(($databaseFile->path));
+
+        if(!$exists){
+            abort(404);
+        }
+
         return Storage::disk('public')->download($databaseFile->path);
+
     }
 
     public function edit($id)
@@ -131,6 +138,13 @@ class LayerItemController extends Controller
 
     public function destroy($id)
     {
+        $succesfull = true;
+        if($succesfull){
+            return view('items.confirmedDelete');
+        }
+        else{
+            return redirect($this->show(id));
+        }
         abort(404);
     }
 }
