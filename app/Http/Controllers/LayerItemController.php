@@ -132,6 +132,12 @@ class LayerItemController extends Controller
     public function destroy($id)
     {
         $layerItem = LayerItem::findOrFail($id);
+        $firstLayerItem = FirstLayerItem::where('layer_item_id', $id);
+
+        if($firstLayerItem != null){
+            $firstLayerItem->delete();
+        }
+
         $layerItem->delete($id);
 
         if(LayerItem::find($id) == null){
