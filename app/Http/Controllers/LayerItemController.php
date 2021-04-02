@@ -204,24 +204,22 @@ class LayerItemController extends Controller
         $layerItem = LayerItem::findOrFail($id);
         $firstLayerItem = FirstLayerItem::where('layer_item_id', $id);
 
-        if($firstLayerItem != null){
+        if ($firstLayerItem != null) {
             $firstLayerItem->delete();
         }
 
         $files = File::where('layer_item_id', $id);
-        foreach ($files as $file){
+        foreach ($files as $file) {
             Storage::disk('public')->delete($file->path);
             $file->delete();
         }
 
         $layerItem->delete($id);
 
-        if(LayerItem::find($id) == null){
-            return view('items.confirmedDelete');
-        }
-        else{
+        if (LayerItem::find($id) != null) {
             return redirect($this->show(id));
         }
+        return view('items.confirmedDelete');
     }
 }
 
