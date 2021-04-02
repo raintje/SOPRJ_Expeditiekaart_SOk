@@ -34,7 +34,19 @@ class ShowItemInformationTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
                     ->click('@edit-button')
-                    ->assertPathIs('/items/1/edit');
+                    ->assertPathIs('/items/' . strval(FirstLayerItem::first()->id) . '/edit');
+        });
+    }
+
+    public function testCanDeleteItem(){
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
+                    ->clickLink('Verwijderen')
+                    ->clickLink('Verwijderen')
+                    ->assertPathIs('/items/'. strval(FirstLayerItem::first()->id) . '/delete')
+                    ->assertSee('Het item is succesvol verwijderd!')
+                    ->clickLink('Terug naar de expeditiekaart')
+                    ->assertPathIs('/');
         });
     }
 }
