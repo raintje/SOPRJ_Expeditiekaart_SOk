@@ -201,6 +201,13 @@ class LayerItemController extends Controller
 
     public function destroy($id)
     {
+        $succesfull = true;
+        if($succesfull){
+            return view('items.confirmedDelete');
+        }
+        else{
+            return redirect($this->show(id));
+        }
         abort(404);
     }
 }
