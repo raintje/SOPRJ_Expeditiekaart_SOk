@@ -44,7 +44,6 @@ class ShowItemInformationTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
                     ->clickLink('Verwijderen')
-                    ->pause(500)
                     ->click('@modal-delete-button')
                     ->assertPathIs('/items/'. strval(FirstLayerItem::first()->id) . '/delete')
                     ->assertSee('Het item is succesvol verwijderd!')
