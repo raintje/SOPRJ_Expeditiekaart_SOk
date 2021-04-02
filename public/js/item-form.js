@@ -47,6 +47,7 @@ function createTagElement(elem){
 
 function RemoveItemPath(tagElem, selectElem){
     let optionElem = document.createElement("OPTION");
+    console.log(tagElem)
     optionElem.text = tagElem.querySelector(".tag-text").innerText;
     optionElem.setAttribute("value", tagElem.querySelector("Input").value);
     selectElem.add(optionElem);
@@ -55,13 +56,12 @@ function RemoveItemPath(tagElem, selectElem){
 }
 
 function addRemoveToTags(){
-    let container = document.getElementById("item-links-container");
-    let closeElements = container.getElementsByClassName("tag-close");
-    let selectContainer = document.getElementById("item-links-container");
+    let tagElements = document.querySelectorAll("#item-links-container .tag");
+    let selectContainer = document.getElementById("itemPathSelect");
 
-    for(let i = 0; i < closeElements.length; i++){
-        closeElements[i].addEventListener("click", () => {
-            RemoveItemPath(this, selectContainer)
+    for(let i = 0; i < tagElements.length; i++){
+        tagElements[i].querySelector(".tag-close").addEventListener("click", () => {
+            RemoveItemPath(tagElements[i], selectContainer);
         });
     }
 }
