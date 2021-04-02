@@ -132,8 +132,11 @@ class LayerItemController extends Controller
 
     public function deleteLinkedLayerItem($id, $linkedItemId)
     {
+
         $link = LayerItemsLayerItems::where(['layer_item_id' => $id, 'linked_layer_item_id' => $linkedItemId])->first();
-        $link->delete();
+        if ($link != null) {
+            $link->delete();
+        }
 
         return redirect()->route('edit.item', ['id' => $id]);
     }
