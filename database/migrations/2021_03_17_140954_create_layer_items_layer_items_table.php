@@ -16,9 +16,9 @@ class CreateLayerItemsLayerItemsTable extends Migration
         Schema::create('layer_items_layer_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('layer_item_id');
-            $table->foreign('layer_item_id')->references('id')->on('layer_items');
+            $table->foreign('layer_item_id')->references('id')->on('layer_items')->onDelete('cascade');
             $table->unsignedBigInteger('linked_layer_item_id');
-            $table->foreign('linked_layer_item_id')->references('id')->on('layer_items');
+            $table->foreign('linked_layer_item_id')->references('id')->on('layer_items')->onDelete('cascade');
             $table->timestamps();
         });
     }
