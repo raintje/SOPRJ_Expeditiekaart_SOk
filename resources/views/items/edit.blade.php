@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+    @section('head_script')
+    <script src="https://cdn.tiny.cloud/1/2t1jg49md5wferhnxq0lnsjm72c9ghml73cho300vr1sgv9w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    @endsection
+
 @section('content')
     <div class="container">
         <h4 class="text-center">Item {{ $item->title }} aanpassen </h4>
@@ -75,7 +79,7 @@
     {{-- Body --}}
     <div class="form-group">
         <label for="inhoudInput">Inhoud</label>
-        <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ old('body', item->body) }}</textarea>
+        <textarea class="form-control" id="inhoudInput" name="body" rows="15">{{ old('body', $item->body) }}</textarea>
     </div>
 
     {{-- Linked files --}}
