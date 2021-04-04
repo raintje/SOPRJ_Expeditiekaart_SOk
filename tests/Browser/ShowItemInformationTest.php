@@ -10,7 +10,10 @@ use Tests\DuskTestCase;
 
 class ShowItemInformationTest extends DuskTestCase
 {
-
+    /**
+     * @group showItem
+     * @group editItems
+     */
     public function testCanDownload()
     {
         $this->browse(function (Browser $browser) {
@@ -20,6 +23,10 @@ class ShowItemInformationTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group showItem
+     * @group editItems
+     */
     public function testLinkedItem()
     {
         $this->browse(function (Browser $browser) {
@@ -31,6 +38,10 @@ class ShowItemInformationTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group showItem
+     * @group editItems
+     */
     public function testCanEditlink()
     {
         $this->browse(function (Browser $browser) {
@@ -40,6 +51,10 @@ class ShowItemInformationTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group showItem
+     * @group deleteItem
+     */
     public function testCanDeleteItem(){
         $this->browse(function (Browser $browser) {
             $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
