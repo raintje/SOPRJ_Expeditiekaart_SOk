@@ -30,14 +30,14 @@ return [
     |
     */
     'events_whitelist' => [
-        'created', 'updating', 'deleting', 'restored',
+        'updating', 'deleting', 'restored',
     ],
 
     /*
     |--------------------------------------------------------------
     | Attributes blacklist
     |--------------------------------------------------------------
-    | 
+    |
     | Please add the whole class names. Example: \App\User:class
     | For each model, attributes in its respect array will NOT be recorded into meta when performing update operation.
     |
@@ -59,7 +59,7 @@ return [
     |
     */
     'user_blacklist' => [
-        
+
     ],
 
     /*
@@ -91,7 +91,7 @@ return [
     |
     */
     'env_blacklist' => [
-        
+
     ],
 
     /*
@@ -107,5 +107,5 @@ return [
     |
     */
     'auth_guards' => null,
-    
+
 ];
