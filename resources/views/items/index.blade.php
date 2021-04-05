@@ -10,14 +10,15 @@
 
 @section('content')
 
+
 <div class="container mt-5">
     <h2 class="mb-4">Item overzicht</h2>
     <table id="itemsTable" class="table table-bordered yajra-datatable">
         <thead>
         <tr>
             <th>Titel</th>
-            <th>inhoud</th>
-            <th>acties</th>
+            <th>Inhoud</th>
+            <th>Acties</th>
 
         </tr>
         </thead>
