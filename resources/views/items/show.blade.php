@@ -100,7 +100,7 @@
                         @foreach($histories as $history)
                             @foreach($history->meta as $historyData)
                                 <li>
-                                    <a target="_blank" href="#">{{$historyData['key']}}</a>
+                                    <a href="#">{{$historyData['key']}}</a>
                                     <a href="#"
                                        class="float-right">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
                                     <p>{!! $historyData['old']!!}</p>
