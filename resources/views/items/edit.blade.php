@@ -20,7 +20,7 @@
                 </div>
             @endif
 
-            <form method="PUT" action="{{ route('update.item', ['id' => $item->id]) }}"
+            <form method="post" action="{{ route('update.item', ['id' => $item->id]) }}"
                 enctype="multipart/form-data">
                 @csrf
                 {{-- Title --}}
@@ -58,9 +58,9 @@
         @if (!empty($linkedItems))
             <select id="itemPathSelect" class="custom-select mb-2 sm:flex sm:flex-col">
                 <option selected>Opties</option>
-                @foreach ($existingItems as $item)
-                    @if (!$linkedItems->contains($item))
-                        <option value="{{ $item->id }}">{{ $item->title }}</option>
+                @foreach ($existingItems as $itemLink)
+                    @if (!$linkedItems->contains($itemLink))
+                        <option value="{{ $itemLink->id }}">{{ $itemLink->title }}</option>
                     @endif
                 @endforeach
             </select>
