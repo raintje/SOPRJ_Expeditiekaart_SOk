@@ -103,7 +103,7 @@
                                     <a target="_blank" href="#">{{$historyData['key']}}</a>
                                     <a href="#"
                                        class="float-right">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
-                                    <p>{{$historyData['old']}}</p>
+                                    <p>{!! $historyData['old']!!}</p>
                                 </li>
                             @endforeach
                         @endforeach
