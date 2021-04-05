@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('head_script')
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"  rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" defer rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
@@ -39,16 +40,20 @@
                 $('#itemsTable').DataTable({
                     processing: true,
                     serverSide: true,
+                    autoWidth: false,
                     ajax: "{{ route('get.item') }}",
                     columns: [
-                        {data: 'title', name: 'Titel'},
-                        {data: 'body', name: 'Inhoud'},
+                        {data: 'title', name: 'title', sortable: true,},
+                        {data: 'body', name: 'body'},
                         {
                             data: 'action',
                             name: 'acties',
-                            orderable: true,
+
                         },
-                    ]
+                    ],
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Dutch.json'
+                    }
                 });
 
             });
