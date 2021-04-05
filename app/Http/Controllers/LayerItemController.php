@@ -229,7 +229,7 @@ class LayerItemController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    return " <div  class='d-flex'> <a  href='" . route('edit.item', $row->id) . "' style='min-width:65px; ' class='mw-100 btn btn-success btn-xs pl-2'>Edit</a><a style='min-width:65px; margin-left:4px'  href='" . route('edit.item', $row->id) ."' class=' btn btn-danger btn-xs pl-2'>Delete</a></div>";
+                    return " <div  class='d-flex'> <a  href='" . route('edit.item', $row->id) . "' style='min-width:65px; ' class='mw-100 btn btn-success btn-xs pl-2'>Edit</a><a style='min-width:65px; margin-left:4px'  href='" . route('destroy.item', $row->id) ."' class=' btn btn-danger btn-xs pl-2'>Delete</a></div>";
                 })
                 ->rawColumns(['action', 'body'])
                 ->make(true);
