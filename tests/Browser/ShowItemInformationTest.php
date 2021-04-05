@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItemsLayerItems;
 use Laravel\Dusk\Browser;
+use SebastianBergmann\Environment\Console;
 use Tests\DuskTestCase;
 
 class ShowItemInformationTest extends DuskTestCase
@@ -55,10 +56,13 @@ class ShowItemInformationTest extends DuskTestCase
      * @group showItem
      * @group deleteItem
      */
-    public function testCanDeleteItem(){
+    public function testCanDeleteItem()
+    {
         $this->browse(function (Browser $browser) {
+
             $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
                     ->clickLink('Verwijderen')
+                    ->pause(500)
                     ->click('@modal-delete-button')
                     ->assertPathIs('/items/'. strval(FirstLayerItem::first()->id) . '/delete')
                     ->assertSee('Het item is succesvol verwijderd!')
