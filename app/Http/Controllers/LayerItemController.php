@@ -234,9 +234,7 @@ class LayerItemController extends Controller
                 ->rawColumns(['action', 'body'])
                 ->make(true);
         }
-//
-//        $items = LayerItem::all();
-//        return datatables()->of($items)->toJson();
+        return null;
     }
 
 }
