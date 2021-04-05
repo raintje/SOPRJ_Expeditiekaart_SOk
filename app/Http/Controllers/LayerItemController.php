@@ -178,9 +178,8 @@ class LayerItemController extends Controller
         }
 
         if (isset($request->itemLinks)) {
-            foreach ($request->itemLinks as $linkedItemId) {
-                $oldItem->referencesLayerItems()->attach($linkedItemId);
-            }
+                $oldItem->referencesLayerItems()->sync($request->itemLinks);
+
         }
 
         if ($request->hasFile('files')) {
