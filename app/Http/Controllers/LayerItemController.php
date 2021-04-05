@@ -79,9 +79,11 @@ class LayerItemController extends Controller
     public function show($id)
     {
         $item = LayerItem::findOrFail($id);
+        $histories = $item->histories()->orderBy('performed_at', 'desc')->get();
         $categories = null;
 
         $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
+
         if ($firstLayerItem != null) {
             $categories = $firstLayerItem->categories;
         }
@@ -89,7 +91,7 @@ class LayerItemController extends Controller
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
-        return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems]);
+        return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems, 'histories' => $histories]);
     }
 
     public function downloadFile($id)
@@ -118,6 +120,7 @@ class LayerItemController extends Controller
         }
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
+
 
         return view('items.edit', ['item' => $item, 'categories' => $categories, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
     }
@@ -177,9 +180,8 @@ class LayerItemController extends Controller
         }
 
         if (isset($request->itemLinks)) {
-            foreach ($request->itemLinks as $linkedItemId) {
-                $oldItem->referencesLayerItems()->attach($linkedItemId);
-            }
+                $oldItem->referencesLayerItems()->sync($request->itemLinks);
+
         }
 
         if ($request->hasFile('files')) {

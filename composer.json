@@ -17,7 +17,8 @@
         "laravel/tinker": "2.6.0",
         "laravel/ui": "^3.2",
         "php-webdriver/webdriver": "1.9.0",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "panoscape/history": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "2.5.13",
