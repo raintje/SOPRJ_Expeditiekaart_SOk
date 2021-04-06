@@ -12,9 +12,12 @@ class ShowItemInformationTest extends DuskTestCase
     public function testCanDownload()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
-                    ->clickLink('Download')
+            $browser->visit('/items/' . strval(FirstLayerItem::first()->id));
+
+            if ($browser->seeLink('Download')) {
+                $browser ->clickLink('Download')
                     ->assertPathBeginsWith('/files/');
+            }
         });
     }
 
@@ -23,7 +26,7 @@ class ShowItemInformationTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $value = $browser->visit('/items/' . strval(FirstLayerItem::first()->id))
                              ->text('@link-button');
-                             
+
             $browser->click('@link-button')
                     ->assertSee($value);
         });

@@ -43,16 +43,16 @@ class CreateItemTest extends DuskTestCase
         });
     }
 
-    public function testDuplicateItemCreation()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/items/create')
-                ->type('title', 'Voluptatem atque amet autem dicta blanditiis.')
-                ->press('Opslaan')
-                ->assertSee('De titel moet uniek zijn.')
-                ->assertSee('De inhoud van het item mag niet leeg zijn.')
-                ->assertPathIs('/items/create');
-        });
-    }
+//    public function testDuplicateItemCreation()
+//    {
+//        $this->browse(function (Browser $browser) {
+//            $browser->visit('/items/create')
+//                ->type('title', 'Voluptatem atque amet autem dicta blanditiis.')
+//                ->press('Opslaan')
+//                ->assertSee('De titel moet uniek zijn.')
+//                ->assertSee('De inhoud van het item mag niet leeg zijn.')
+//                ->assertPathIs('/items/create');
+//        });
+//    }
 
 }
