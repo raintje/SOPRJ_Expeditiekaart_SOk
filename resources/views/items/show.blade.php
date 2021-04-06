@@ -75,7 +75,7 @@
             <div class="m-2 row justify-content-start">
                 @foreach($linkedItems as $linkedItem)
                     <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
-                        <a class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
+                        <a dusk="link-button" class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
                     </div>
                 @endforeach
             </div>

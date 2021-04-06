@@ -20,8 +20,8 @@ class ShowItemInformationTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/items/' . strval(File::first()->layer_item_id))
-                    ->clickLink('Download')
-                    ->assertPathBeginsWith('/files/');
+                ->clickLink('Download')
+                ->assertPathBeginsWith('/files/');
         });
     }
 
