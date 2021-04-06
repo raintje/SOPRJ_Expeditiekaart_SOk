@@ -78,9 +78,11 @@ class LayerItemController extends Controller
     public function show($id)
     {
         $item = LayerItem::findOrFail($id);
+        $histories = $item->histories()->orderBy('performed_at', 'desc')->get();
         $categories = null;
 
         $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
+
         if ($firstLayerItem != null) {
             $categories = $firstLayerItem->categories;
         }
@@ -88,7 +90,7 @@ class LayerItemController extends Controller
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
-        return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems]);
+        return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems, 'histories' => $histories]);
     }
 
     public function downloadFile($id)
@@ -115,9 +117,9 @@ class LayerItemController extends Controller
         if ($firstLayerItem != null) {
             $itemcategories = $firstLayerItem->categories;
         }
-
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
+
 
         return view('items.edit', ['item' => $item, 'categories' => $categories, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
     }
@@ -177,9 +179,8 @@ class LayerItemController extends Controller
         }
 
         if (isset($request->itemLinks)) {
-            foreach ($request->itemLinks as $linkedItemId) {
-                $oldItem->referencesLayerItems()->attach($linkedItemId);
-            }
+                $oldItem->referencesLayerItems()->sync($request->itemLinks);
+
         }
 
         if ($request->hasFile('files')) {
@@ -201,14 +202,25 @@ class LayerItemController extends Controller
 
     public function destroy($id)
     {
-        $succesfull = true;
-        if($succesfull){
-            return view('items.confirmedDelete');
+        $layerItem = LayerItem::findOrFail($id);
+        $firstLayerItem = FirstLayerItem::where('layer_item_id', $id);
+
+        if ($firstLayerItem != null) {
+            $firstLayerItem->delete();
         }
-        else{
+
+        $files = File::where('layer_item_id', $id);
+        foreach ($files as $file) {
+            Storage::disk('public')->delete($file->path);
+            $file->delete();
+        }
+
+        $layerItem->delete($id);
+
+        if (LayerItem::find($id) != null) {
             return redirect($this->show(id));
         }
-        abort(404);
+        return view('items.confirmedDelete');
     }
 }
 

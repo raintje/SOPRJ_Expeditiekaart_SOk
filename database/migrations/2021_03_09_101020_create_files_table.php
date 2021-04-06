@@ -20,7 +20,7 @@ class CreateFilesTable extends Migration
             $table->string('type');
             $table->string('path');
             $table->timestamps();
-            $table->foreign('layer_item_id')->references('id')->on('layer_items');
+            $table->foreign('layer_item_id')->references('id')->on('layer_items')->onDelete('cascade');
         });
     }
 
