@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Create Database
-        run: php artisan migrate:fresh --seed --env=dusk.local
       - name: Install Composer Dependencies
         run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+      - name: Create Database
+        run: php artisan migrate:fresh --seed --env=dusk.local
       - name: Generate Application Key
         run: php artisan key:generate
       - name: Upgrade Chrome Driver
