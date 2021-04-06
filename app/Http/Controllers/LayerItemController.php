@@ -73,7 +73,6 @@ class LayerItemController extends Controller
         }
 
         return redirect()->route('items');
-//        return redirect($this->show($layerItem->id)); -> kan gebruikt worden wanneer de show method werkt.
     }
 
     public function show($id)
