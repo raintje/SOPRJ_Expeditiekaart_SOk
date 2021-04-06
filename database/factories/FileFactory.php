@@ -24,12 +24,11 @@ class FileFactory extends Factory
     {
         $layerItems = LayerItem::pluck('id')->toArray();
         $categories = ['image', 'video'];
-        $testBlurbs = ['testblurb one', 'testblurb two', 'testblurb three', 'testblurb four'];
         return [
             'layer_item_id' => $this->faker->randomElement($layerItems),
-            'title' => $this->faker->randomElement($testBlurbs),
+            'title' => 'Bestandnaam',
             'type' => $this->faker->randomElement($categories),
-            'path' => $this->faker->randomElement($testBlurbs)
+            'path' => 'Pad/Naar/Bestand/In/Filesystem',
         ];
     }
 }

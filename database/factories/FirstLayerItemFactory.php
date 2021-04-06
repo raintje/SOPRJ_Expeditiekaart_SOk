@@ -25,7 +25,7 @@ class FirstLayerItemFactory extends Factory
         $layerItems = LayerItem::pluck('id')->toArray();
 
         return [
-            'layer_item_id' => $this->faker->randomElement($layerItems),
+            'layer_item_id' => $this->faker->unique()->randomElement($layerItems),
             'x_pos' => $this->faker->numberBetween(120,750),
             'y_pos' =>$this->faker->numberBetween(320,620)
         ];

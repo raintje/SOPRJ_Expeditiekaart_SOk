@@ -9,7 +9,7 @@
             ref="map"
             :min-zoom="minZoom"
             :crs="crs"
-            style="height: 98vh; width: 100%;"
+            style="height: 100vh; width: 100%;"
             :max-bounds="maxBounds"
 
         >
@@ -19,7 +19,7 @@
             />
 
             <l-marker @add="openPopup" v-for="item in items"
-                      :lat-lng="location(item.y_pos, item.x_pos)" :key="item.id">
+                      :lat-lng="item.position" :key="item.id">
 
                 <l-icon
                     :icon-anchor="staticAnchor"
@@ -28,7 +28,9 @@
                 >
 
                     <l-tooltip :tooltip-anchor="tooltipAnchor" :content="item.layer_item.body.slice(0, 200)"/>
-                    <l-popup :options="{ autoClose: false, closeOnClick: false }" :content="item.layer_item.title"/>
+                    <l-popup :options="{ autoClose: false, closeOnClick: false }">
+                        <div @click="navigate(item.layer_item_id)">{{ item.layer_item.title }}</div>
+                    </l-popup>
                 </l-icon>
             </l-marker>
         </l-map>
@@ -57,7 +59,8 @@ export default {
             items: [],
             staticAnchor: [15, 0],
             tooltipAnchor: [15, 0],
-            travel: [[145.0, 175.2], [8.3, 218.7]]
+            travel: [[145.0, 175.2], [8.3, 218.7]],
+            Laravel: window.Laravel,
         };
     },
     mounted() {
@@ -68,6 +71,9 @@ export default {
     },
 
     methods: {
+        navigate: function (id){
+            window.location.href = `/items/${id}`;
+        },
         location: function (x, y) {
             return new latLng(x, y);
         },
@@ -82,19 +88,15 @@ export default {
 
             let colors = item.categories.map(i => i.color);
 
-            if(colors.length === 1){
-                return baseClass +" "+ item.categories[0].color;
-            }
-            else if(colors.includes("red", "green")){
+            if (colors.length === 1) {
+                return baseClass + " " + item.categories[0].color;
+            } else if (colors.includes("red", "green")) {
                 return baseClass + " red-green"
-            }
-            else if(colors.includes("red", "blue")){
+            } else if (colors.includes("red", "blue")) {
                 return baseClass + " blue-red"
-            }
-            else if(colors.includes("blue", "green")){
+            } else if (colors.includes("blue", "green")) {
                 return baseClass + " blue-green"
-            }
-            else{
+            } else {
                 return baseClass;
             }
         },

@@ -9,11 +9,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "doctrine/dbal": "^3.0",
         "fideloper/proxy": "4.4.1",
         "fruitcake/laravel-cors": "2.0.3",
         "guzzlehttp/guzzle": "7.2.0",
         "laravel/framework": "8.29.0",
         "laravel/tinker": "2.6.0",
+        "laravel/ui": "^3.2",
+        "panoscape/history": "^2.2",
         "php-webdriver/webdriver": "1.9.0"
     },
     "require-dev": {
@@ -32,7 +35,8 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+            ]
         }
     },
     "autoload": {

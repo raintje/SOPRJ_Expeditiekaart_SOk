@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\LayerItem;
+use App\Observers\LayerItemObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
