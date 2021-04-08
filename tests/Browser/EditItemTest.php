@@ -19,21 +19,24 @@ class EditItemTest extends DuskTestCase
     }
 
     /**
-     * TODO
+     * Takes a random item and tries to input invalid data.
+     * @return void
      */
-    public function testOne() {
+    public function testEditValidation() {
         //TODO
     }
 
     /**
-     * TODO
+     * Asserts if the item's old data is correctly displayed on the page.
+     * @return void
      */
-    public function testTwo() {
+    public function testEditOldData() {
         //TODO
     }
 
     /**
-     * TODO
+     * Asserts if the page correctly displays a newly selected linked item.
+     * @return void
      */
     public function testThree() {
         //TODO
