@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FirstLayerItemController;
 use App\Http\Controllers\LayerItemController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +29,10 @@ Route::get('/items/edit/location', [LayerItemController::class, 'editLocation'])
 Route::post('/items/edit/location/save', [FirstLayerItemController::class, 'saveLocations'])->name('edit.item.location.save');
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
-Route::put('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
-
-Auth::routes();
-
+Route::get('/items/{id}/deleteFile/{fileId}', [LayerItemController::class, 'deleteLayerItemAppendix'])->name('delete.file');
+Route::get('/items/{id}/deleteLinkedFile/{linkId}', [LayerItemController::class, 'deleteLinkedLayerItem'])->name('delete.linkedFile');
+Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
+Route::get('/items/{id}/delete', [LayerItemController::class, 'destroy'])->name('destroy.item');
+Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
+Auth::routes();
