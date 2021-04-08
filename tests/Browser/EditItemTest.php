@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\Models\FirstLayerItem;
+use App\Models\LayerItem;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -19,11 +20,22 @@ class EditItemTest extends DuskTestCase
     }
 
     /**
-     * Takes a random item and tries to input invalid data.
+     * Asserts if the validation is correctly applied to the title field.
      * @return void
      */
     public function testEditValidation() {
-        //TODO
+        $this->browse(function (Browser $browser) {
+            $item = $this->faker()->randomElement(LayerItem::all());
+            $browser -> visit('/items/' . $item->id . '/edit' )
+                     -> type('title', '')
+                     -> press('Wijzigingen opslaan')
+                     -> assertPathIs('/items/' . $item->id . '/edit')
+                     -> assertSee('De titel van een item is verplicht.')
+                     -> type('title', $item->title)
+                     -> press('Wijzigingen opslaan')
+                     -> assertPathIs('/items/' . $item->id . '/edit')
+                     -> assertSee('De titel moet uniek zijn.');
+        });
     }
 
     /**
@@ -31,7 +43,12 @@ class EditItemTest extends DuskTestCase
      * @return void
      */
     public function testEditOldData() {
-        //TODO
+        $this->browse(function (Browser $browser) {
+            $item = $this->faker()->randomElement(LayerItem::all());
+            $browser -> visit('/items/' . $item->id . '/edit')
+                     -> assertSee($item->title)
+                     -> assertSee($item->body);
+        });
     }
 
     /**

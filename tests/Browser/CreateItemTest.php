@@ -2,12 +2,22 @@
 
 namespace Tests\Browser;
 
+use App\Models\LayerItem;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class CreateItemTest extends DuskTestCase
 {
+
+    use WithFaker;
+
+    protected function setUpFaker()
+    {
+        $this->faker = $this->makeFaker('nl_NL');
+    }
+
     /**
      * A Dusk test example.
      *
@@ -43,16 +53,16 @@ class CreateItemTest extends DuskTestCase
         });
     }
 
-//    public function testDuplicateItemCreation()
-//    {
-//        $this->browse(function (Browser $browser) {
-//            $browser->visit('/items/create')
-//                ->type('title', 'Voluptatem atque amet autem dicta blanditiis.')
-//                ->press('Opslaan')
-//                ->assertSee('De titel moet uniek zijn.')
-//                ->assertSee('De inhoud van het item mag niet leeg zijn.')
-//                ->assertPathIs('/items/create');
-//        });
-//    }
+   public function testDuplicateItemCreation()
+   {
+       $this->browse(function (Browser $browser) {
+           $browser->visit('/items/create')
+               ->type('title', $this->faker()->randomElement(LayerItem::all()->pluck('title')))
+               ->press('Opslaan')
+               ->assertSee('De titel moet uniek zijn.')
+               ->assertSee('De inhoud van het item mag niet leeg zijn.')
+               ->assertPathIs('/items/create');
+       });
+   }
 
 }
