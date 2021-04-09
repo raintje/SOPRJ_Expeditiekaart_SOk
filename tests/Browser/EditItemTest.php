@@ -77,7 +77,7 @@ class EditItemTest extends DuskTestCase
      * Tries to edit and save an item, complying with the validation rules.
      * @return void
      */
-    public function testThree()
+    public function testEditItemSave()
     {
         $this->browse(function (Browser $browser) {
             $item = $this->faker()->randomElement(LayerItem::all());
