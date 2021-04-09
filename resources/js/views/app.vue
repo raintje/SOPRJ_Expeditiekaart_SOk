@@ -27,7 +27,9 @@
 
                 >
 
-                    <l-tooltip :tooltip-anchor="tooltipAnchor" :content="item.layer_item.body.slice(0, 200)"/>
+                    <l-tooltip :tooltip-anchor="tooltipAnchor"
+                               :content="item.layer_item.body.slice(0, 200)"
+                    />
                     <l-popup :options="{ autoClose: false, closeOnClick: false }">
                         <div @click="navigate(item.layer_item_id)">{{ item.layer_item.title }}</div>
                     </l-popup>
