@@ -23,18 +23,19 @@ class EditItemTest extends DuskTestCase
      * Asserts if the validation is correctly applied to the title field.
      * @return void
      */
-    public function testEditValidation() {
+    public function testEditValidation()
+    {
         $this->browse(function (Browser $browser) {
             $item = $this->faker()->randomElement(LayerItem::all());
-            $browser -> visit('/items/' . $item->id . '/edit' )
-                     -> type('title', '')
-                     -> press('Wijzigingen opslaan')
-                     -> assertPathIs('/items/' . $item->id . '/edit')
-                     -> assertSee('De titel van een item is verplicht.')
-                     -> type('title', $item->title)
-                     -> press('Wijzigingen opslaan')
-                     -> assertPathIs('/items/' . $item->id . '/edit')
-                     -> assertSee('De titel moet uniek zijn.');
+            $browser->visitRoute('edit.item', $item->id)
+                    ->type('title', '')
+                    ->press('Wijzigingen opslaan')
+                    ->assertPathIs('/items/' . $item->id . '/edit')
+                    ->assertSeeIn('@error-container', 'De titel van een item is verplicht.')
+                    ->type('title', $this->faker()->randomElement(LayerItem::all()->where('id', '!=', $item->id))->title)
+                    ->press('Wijzigingen opslaan')
+                    ->assertPathIs('/items/' . $item->id . '/edit')
+                    ->assertSeeIn('@error-container', 'De titel moet uniek zijn.');
         });
     }
 
@@ -42,21 +43,50 @@ class EditItemTest extends DuskTestCase
      * Asserts if the item's old data is correctly displayed on the page.
      * @return void
      */
-    public function testEditOldData() {
+    public function testEditOldData()
+    {
         $this->browse(function (Browser $browser) {
+
+            // Grabs a random LayerItem from the database.
             $item = $this->faker()->randomElement(LayerItem::all());
-            $browser -> visit('/items/' . $item->id . '/edit')
-                     -> assertSee($item->title)
-                     -> assertSee($item->body);
+
+            // Grabs the FirstLayerItem related to the selected LayerItem.
+            $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $item->id)->first();
+
+            // Asserts if the title and body of the item are displayed in the correct location.
+            $browser->visitRoute('edit.item', $item->id)
+                    ->assertInputValue('title', $item->title)
+                    ->assertInputValue('body', $item->body);
+
+            // Asserts if the item's categories are correctly checked.
+            foreach ($firstLayerItem->categories as $category) {
+                $field = '@categories-' . $category->id;
+                $browser->visitRoute('edit.item', $item->id)
+                        ->assertChecked($field);
+            }
+
+            // Asserts if the titles of linked items are displayed on the page.
+            foreach ($item->referencesLayerItems as $item) {
+                $browser->visitRoute('edit.item', $item->id)
+                        ->assertSee($item->title);
+            }
         });
     }
 
     /**
-     * Asserts if the page correctly displays a newly selected linked item.
+     * Tries to edit and save an item, complying with the validation rules.
      * @return void
      */
-    public function testThree() {
-        //TODO
+    public function testThree()
+    {
+        $this->browse(function (Browser $browser) {
+            $item = $this->faker()->randomElement(LayerItem::all());
+            $browser->visitRoute('edit.item', $item->id)
+                    ->assertPathIs('/items/' . $item->id . '/edit')
+                    ->type('title', $this->faker->text(20))
+                    ->check('@categories-' . random_int(1, 3))
+                    ->press('Wijzigingen opslaan')
+                    ->assertPathIs('/items/' . $item->id);
+        });
     }
-
 }
