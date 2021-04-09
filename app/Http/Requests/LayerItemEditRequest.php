@@ -24,8 +24,9 @@ class LayerItemEditRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('id');
         return [
-            'title' => 'required|unique:layer_items|max:255',
+            'title' => 'required|max:255|unique:layer_items,title,' . $id,
             'body' => 'required|max:10000',
             'files.*' => 'mimes:jpg,jpeg,png,mp4,mpeg,pdf'
         ];
