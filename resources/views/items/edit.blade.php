@@ -8,7 +8,7 @@
     <div class="container">
         <h4 class="text-center">Item {{ $item->title }} aanpassen </h4>
             @if (count($errors) > 0)
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div dusk="error-container" class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -26,7 +26,7 @@
                 {{-- Title --}}
                 <div class="form-group">
                     <label for="titelInput">Titel</label>
-                    <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel"
+                    <input type="text" class="form-control" name="title" id="titelInput" placeholder="Titel"
                         value="{{ old('title', $item->title) }}">
                 </div>
 
@@ -36,21 +36,21 @@
                     <div class="d-flex flex-column flex-sm-row">
                         @foreach ($categories as $category)
                             <div class="form-check custom-category-check mb-1">
-                                <input class="form-check-input" type="checkbox" name="categories[]"
-                                    value="{{ $category->id }}" id="category-{{ $category->id }}" @if (!empty($itemcategories))  @if ($itemcategories->contains($category))
-                                checked>
-                            @else
-                                > @endif
-                            @else
-                                >
-                        @endif
+                            <input class="form-check-input" type="checkbox" dusk="categories-{{ $category->id }}" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}" 
+                            @if (!empty($itemcategories))  
+                                @if ($itemcategories->contains($category))
+                                    checked>
+                                @else
+                                    > @endif
+                                @else
+                                    >
+                            @endif
                         <label class="form-check-label" for="category-{{ $category->id }}">
                             {{ $category->name }}
                         </label>
                     </div>
                     @endforeach
                 </div>
-    </div>
 
     {{-- Selectlist linked items --}}
     <div class="form-group">
