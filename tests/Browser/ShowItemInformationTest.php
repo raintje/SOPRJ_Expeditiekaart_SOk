@@ -28,6 +28,7 @@ class ShowItemInformationTest extends DuskTestCase
     /**
      * @group showItem
      * @group editItems
+     * @group linkItem
      */
     public function testLinkedItem()
     {
@@ -74,4 +75,18 @@ class ShowItemInformationTest extends DuskTestCase
                     ->assertPathIs('/');
         });
     }
+    
+    /**
+     * @group linkItem
+     */
+    public function testNonExistingLinkedItem()
+    {
+        $this->browse(function (Browser $browser) {
+            $layerItem = LayerItem::all()->last();
+
+            $browser->visit('/items/' . strval($layerItem->id + 1))
+                    ->assertSee('404');
+        });
+    }
+
 }
