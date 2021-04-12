@@ -72,7 +72,7 @@ class LayerItemControllerTest extends TestCase
     public function test_not_existing_item_gives_404_on_destroy()
     {
         $layerItem = LayerItem::all()->last();
-        $response = $this->get('/items/'.($layerItem->id+1).'/delete');
+        $response = $this->get(route('destroy.item', ($layerItem->id+1)));
         $response->assertStatus(404);
     }
 
@@ -83,7 +83,7 @@ class LayerItemControllerTest extends TestCase
     public function test_existing_item_can_be_destroyed()
     {
         $layerItem = LayerItem::factory()->create();
-        $this->get('/items/'.$layerItem->id.'/delete');
+        $this->get(route('destroy.item', $layerItem->id));
         $layerItem = LayerItem::find($layerItem->id);
         $this->assertTrue($layerItem == null);
     }
@@ -96,7 +96,7 @@ class LayerItemControllerTest extends TestCase
     {
         $layerItem = LayerItem::factory()->create();
         $firstLayerItem = FirstLayerItem::factory()->create(['layer_item_id' => $layerItem->id]);
-        $this->get('/items/'.$layerItem->id.'/delete');
+        $this->get(route('destroy.item', $layerItem->id));
         $layerItem = LayerItem::find($layerItem->id);
         $firstLayerItem = FirstLayerItem::find($firstLayerItem->id);
         $this->assertTrue($layerItem == null && $firstLayerItem == null);
@@ -110,7 +110,7 @@ class LayerItemControllerTest extends TestCase
     {
         $layerItem = LayerItem::factory()->create();
         $file = File::factory()->create(['layer_item_id' => $layerItem->id]);
-        $this->get('/items/'.$layerItem->id.'/delete');
+        $this->get(route('destroy.item', $layerItem->id));
         $layerItem = LayerItem::find($layerItem->id);
         $file = File::find($file->id);
         $this->assertTrue($layerItem == null && $file == null);
