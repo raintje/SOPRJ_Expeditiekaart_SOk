@@ -4,11 +4,20 @@ namespace Tests\Browser;
 
 use App\Models\LayerItem;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class CreateItemTest extends DuskTestCase
 {
+
+    use WithFaker;
+
+    protected function setUpFaker()
+    {
+        $this->faker = $this->makeFaker('nl_NL');
+    }
+
     /**
      * A Dusk test example.
      *
