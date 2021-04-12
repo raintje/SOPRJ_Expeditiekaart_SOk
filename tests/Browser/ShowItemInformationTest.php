@@ -79,7 +79,7 @@ class ShowItemInformationTest extends DuskTestCase
     /**
      * @group linkItem
      */
-    public function testUnexistLinkedItem()
+    public function testNonExistingLinkedItem()
     {
         $this->browse(function (Browser $browser) {
             $layerItem = LayerItem::all()->last();
