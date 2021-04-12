@@ -13,7 +13,7 @@ class CreateHistoryTables extends Migration
      */
     public function up()
     {
-        Schema::create('histories', function (Blueprint $table) {
+        Schema::create('model_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->morphs('model');
             $table->integer('user_id')->unsigned()->nullable();
