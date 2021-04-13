@@ -32,7 +32,7 @@ Route::post('/items/edit/location/save', [FirstLayerItemController::class, 'save
 
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
-Route::put('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
+Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 
 
 

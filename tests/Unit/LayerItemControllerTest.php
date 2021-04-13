@@ -66,6 +66,28 @@ class LayerItemControllerTest extends TestCase
     }
 
     /**
+     * Tests going to existing item exists.
+     * @return void
+     */
+    public function test_going_to_existing_item_works()
+    {
+        $layerItem = LayerItem::all()->last();
+        $response = $this->get(route('show.item', $layerItem->id));
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Tests going to non existing item exists.
+     * @return void
+     */
+    public function test_going_to_non_existing_item_gives_404_on_show()
+    {
+        $layerItem = LayerItem::all()->last();
+        $response = $this->get(route('show.item', ($layerItem->id+1)));
+        $response->assertStatus(404);
+    }
+
+    /**
      * Tests if not existing item gives 404.
      * @return void
      */
