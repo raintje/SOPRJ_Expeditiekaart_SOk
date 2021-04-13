@@ -41,4 +41,4 @@ jobs:
       - name: Run Unit Tests
         env:
           APP_URL: "http://127.0.0.1:8000"
-        run: php artisan test
+        run: php artisan test --env=dusk.local
