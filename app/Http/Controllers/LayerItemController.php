@@ -38,39 +38,11 @@ class LayerItemController extends Controller
         $layerItem->body = $body;
         $layerItem->save();
 
-        if (isset($request->categories)) {
-            $firstLayerItem = new FirstLayerItem();
-            $firstLayerItem->layer_item_id = $layerItem->id;
-            $firstLayerItem->x_pos = rand(120, 750);
-            $firstLayerItem->y_pos = rand(320, 620);
+        $this->SaveCategories($request, $layerItem);
 
-            $firstLayerItem->save();
+        $this->SaveLinks($request, $layerItem);
 
-            foreach ($request->categories as $categoryId) {
-                $firstLayerItem->categories()->attach($categoryId);
-            }
-
-        }
-
-        if (isset($request->itemLinks)) {
-            foreach ($request->itemLinks as $linkedItemId) {
-                $layerItem->referencesLayerItems()->attach($linkedItemId);
-            }
-        }
-
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $formFile) {
-                $name = time() . '_' . $formFile->getClientOriginalName();
-                $filePath = $formFile->storeAs('files', $name, 'public');
-
-                $file = new File();
-                $file->layer_item_id = $layerItem->id;
-                $file->title = $name;
-                $file->type = $formFile->getClientOriginalExtension();
-                $file->path = $filePath;
-                $file->save();
-            }
-        }
+        $this->SaveFiles($request, $layerItem);
 
         return redirect()->route('items');
     }
@@ -157,45 +129,15 @@ class LayerItemController extends Controller
         $oldItem->body = $body;
         $oldItem->save();
         $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
-        if ($firstLayerItem != null) {
-            if (isset($request->categories)) {
-                $firstLayerItem->categories()->sync($request->categories);
-            } else {
-                $firstLayerItem->delete($firstLayerItem->id);
-            }
-        } else {
-            if (isset($request->categories)) {
-                $firstLayerItem = new FirstLayerItem();
-                $firstLayerItem->layer_item_id = $oldItem->id;
-                $firstLayerItem->x_pos = rand(120, 750);
-                $firstLayerItem->y_pos = rand(320, 620);
 
-                $firstLayerItem->save();
-
-                foreach ($request->categories as $categoryId) {
-                    $firstLayerItem->categories()->attach($categoryId);
-                }
-            }
-        }
+        $this->UpdateCategories($firstLayerItem, $request, $oldItem);
 
         if (isset($request->itemLinks)) {
-                $oldItem->referencesLayerItems()->sync($request->itemLinks);
+            $oldItem->referencesLayerItems()->sync($request->itemLinks);
 
         }
 
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $formFile) {
-                $name = time() . '_' . $formFile->getClientOriginalName();
-                $filePath = $formFile->storeAs('files', $name, 'public');
-
-                $file = new File();
-                $file->layer_item_id = $oldItem->id;
-                $file->title = $name;
-                $file->type = $formFile->getClientOriginalExtension();
-                $file->path = $filePath;
-                $file->save();
-            }
-        }
+        $this->UpdateFiles($request, $oldItem);
 
         return $this->show($id);
     }
@@ -223,19 +165,126 @@ class LayerItemController extends Controller
         return view('items.confirmedDelete');
     }
 
-    public function getItems(Request $request){
+    public function getItems(Request $request)
+    {
 
         if ($request->ajax()) {
             $data = LayerItem::all();
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    return " <div  class='d-flex'><a style='min-width:65px; margin-left:4px'  href='" . route('show.item', $row->id) ."' class=' btn btn-info btn-xs pl-2'>Bekijken</a></div>";
+                ->addColumn('action', function ($row) {
+                    return " <div  class='d-flex'><a style='min-width:65px; margin-left:4px'  href='" . route('show.item', $row->id) . "' class=' btn btn-info btn-xs pl-2'>Bekijken</a></div>";
                 })
                 ->rawColumns(['action', 'body'])
                 ->make(true);
         }
         return null;
+    }
+
+    /**
+     * @param LayerItemStoreRequest $request
+     * @param LayerItem $layerItem
+     */
+    public function SaveCategories(LayerItemStoreRequest $request, LayerItem $layerItem): void
+    {
+        if (isset($request->categories)) {
+            $firstLayerItem = new FirstLayerItem();
+            $firstLayerItem->layer_item_id = $layerItem->id;
+            $firstLayerItem->x_pos = rand(120, 750);
+            $firstLayerItem->y_pos = rand(320, 620);
+
+            $firstLayerItem->save();
+
+            foreach ($request->categories as $categoryId) {
+                $firstLayerItem->categories()->attach($categoryId);
+            }
+
+        }
+    }
+
+    /**
+     * @param LayerItemStoreRequest $request
+     * @param LayerItem $layerItem
+     */
+    public function SaveFiles(LayerItemStoreRequest $request, LayerItem $layerItem): void
+    {
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $formFile) {
+                $name = time() . '_' . $formFile->getClientOriginalName();
+                $filePath = $formFile->storeAs('files', $name, 'public');
+
+                $file = new File();
+                $file->layer_item_id = $layerItem->id;
+                $file->title = $name;
+                $file->type = $formFile->getClientOriginalExtension();
+                $file->path = $filePath;
+                $file->save();
+            }
+        }
+    }
+
+    /**
+     * @param LayerItemStoreRequest $request
+     * @param LayerItem $layerItem
+     */
+    public function SaveLinks(LayerItemStoreRequest $request, LayerItem $layerItem): void
+    {
+        if (isset($request->itemLinks)) {
+            foreach ($request->itemLinks as $linkedItemId) {
+                $layerItem->referencesLayerItems()->attach($linkedItemId);
+            }
+        }
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Model|null $firstLayerItem
+     * @param LayerItemEditRequest $request
+     * @param $oldItem
+     * @throws \Exception
+     */
+    public function UpdateCategories(?\Illuminate\Database\Eloquent\Model $firstLayerItem, LayerItemEditRequest $request, $oldItem): void
+    {
+        if ($firstLayerItem != null) {
+            if (isset($request->categories)) {
+                $firstLayerItem->categories()->sync($request->categories);
+            } else {
+                $firstLayerItem->delete($firstLayerItem->id);
+            }
+        } else {
+            if (isset($request->categories)) {
+                $firstLayerItem = new FirstLayerItem();
+                $firstLayerItem->layer_item_id = $oldItem->id;
+                $firstLayerItem->x_pos = rand(120, 750);
+                $firstLayerItem->y_pos = rand(320, 620);
+
+                $firstLayerItem->save();
+
+                foreach ($request->categories as $categoryId) {
+                    $firstLayerItem->categories()->attach($categoryId);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param LayerItemEditRequest $request
+     * @param $oldItem
+     */
+    public function UpdateFiles(LayerItemEditRequest $request, $oldItem): void
+    {
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $formFile) {
+                $name = time() . '_' . $formFile->getClientOriginalName();
+                $filePath = $formFile->storeAs('files', $name, 'public');
+
+                $file = new File();
+                $file->layer_item_id = $oldItem->id;
+                $file->title = $name;
+                $file->type = $formFile->getClientOriginalExtension();
+                $file->path = $filePath;
+                $file->save();
+            }
+        }
     }
 
 }
