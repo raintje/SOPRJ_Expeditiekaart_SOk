@@ -69,7 +69,6 @@ class ChangeLocationMapTest extends DuskTestCase
                 ->click('@save-button')
                 ->pause(2000)
                 ->assertVisible('.toast-body');
-//                ->waitForText('De locaties zijn succesvol opgeslagen.');
         });
     }
 

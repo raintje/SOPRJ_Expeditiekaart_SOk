@@ -30,8 +30,9 @@
                     <l-tooltip :tooltip-anchor="tooltipAnchor"
                                :content="item.layer_item.body.slice(0, 200)"
                     />
+
                     <l-popup :options="{ autoClose: false, closeOnClick: false }">
-                        <div @click="navigate(item.layer_item_id)">{{ item.layer_item.title }}</div>
+                        <div style="cursor: pointer;"  v-html="item.layer_item.title" @click="navigate(item.layer_item_id)"></div>
                     </l-popup>
                 </l-icon>
             </l-marker>
@@ -103,8 +104,7 @@ export default {
             }
         },
 
-    }
-
+    },
 };
 </script>
 
