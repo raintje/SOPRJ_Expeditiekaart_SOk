@@ -11,6 +11,7 @@ use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\DataTables;
 
 class LayerItemController extends Controller
 {
@@ -72,7 +73,6 @@ class LayerItemController extends Controller
         }
 
         return redirect()->route('items');
-//        return redirect($this->show($layerItem->id)); -> kan gebruikt worden wanneer de show method werkt.
     }
 
     public function show($id)
@@ -222,5 +222,21 @@ class LayerItemController extends Controller
         }
         return view('items.confirmedDelete');
     }
+
+    public function getItems(Request $request){
+
+        if ($request->ajax()) {
+            $data = LayerItem::all();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    return " <div  class='d-flex'><a style='min-width:65px; margin-left:4px'  href='" . route('show.item', $row->id) ."' class=' btn btn-info btn-xs pl-2'>Bekijken</a></div>";
+                })
+                ->rawColumns(['action', 'body'])
+                ->make(true);
+        }
+        return null;
+    }
+
 }
 
