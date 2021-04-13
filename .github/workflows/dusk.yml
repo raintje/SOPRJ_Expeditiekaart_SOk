@@ -36,3 +36,9 @@ jobs:
         with:
           name: console
           path: tests/Browser/console
+      - name: Reset Database
+        run: php artisan migrate:fresh --seed --env=dusk.local
+      - name: Run Unit Tests
+        env:
+          APP_URL: "http://127.0.0.1:8000"
+        run: php artisan test
