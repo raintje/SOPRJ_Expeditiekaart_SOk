@@ -14,7 +14,7 @@
                     </span>
 
                     </a>
-                    <a aria-label="Dashboard">
+                    <a :href="Laravel.routes['items']" aria-label="Dashboard">
                         <SvgIcon icon="dashboard"></SvgIcon>
                         <span class="Tooltip">
                         Dashboard
