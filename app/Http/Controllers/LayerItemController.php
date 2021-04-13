@@ -151,7 +151,7 @@ class LayerItemController extends Controller
     public function update(LayerItemEditRequest $request, $id)
     {
         $oldItem = LayerItem::findOrFail($id);
-
+//        dd($id);
         $body = $request->input('body');
         $oldItem->title = $request->input('title');
         $oldItem->body = $body;
@@ -197,7 +197,7 @@ class LayerItemController extends Controller
             }
         }
 
-        return $this->show($id);
+        return redirect()->route('show.item', $id);
     }
 
     public function destroy($id)
