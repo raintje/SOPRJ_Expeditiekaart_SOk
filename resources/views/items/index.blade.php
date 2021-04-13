@@ -13,7 +13,7 @@
 
 <div class="container mt-5">
     <div class="text-left pb-3">
-        <h2 class="mb-4">Item overzicht</h2>
+        <h2 class="mb-4">Item overzicht  <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.overview')}}"></i></h2>
         <a class="btn btn-primary" href="{{route('create.item')}}" role="button">Item toevoegen</a>
 
     </div>
@@ -42,6 +42,7 @@
 
         <script type="text/javascript">
             $(document).ready(function (){
+                $("[rel=tooltip]").tooltip();
                 $.noConflict();
                 $('#itemsTable').DataTable({
                     processing: true,

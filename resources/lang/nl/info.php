@@ -8,5 +8,6 @@ return [
     'title' => 'De titel is de naam het item, deze wordt weergegeven op de homepagina.',
     'files' => 'Bestanden kunnen worden toegevoegd aan een item, bestanden kunnen bijvoorbeeld bestaan uit afbeeldingen, videos en pdf bestanden.',
     'attachments' => 'Bijlages zijn bestanden die eerder zijn toegevoegd aan een item.',
+    'overview' => 'Hier vind u al de items die op dit moment aangemaakt zijn.',
 
 ];

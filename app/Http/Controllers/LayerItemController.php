@@ -167,7 +167,6 @@ class LayerItemController extends Controller
 
     public function getItems(Request $request)
     {
-
         if ($request->ajax()) {
             $data = LayerItem::all();
             return Datatables::of($data)
