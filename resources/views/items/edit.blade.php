@@ -26,7 +26,7 @@
             {{-- Title --}}
             <div class="form-group">
                 <label for="titelInput">Titel <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.title')}}"></i></label>
-                <input type="text" class="form-control" name="title" id="titelInput" placeholder="Titel"
+                <input  type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="titelInput" placeholder="Titel"
                        value="{{ old('title', $item->title) }}">
             </div>
 
@@ -80,9 +80,9 @@
                 </div>
 
                 {{-- Body --}}
-                <div class="form-group">
-                    <label for="inhoudInput">Inhoud <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.body')}}"></i></label>
-                    <textarea class="form-control" id="inhoudInput" name="body"
+                <div class="form-group ">
+                    <label for="inhoudInput">Inhoud <i class="fas fa-info-circle " rel="tooltip" title="{{__('info.body')}}"></i></label>
+                    <textarea class="form-control " id="inhoudInput" name="body"
                               rows="15">{{ old('body', $item->body) }}</textarea>
                 </div>
 

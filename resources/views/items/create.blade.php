@@ -26,7 +26,7 @@
             @csrf
             <div class="form-group">
                 <label for="titelInput">Titel <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.title')}}"></i></label>
-                <input type="text" class="form-control" name="title" id="TitelInput" placeholder="Titel" value="{{old('title','')}}">
+                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="TitelInput" placeholder="Titel" value="{{old('title','')}}">
             </div>
             <div class="form-group">
                 <label>Categorie <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.category')}}"></i></label>
