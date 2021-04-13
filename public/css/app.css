@@ -187,7 +187,10 @@ html {
   margin-right: 1.5em;
   padding: 3px 3px 3px 25px;
   border: 1px solid black;
+    border-radius: 25px;
 }
+
+
 
 #item-links-container {
   margin-top: 1em;
