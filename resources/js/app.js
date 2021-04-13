@@ -23,6 +23,16 @@ Vue.component('l-marker', LMarker);
 Vue.component('l-rectangle', LRectangle);
 Vue.component('edit-location', editLocation);
 
+Vue.filter('str_limit', function (value, size) {
+    if (!value) return '';
+    value = value.toString();
+
+    if (value.length <= size) {
+        return value;
+    }
+    return value.substr(0, size) + '...';
+});
+
 Vue.use(IconsPlugin);
 Vue.use(BootstrapVue);
 

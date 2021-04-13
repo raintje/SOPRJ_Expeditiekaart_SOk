@@ -12,8 +12,13 @@
 
 
 <div class="container mt-5">
-    <h2 class="mb-4">Item overzicht</h2>
-    <table id="itemsTable" class="table table-bordered yajra-datatable">
+    <div class="text-left pb-3">
+        <h2 class="mb-4">Item overzicht</h2>
+        <a class="btn btn-primary" href="{{route('create.item')}}" role="button">Item toevoegen</a>
+
+    </div>
+
+    <table id="itemsTable" class=" table table-bordered yajra-datatable">
         <thead>
         <tr>
             <th>Titel</th>
