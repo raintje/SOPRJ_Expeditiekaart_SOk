@@ -10,7 +10,6 @@ class LayerItem extends Model
 {
     use HasFactory;
     use HasHistories;
-//    protected $guarded = [];
 
     public function getModelLabel()
     {
