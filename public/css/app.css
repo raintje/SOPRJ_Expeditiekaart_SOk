@@ -1,0 +1,265 @@
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  line-height: 1.5;
+}
+
+.Nav--right {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 999;
+}
+.Nav--right button,
+.Nav--right a {
+  border-radius: 50%;
+  background-color: #F9F9F9;
+  border: none;
+  outline: none;
+  width: 48px;
+  line-height: 48px;
+  height: 48px;
+  font-size: 18px;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.Nav--right button svg,
+.Nav--right a svg {
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.Nav--right button:not(:last-child),
+.Nav--right a:not(:last-child) {
+  margin-bottom: 12px;
+}
+.Nav--right button > .Tooltip,
+.Nav--right a > .Tooltip {
+  opacity: 0;
+  transition: ease-in-out clip-path 0.2s;
+  -webkit-clip-path: circle(0% at 100% 50%);
+          clip-path: circle(0% at 100% 50%);
+  pointer-events: none;
+}
+.Nav--right button:hover, .Nav--right button:focus,
+.Nav--right a:hover,
+.Nav--right a:focus {
+  transform: scale(1.05);
+  background: white;
+}
+.Nav--right button:hover > .Tooltip, .Nav--right button:focus > .Tooltip,
+.Nav--right a:hover > .Tooltip,
+.Nav--right a:focus > .Tooltip {
+  opacity: 1;
+  -webkit-clip-path: circle(200% at 100% 50%);
+          clip-path: circle(200% at 100% 50%);
+}
+.Nav--right button:active,
+.Nav--right a:active {
+  transform: scale(0.95);
+}
+.Nav--right .Dropdown {
+  position: relative;
+  transition: ease-in-out opacity 0.2s, ease-in-out clip-path 0.2s;
+}
+.Nav--right .Dropdown > div {
+  opacity: 0;
+  -webkit-clip-path: circle(0% at 50% 50%);
+          clip-path: circle(0% at 50% 50%);
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  position: absolute;
+}
+.Nav--right .Dropdown > button:focus,
+.Nav--right .Dropdown > a:focus {
+  background-color: #19C97D;
+}
+.Nav--right .Dropdown > button:focus svg,
+.Nav--right .Dropdown > a:focus svg {
+  fill: #FFF;
+}
+.Nav--right .Dropdown > a:focus + div,
+.Nav--right .Dropdown > button:focus + div,
+.Nav--right .Dropdown > div:hover {
+  opacity: 1;
+  -webkit-clip-path: circle(200% at 50% 50%);
+          clip-path: circle(200% at 50% 50%);
+  pointer-events: auto;
+}
+.Nav--right .Dropdown a > .Tooltip,
+.Nav--right .Dropdown button > .Tooltip {
+  display: inline-block;
+  position: absolute;
+  color: #FFF;
+  padding: 6px 12px;
+  line-height: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 100%;
+  white-space: nowrap;
+  margin-right: 12px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 4px;
+  font-size: 13px;
+}
+@media (max-width: 1024px) {
+  .Nav--right a > .Tooltip,
+.Nav--right button > .Tooltip {
+    opacity: 1;
+    -webkit-clip-path: circle(200% at 100% 50%);
+            clip-path: circle(200% at 100% 50%);
+  }
+}
+@media (max-width: 600px) {
+  .Nav--right {
+    bottom: 6px;
+    top: auto;
+    right: 18px;
+  }
+  .Nav--right button, .Nav--right a {
+    margin-bottom: 12px;
+  }
+  .Nav--right .Dropdown > div {
+    flex-direction: column-reverse;
+    bottom: 100%;
+  }
+}
+
+/*Legend specific*/
+.legend {
+  padding: 6px 8px;
+  font: 14px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  line-height: 24px;
+  color: #555;
+}
+
+.legend h4 {
+  text-align: center;
+  font-size: 16px;
+  margin: 2px 12px 8px;
+  color: #777;
+}
+
+.legend span {
+  position: relative;
+  bottom: 3px;
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin: 0 8px 0 0;
+  opacity: 0.7;
+}
+
+.legend i.icon {
+  background-size: 18px;
+  background-color: white;
+}
+
+/* The colors will be used later*/
+.orange-category {
+  background-color: #F1975A;
+  color: white;
+}
+
+.blue-category {
+  background-color: #00B0F0;
+  color: white;
+}
+
+.green-category {
+  background-color: #95C573;
+  color: white;
+}
+
+.custom-category-check {
+  margin-right: 1.5em;
+  padding: 3px 3px 3px 25px;
+  border: 1px solid black;
+}
+
+#item-links-container {
+  margin-top: 1em;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.tag {
+  border: 1px solid black;
+  border-radius: 24px;
+  margin: 5px;
+  padding: 3px 12px;
+  display: flex;
+  align-items: baseline;
+}
+
+.tag-close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  opacity: 0.2;
+  margin-bottom: 0.25rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.tag-close:hover {
+  opacity: 1;
+}
+
+.tag-text {
+  cursor: default;
+}
+
+.outline--none {
+  outline: none;
+}
+
+ul.timeline {
+  list-style-type: none;
+  position: relative;
+}
+
+ul.timeline:before {
+  content: " ";
+  background: #d4d9df;
+  display: inline-block;
+  position: absolute;
+  left: 29px;
+  width: 2px;
+  height: 100%;
+  z-index: 400;
+}
+
+ul.timeline > li {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+
+ul.timeline > li:before {
+  content: " ";
+  background: white;
+  display: inline-block;
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid #22c0e8;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  z-index: 400;
+}
+
