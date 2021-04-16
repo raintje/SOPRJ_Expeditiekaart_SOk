@@ -94,7 +94,7 @@
                             @foreach ($files as $file)
                                 <div class="card align-items-center text-center m-2 col-md-3">
                                     <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">{{ $file->title }}</h5>
+                                        <h5 class="card-title text-break">{{ $file->title }}</h5>
                                         <a href="{{route('delete.file', ['id' => $item->id, 'fileId' => $file->id])}}" class="btn btn-primary w-100 mt-auto">Verwijderen</a>
                                     </div>
                                 </div>
