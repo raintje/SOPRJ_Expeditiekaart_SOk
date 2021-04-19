@@ -139,7 +139,7 @@ class LayerItemController extends Controller
         $this->UpdateFiles($request, $oldItem);
 
         return redirect()->route('show.item', $id);
-    }
+    } 
 
     public function destroy($id)
     {
