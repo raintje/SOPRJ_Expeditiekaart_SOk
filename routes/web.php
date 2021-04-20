@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FirstLayerItemController;
 use App\Http\Controllers\LayerItemController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,7 @@ Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 
-
+Route::get('/users', [UserController::class, 'index'])->name('users');
 
 
 Route::get('/items/{id}/deleteFile/{fileId}', [LayerItemController::class, 'deleteLayerItemAppendix'])->name('delete.file');
@@ -45,5 +46,6 @@ Route::get('/items/{id}/delete', [LayerItemController::class, 'destroy'])->name(
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 
 Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
+Route::get('api/users',[UserController::class, 'getItems'])->name('get.user');
 
 Auth::routes();
