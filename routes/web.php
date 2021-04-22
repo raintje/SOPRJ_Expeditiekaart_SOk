@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FirstLayerItemController;
 use App\Http\Controllers\LayerItemController;
 use App\Http\Controllers\UserController;
@@ -37,6 +38,7 @@ Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update
 
 Route::get('/users', [UserController::class, 'index'])->name('users');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/items/{id}/deleteFile/{fileId}', [LayerItemController::class, 'deleteLayerItemAppendix'])->name('delete.file');
 Route::get('/items/{id}/deleteLinkedFile/{linkId}', [LayerItemController::class, 'deleteLinkedLayerItem'])->name('delete.linkedFile');
