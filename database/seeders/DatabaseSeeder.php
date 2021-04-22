@@ -8,6 +8,7 @@ use App\Models\User;
 use Database\Factories\FirstLayerItemCategoryFactory;
 use Illuminate\Database\Seeder;
 use \App\Models\File;
+use Illuminate\Support\Facades\Hash;
 
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('Admin123!'), // password = Admin123!
+        ]);
         LayerItem::factory(10)->create();
         FirstLayerItem::factory(10)->create();
         $this->call(CategoriesTableSeeder::class);
