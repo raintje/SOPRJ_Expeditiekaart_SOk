@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('head_script')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.css"/>
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
 
@@ -10,16 +11,15 @@
 
 @section('content')
 
+    <div class="text-center pb-3">
+        <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip"
+                                                            title="{{__('info.user_overview')}}"></i></h2>
+        <a class="btn btn-primary" href="{{route('create.item')}}" role="button">Gebruiker toevoegen</a>
 
-{{--    <div class="container mt-5">--}}
-        <div class="text-center pb-3">
-            <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip" title="{{__('info.user_overview')}}"></i></h2>
-            <a class="btn btn-primary" href="{{route('create.item')}}" role="button">Gebruiker toevoegen</a>
+    </div>
 
-        </div>
-
-        {{-- Styling for columns actions and delete are located in UserController.php in getUsers method --}}
-<div class="table-responsive">
+    {{-- Styling for columns actions and delete are located in UserController.php in getUsers method --}}
+    <div class="table-responsive">
         <table id="usersTable" class="table table-bordered yajra-datatable">
             <thead>
             <tr>
@@ -33,9 +33,10 @@
             <tbody>
             </tbody>
         </table>
-</div>
+    </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,7 +66,7 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function (){
+        $(document).ready(function () {
             $("[rel=tooltip]").tooltip();
             $.noConflict();
             $('#usersTable').DataTable({
@@ -76,7 +77,8 @@
                 columns: [
                     {data: 'name', name: 'name', sortable: true,},
                     {data: 'email', name: 'email'},
-                    {data: null,
+                    {
+                        data: null,
                         defaultContent: 'gebruiker',
                         name: 'role'
                     },
