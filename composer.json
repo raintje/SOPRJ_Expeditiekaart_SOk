@@ -21,6 +21,7 @@
         "panoscape/history": "^2.2"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "2.5.13",
         "fakerphp/faker": "1.13.0",
         "laravel/dusk": "^6.15",
