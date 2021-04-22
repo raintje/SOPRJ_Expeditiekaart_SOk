@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
+        User::factory(30)->create();
         LayerItem::factory(10)->create();
         FirstLayerItem::factory(10)->create();
         $this->call(CategoriesTableSeeder::class);

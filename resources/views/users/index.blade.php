@@ -11,14 +11,16 @@
 @section('content')
 
 
-    <div class="container mt-5">
-        <div class="text-left pb-3">
-            <h2 class="mb-4">Gebruikers overzicht  <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.overview')}}"></i></h2>
+{{--    <div class="container mt-5">--}}
+        <div class="text-center pb-3">
+            <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip" title="{{__('info.user_overview')}}"></i></h2>
             <a class="btn btn-primary" href="{{route('create.item')}}" role="button">Gebruiker toevoegen</a>
 
         </div>
 
-        <table id="usersTable" class=" table table-bordered yajra-datatable">
+        {{-- Styling for columns actions and delete are located in UserController.php in getUsers method --}}
+<div class="table-responsive">
+        <table id="usersTable" class="table table-bordered yajra-datatable">
             <thead>
             <tr>
                 <th>Naam</th>
@@ -26,15 +28,12 @@
                 <th>Rol</th>
                 <th>Acties</th>
                 <th></th>
-
             </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
-    </div>
-
-
+</div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

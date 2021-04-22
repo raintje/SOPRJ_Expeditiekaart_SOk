@@ -3,7 +3,17 @@
     color: #c1c1c1;
     transition: .3s;
     &:hover{
-        color: red;
+        color: #dd1c1c;
         cursor: pointer;
 }
+}
+
+.tooltip-icon{
+    color: #c1c1c1;
+    font-size: 24px;
+    transition: .3s;
+    &:hover{
+        color: black;
+        cursor: pointer;
+    }
 }

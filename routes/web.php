@@ -46,6 +46,6 @@ Route::get('/items/{id}/delete', [LayerItemController::class, 'destroy'])->name(
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 
 Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
-Route::get('api/users',[UserController::class, 'getItems'])->name('get.user');
+Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');
 
 Auth::routes();

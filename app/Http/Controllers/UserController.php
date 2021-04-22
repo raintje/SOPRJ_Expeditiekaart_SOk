@@ -16,7 +16,7 @@ class UserController extends Controller
         return view('users.index', ['users' => $users]);
     }
 
-    public function getItems(Request $request)
+    public function getUsers(Request $request)
     {
         if ($request->ajax()) {
             $data = User::all();
