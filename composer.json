@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "davejamesmiller/laravel-breadcrumbs": "5.x",
         "doctrine/dbal": "^3.0",
         "fideloper/proxy": "4.4.1",
         "fruitcake/laravel-cors": "2.0.3",
@@ -16,9 +17,9 @@
         "laravel/framework": "8.29.0",
         "laravel/tinker": "2.6.0",
         "laravel/ui": "^3.2",
+        "panoscape/history": "^2.2",
         "php-webdriver/webdriver": "1.9.0",
-        "yajra/laravel-datatables-oracle": "~9.0",
-        "panoscape/history": "^2.2"
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "2.5.13",
@@ -45,7 +46,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Http/Helpers/BDEncoder.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
