@@ -9,14 +9,11 @@ class BDEncoder {
   private const SEPERATOR = ';';
 
   public static function encode($items) {
-
     $encoder = '';
     foreach($items as $item){
       $encoder .= $item->id;
       $encoder .= self::SEPERATOR;
     }
-
-    
 
     if(strlen($encoder) > 0){
       $encoder = substr($encoder, 0, -1);
