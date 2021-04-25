@@ -9,5 +9,6 @@ return [
     'files' => 'Bestanden kunnen worden toegevoegd aan een item, bestanden kunnen bijvoorbeeld bestaan uit afbeeldingen, videos en pdf bestanden.',
     'attachments' => 'Bijlages zijn bestanden die eerder zijn toegevoegd aan een item.',
     'overview' => 'Hier vind u al de items die op dit moment aangemaakt zijn.',
+    'user_overview' => 'Hier vind u een overzicht van alle gebruikers die de applicatie gebruiken.',
 
 ];
