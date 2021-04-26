@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Str;
 use Yajra\DataTables\DataTables;
@@ -47,11 +48,12 @@ class UserController extends Controller
     /**
      * Saves a newly created user to the database.
      * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         // Get the validated data from the request
-        // $validated = $request->validate();
+        // $validated = $request->validated();
 
         // Initialize the model object to be inserted into the database
         $user = new User();
