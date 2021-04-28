@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Str;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -38,15 +41,34 @@ class UserController extends Controller
 
     public function create()
     {
-        //
+        return view('users.create');
     }
 
 
-    public function store(Request $request)
+    /**
+     * Saves a newly created user to the database.
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
-        //
-    }
+        // Get the validated data from the request
+        // $validated = $request->validated();
 
+        // Initialize the model object to be inserted into the database
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        // Generates a random hashed password of 8 characters.
+        $user->password = Hash::make(Str::random(8));
+
+        // Save the object to the database
+        $user->save();
+
+        // Redirects to the user overview
+        return redirect()->route('users');
+
+    }
 
     public function show($id)
     {
@@ -58,12 +80,10 @@ class UserController extends Controller
         //
     }
 
-
     public function update(Request $request, $id)
     {
         //
     }
-
 
     public function destroy($id)
     {
