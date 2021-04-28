@@ -124,6 +124,10 @@
                 console.log("hi");
                 $('#collapseHistory').toggle('slow');
             });
+        }); 
+        
+        $(document).ready(function(){
+            $("[rel=tooltip]").tooltip();
         });
     </script>
 
