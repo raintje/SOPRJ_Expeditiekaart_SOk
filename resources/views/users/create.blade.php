@@ -48,5 +48,10 @@
         </form>
 
     </div>
+    <script>
+        $(document).ready(function(){
+            $("[rel=tooltip]").tooltip();
+        });
+    </script>
     <script src="{{ mix('js/app.js') }}"></script>
 @endsection
