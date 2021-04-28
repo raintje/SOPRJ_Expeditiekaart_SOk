@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
-use Illuminate\Mail\Message;
 
 class UserController extends Controller
 {
@@ -42,23 +42,26 @@ class UserController extends Controller
 
     public function create()
     {
-
+        return view('users.create');
     }
 
 
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $request->merge(['password' => Hash::make($request->password)]);
+        $request->merge(['password' => Hash::make(Str::random(10))]);
         $user = User::create($request->all());
 
         if ($user->exists)
         {
             Password::broker()->sendResetLink(['email' => $user->email]);
+            $message = ['message' =>'Gebruikersaccount succesvol aangemaakt', 'type' => 'success'];
+        }
+        else{
+            $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
         }
 
-        return redirect()->route('users');
+        return redirect()->route('users.index')->with($message);
     }
-
 
     public function show($id)
     {
@@ -73,18 +76,17 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->merge(['password' => Hash::make($request->password)]);
-
-        $user = User::finfOrFail($id);
-        $user->fill($request->all())->save();
-
-
-        if ($user->exists)
-        {
-            Password::broker()->sendResetLink(['email' => $user->email]);
-        }
-
-        return redirect()->route('users');
+//        $request->merge(['password' => Hash::make($request->password)]);
+//
+//        $user = User::finfOrFail($id);
+//        $user->fill($request->all())->save();
+//
+//        if ($user->exists)
+//        {
+//            Password::broker()->sendResetLink(['email' => $user->email]);
+//        }
+//
+//        return redirect()->route('users')->with('message', 'success:Gebruikersaccount succesvol aangepast');
     }
 
 
