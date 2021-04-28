@@ -10,5 +10,6 @@ return [
     'attachments' => 'Bijlages zijn bestanden die eerder zijn toegevoegd aan een item.',
     'overview' => 'Hier vind u al de items die op dit moment aangemaakt zijn.',
     'user_overview' => 'Hier vind u een overzicht van alle gebruikers die de applicatie gebruiken.',
-
+    'breadcrumb' => 'Hier kunt u terug gaan naar de expeditiekaart of vorige items. ',
+    
 ];
