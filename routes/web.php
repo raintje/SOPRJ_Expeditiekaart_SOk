@@ -36,7 +36,7 @@ Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 
-Route::get('/users', [UserController::class, 'index'])->name('users');
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -46,6 +46,8 @@ Route::get('/items/{id}/deleteLinkedFile/{linkId}', [LayerItemController::class,
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 Route::get('/items/{id}/delete', [LayerItemController::class, 'destroy'])->name('destroy.item');
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
+
+Route::resource('/users', UserController::class);
 
 Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
 Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');

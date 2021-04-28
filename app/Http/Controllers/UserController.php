@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Yajra\DataTables\DataTables;
+use Illuminate\Mail\Message;
 
 class UserController extends Controller
 {
@@ -38,13 +42,21 @@ class UserController extends Controller
 
     public function create()
     {
-        //
+
     }
 
 
     public function store(Request $request)
     {
-        //
+        $request->merge(['password' => Hash::make($request->password)]);
+        $user = User::create($request->all());
+
+        if ($user->exists)
+        {
+            Password::broker()->sendResetLink(['email' => $user->email]);
+        }
+
+        return redirect()->route('users');
     }
 
 
@@ -61,7 +73,18 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $request->merge(['password' => Hash::make($request->password)]);
+
+        $user = User::finfOrFail($id);
+        $user->fill($request->all())->save();
+
+
+        if ($user->exists)
+        {
+            Password::broker()->sendResetLink(['email' => $user->email]);
+        }
+
+        return redirect()->route('users');
     }
 
 
