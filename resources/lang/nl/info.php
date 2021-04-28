@@ -14,4 +14,6 @@ return [
     'email' => 'Het emailadres van de gebruiker waar dit account voor wordt gemaakt',
     'password' => 'Er wordt een willekeurig gegenereerd wachtwoord opgestuurd naar het opgegeven emailadres.',
     'user_create' => 'Hier kan u een nieuwe gebruiker aanmaken, dit vereist een geldig emailadres en de volledige naam van de gebruiker in kwestie.',
+    'breadcrumb' => 'Hier kunt u terug gaan naar de expeditiekaart of vorige items. ',
+    
 ];
