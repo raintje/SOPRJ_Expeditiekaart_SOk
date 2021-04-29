@@ -24,7 +24,10 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container">  
+
+    {{ Breadcrumbs::render('items', $breadcrumb) }}
+
         <div class="float-right">
             <a dusk="edit-button" class="btn btn-outline-secondary"
                href="{{route('edit.item', $item->id)}}">Aanpassen</a>
@@ -75,7 +78,7 @@
             <div class="m-2 row justify-content-start">
                 @foreach($linkedItems as $linkedItem)
                     <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
-                        <a dusk="link-button" class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
+                        <a dusk="link-button" class="btn btn-outline-info w-100 h-100" href="{{route('breadcrumb.add', ['id' => $linkedItem->id, 'breadcrumb' => $breadcrumb])}}">{{$linkedItem->title}}</a>
                     </div>
                 @endforeach
             </div>
@@ -121,6 +124,10 @@
                 console.log("hi");
                 $('#collapseHistory').toggle('slow');
             });
+        }); 
+        
+        $(document).ready(function(){
+            $("[rel=tooltip]").tooltip();
         });
     </script>
 

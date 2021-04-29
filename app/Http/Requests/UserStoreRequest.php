@@ -31,17 +31,19 @@ class UserStoreRequest extends FormRequest
     }
 
     /**
-     * Returns the customized messages to be used in the front end.
+     * Returns the custom error messages to be used in the validation of user creation.
      *
      * @return array
      */
     public function messages()
     {
         return [
-            'name.required' => 'De naam van een gebruiker is verplicht.',
-            'email.unique' => 'Er is al een account met dit e-mail adres',
-            'email.required' => 'Het e-mail adres is verplicht.',
-
+            'name.required' => 'De naam van de gebruiker kan niet leeggelaten worden.',
+            'name.max' => 'Een naam mag maximaal 191 karakters lang zijn',
+            'email.required' => 'Het emailadres van de gebruiker kan niet leeggelaten worden.',
+            'email.unique' => 'Er bestaat al een account met dit emailadres.',
+            'email.email' => 'Voer alstublieft een geldig emailadres in.',
+            'email.max' => 'Een emailadres mag maximaal 191 karakters lang zijn',
         ];
     }
 }

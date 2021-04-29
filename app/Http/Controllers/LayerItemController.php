@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\BDEncoder;
 use App\Http\Requests\LayerItemEditRequest;
 use App\Http\Requests\LayerItemStoreRequest;
 use App\Models\Category;
@@ -9,8 +10,11 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use PDO;
 use Yajra\DataTables\DataTables;
 
 class LayerItemController extends Controller
@@ -47,7 +51,7 @@ class LayerItemController extends Controller
         return redirect()->route('items');
     }
 
-    public function show($id)
+    public function show($id, $breadcrumb = '')
     {
         $item = LayerItem::findOrFail($id);
         $histories = $item->histories()->orderBy('performed_at', 'desc')->get();
@@ -62,7 +66,37 @@ class LayerItemController extends Controller
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
-        return view('items.show', ['item' => $item, 'categories' => $categories, 'files' => $files, 'linkedItems' => $linkedItems, 'histories' => $histories]);
+
+        $BDitems = BDEncoder::decode($breadcrumb);
+        array_push($BDitems, $item);
+        $newBreadcrumb = BDEncoder::encode($BDitems);
+
+        return view('items.show', [
+            'item' => $item, 
+            'categories' => $categories, 
+            'files' => $files, 
+            'linkedItems' => $linkedItems, 
+            'histories' => $histories,
+            'breadcrumb' => $newBreadcrumb,
+            ]);
+    }
+
+    public function updateBreadcrumb($id, $breadcrumb, $bdItem){
+        $items = BDEncoder::decode($breadcrumb);
+  
+        $reItems = [];
+        
+        for($i = 0; $i < $bdItem; $i++){
+            array_push($reItems, $items[$i]);
+        }
+        
+        $breadcrumb = BDEncoder::encode($reItems);
+
+        if(strlen($breadcrumb) > 0){
+            return redirect()->route('breadcrumb.add', ['id' => $id, 'breadcrumb' => $breadcrumb]);
+        }
+
+        return redirect()->route('show.item', ['id' => $id]);
     }
 
     public function downloadFile($id)
@@ -159,7 +193,7 @@ class LayerItemController extends Controller
         $layerItem->delete($id);
 
         if (LayerItem::find($id) != null) {
-            return redirect($this->show(id));
+            return redirect($this->show($id));
         }
         return view('items.confirmedDelete');
     }

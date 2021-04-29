@@ -6,8 +6,10 @@ use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Throwable;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -53,8 +55,13 @@ class UserController extends Controller
 
         if ($user->exists)
         {
-            Password::broker()->sendResetLink(['email' => $user->email]);
-            $message = ['message' =>'Gebruikersaccount succesvol aangemaakt', 'type' => 'success'];
+            try {
+                Password::broker()->sendResetLink(['email' => $user->email]);
+                $message = ['message' =>'Gebruikersaccount succesvol aangemaakt', 'type' => 'success'];
+            } catch (Throwable $e) {
+                Log::error($e);
+                $message = ['message' =>'Er is iets fout gegaan, neem contact op met de sitebeheerder', 'type' => 'danger'];
+            }
         }
         else{
             $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
@@ -73,7 +80,6 @@ class UserController extends Controller
         //
     }
 
-
     public function update(Request $request, $id)
     {
 //        $request->merge(['password' => Hash::make($request->password)]);
@@ -88,7 +94,6 @@ class UserController extends Controller
 //
 //        return redirect()->route('users')->with('message', 'success:Gebruikersaccount succesvol aangepast');
     }
-
 
     public function destroy($id)
     {
