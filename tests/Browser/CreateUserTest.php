@@ -70,7 +70,7 @@ class CreateUserTest extends DuskTestCase
 
     /**
      * Tries to create a new user and asserts if the insertion was succesful
-     * @group create.user1
+     * @group create.user
      * @return void
      */
     public function testSuccesfulUserCreation() {
