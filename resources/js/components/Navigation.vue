@@ -6,15 +6,14 @@
                 </button>
 
                 <div class="Dropdown">
-                    <a href="" aria-label="Account">
-
+                    <a :href="Laravel.routes['users']" aria-label="Account">
                         <SvgIcon icon="account"></SvgIcon>
                         <span class="Tooltip">
                      Account
                     </span>
 
                     </a>
-                    <a :href="Laravel.routes['items']" aria-label="Dashboard">
+                    <a :href="Laravel.routes['dashboard']" aria-label="Dashboard">
                         <SvgIcon icon="dashboard"></SvgIcon>
                         <span class="Tooltip">
                         Dashboard

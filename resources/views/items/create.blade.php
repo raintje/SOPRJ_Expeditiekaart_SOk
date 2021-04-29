@@ -2,15 +2,12 @@
 
     @section('head_script')
     <script src="https://cdn.tiny.cloud/1/2t1jg49md5wferhnxq0lnsjm72c9ghml73cho300vr1sgv9w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
     @endsection
-
-
 
     @section('content')
     <div class="container">
         <h1>Items aanmaken</h1>
-        @if(count($errors) > 0 )
+        @if(count($errors) > 0)
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -69,6 +66,7 @@
             <button type="submit" class="btn btn-primary"> Opslaan </button>
         </form>
     </div>
+    @endsection
 
     @section('script')
     <script>
@@ -94,4 +92,5 @@
     <script src="{{ asset('js/item-form.js') }}" defer></script>
     <script src="{{ mix('js/app.js') }}"></script>
     @endsection
-@endsection
+
+
