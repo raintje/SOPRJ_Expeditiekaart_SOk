@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label for="emailInput">Emailadres <i class="fas fa-info-circle" rel="tooltip"
                                                       title="{{ __('info.email') }}"></i></label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
                        id="emailInput"
                        placeholder="Emailadres" value="{{ old('email','') }}">
             </div>
