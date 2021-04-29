@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\RedirectResponse;
@@ -50,15 +51,15 @@ class UserController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(UserStoreRequest $request): RedirectResponse
     {
         // Get the validated data from the request
-        // $validated = $request->validated();
+        $validated = $request->validated();
 
         // Initialize the model object to be inserted into the database
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
         // Generates a random hashed password of 8 characters.
         $user->password = Hash::make(Str::random(8));
 
