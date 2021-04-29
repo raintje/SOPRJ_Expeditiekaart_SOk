@@ -35,21 +35,18 @@
             <div class="form-group">
                 <label for="emailInput">Emailadres <i class="fas fa-info-circle tooltip-icon" rel="tooltip"
                                                       title="{{ __('info.email') }}"></i></label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
                        id="emailInput"
                        placeholder="Emailadres" value="{{ old('email','') }}">
             </div>
 
-            <div class="justify-content-center">
-                <button type="submit" class="btn btn-primary">Gebruiker aanmaken</button>
-                <i class="fas fa-info-circle tooltip-icon" rel="tooltip" title="{{ __('info.password') }}"></i>
-            </div>
+            <button type="submit" class="btn btn-primary">Gebruiker aanmaken</button>
 
         </form>
 
     </div>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("[rel=tooltip]").tooltip();
         });
     </script>
