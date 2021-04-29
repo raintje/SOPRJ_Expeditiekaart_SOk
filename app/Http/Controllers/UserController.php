@@ -27,7 +27,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     return " <div  class='d-flex'>
-                                <a  href='#' class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
+                                <a  href=".route('edit.users', ['id' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
                             </div>";
                 })
                 ->addColumn('extra', function () {
@@ -78,7 +78,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit', ['user' => $user]);
     }
 
     public function update(Request $request, $id)
