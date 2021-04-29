@@ -14,7 +14,7 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::check()){
+        if (Auth::check()) {
             return true;
         }
     }
@@ -28,7 +28,24 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|max:191',
-            'email' => 'required|unique|email:rfc,dns,spoof|max:191',
+            'email' => 'required|unique:users|email:rfc,dns,spoof|max:191',
+        ];
+    }
+
+    /**
+     * Returns the custom error messages to be used in the validation of user creation.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'De naam van de gebruiker kan niet leeggelaten worden.',
+            'name.max' => 'Een naam mag maximaal 191 karakters lang zijn',
+            'email.required' => 'Het emailadres van de gebruiker kan niet leeggelaten worden.',
+            'email.unique' => 'Er bestaat al een account met dit emailadres.',
+            'email.email' => 'Voer alstublieft een geldig emailadres in.',
+            'email.max' => 'Een emailadres mag maximaal 191 karakters lang zijn',
         ];
     }
 }
