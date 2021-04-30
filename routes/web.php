@@ -14,6 +14,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // UserController routes
 Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');
 Route::resource('users', UserController::class);
+Route::get('/users/create', [UserController::class, 'create'])->name('create.user');
+Route::post('/users', [UserController::class, 'store'])->name('store.user');
 
 // DashboardController routes
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
