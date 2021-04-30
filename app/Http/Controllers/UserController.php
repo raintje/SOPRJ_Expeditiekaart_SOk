@@ -67,7 +67,7 @@ class UserController extends Controller
             $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
         }
 
-        return redirect()->route('users.index')->with($message);
+        return redirect()->route('users')->with($message);
     }
 
     public function show($id)

@@ -13,7 +13,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // UserController routes
 Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');
-Route::resource('/users', UserController::class);
+Route::resource('users', UserController::class);
 
 // DashboardController routes
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
