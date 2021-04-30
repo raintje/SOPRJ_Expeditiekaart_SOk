@@ -207,7 +207,7 @@
             },
             "require": {
                 "facade/ignition-contracts": "^1.0",
-                "laravel/framework": "8.40.0",
+                "laravel/framework": "^6.0 || ^7.0 || ^8.0",
                 "php": "^7.2 || ^8.0"
             },
             "conflict": {
