@@ -3,12 +3,14 @@
 namespace App\Http\Helpers;  //this was missing in your code
 
 use App\Models\LayerItem;
+use App\Models\LayerItemsLayerItems;
 
 class BDEncoder {
 
   private const SEPERATOR = ';';
 
-  public static function encode($items) {
+  public static function encode($items) 
+  {
     $encoder = '';
     foreach($items as $item){
       $encoder .= $item->id;
@@ -22,7 +24,8 @@ class BDEncoder {
     return $encoder;
   }
 
-  public static function decode($breadcrumb){
+  public static function decode($breadcrumb)
+  {
     if($breadcrumb == ''){
       return [];
     }
@@ -35,7 +38,19 @@ class BDEncoder {
       array_push($items, $item);
     }
 
+    self::isCorrectLink($items);
+
     return $items;
+  }
+
+  public static function isCorrectLink($items)
+  {
+    for($i = 0; $i < (count($items) - 1); $i++){
+      $parentItemId = $items[$i]->id;
+      $childItemId = $items[$i+1]->id;
+    
+      LayerItemsLayerItems::where('layer_item_id', $parentItemId)->where('linked_layer_item_id', $childItemId)->firstOrFail();
+    }
   }
 }
 
