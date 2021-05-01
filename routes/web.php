@@ -28,6 +28,8 @@ Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 
 Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('edit.users');
+Route::post('/users/{id}', [UserController::class, 'update'])->name('update.users');
 
 route::get('/items/{id}/breadcrumb/{breadcrumb}', [LayerItemController::class, 'show'])->name('breadcrumb.add');
 route::get('/items/{id}/breadcrumb/{breadcrumb}/returnNr/{returnNr}', [LayerItemController::class, 'updateBreadcrumb'])->name('breadcrumb.update');
