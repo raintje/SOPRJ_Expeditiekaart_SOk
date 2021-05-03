@@ -7,7 +7,7 @@ use App\Models\LayerItemsLayerItems;
 
 class BDEncoder {
 
-  private const SEPERATOR = ';';
+  public const SEPERATOR = ';';
 
   public static function encode($items) 
   {
