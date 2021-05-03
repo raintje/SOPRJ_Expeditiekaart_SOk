@@ -14,7 +14,9 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (Auth::check()){
+            return true;
+        }
     }
 
     /**

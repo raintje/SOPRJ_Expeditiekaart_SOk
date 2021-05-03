@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
+use App\Mail\UserDeleteMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Throwable;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -32,8 +34,8 @@ class UserController extends Controller
                                 <a  href=".route('edit.users', ['id' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
                             </div>";
                 })
-                ->addColumn('extra', function () {
-                    return "<div class='text-center'><i data-toggle='modal' data-target='#exampleModal' class='delete-icon far fa-trash-alt'></i></div>";
+                ->addColumn('extra', function ($row) {
+                    return "<div class='text-center'><i data-toggle='modal' data-target='#exampleModal' data-id=".$row->id." class='delete-icon far fa-trash-alt addAttr'></i></div>";
                 })
                 ->rawColumns(['action', 'body', 'extra'])
                 ->make(true);
@@ -96,8 +98,24 @@ class UserController extends Controller
 //        return redirect()->route('users')->with('message', 'success:Gebruikersaccount succesvol aangepast');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $user = User::findOrFail($request->id);
+
+        $details = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
+
+        $user->delete();
+        Mail::to($user->email)->send(new UserDeleteMail($details));
+
+        if(!$user->exists) {
+            $message = ['message' =>'Gebruikersaccount succesvol verwijderd', 'type' => 'success'];
+        }
+        else{
+            $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
+        }
+        return redirect()->route('users')->with($message);
     }
 }
