@@ -84,6 +84,10 @@
 
         <main class="py-4">
             <div class="container">
+                @if(session()->has('message'))
+
+                    @include('components.alert', ['message' => session()->get('message'), 'type' => session()->get('type')] )
+                @endif
             @yield('content')
             </div>
         </main>

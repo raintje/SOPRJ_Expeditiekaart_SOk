@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
-use Hash;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+use Throwable;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -27,7 +29,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     return " <div  class='d-flex'>
-                                <a  href='#' class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
+                                <a  href=".route('edit.users', ['id' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
                             </div>";
                 })
                 ->addColumn('extra', function () {
@@ -46,29 +48,26 @@ class UserController extends Controller
     }
 
 
-    /**
-     * Saves a newly created user to the database.
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function store(UserStoreRequest $request): RedirectResponse
+    public function store(UserStoreRequest $request)
     {
-        // Get the validated data from the request
-        $validated = $request->validated();
+        $request->merge(['password' => Hash::make(Str::random(10))]);
+        $user = User::create($request->all());
 
-        // Initialize the model object to be inserted into the database
-        $user = new User();
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        // Generates a random hashed password of 8 characters.
-        $user->password = Hash::make(Str::random(8));
+        if ($user->exists)
+        {
+            try {
+                Password::broker()->sendResetLink(['email' => $user->email]);
+                $message = ['message' =>'Gebruikersaccount succesvol aangemaakt', 'type' => 'success'];
+            } catch (Throwable $e) {
+                Log::error($e);
+                $message = ['message' =>'Er is iets fout gegaan, neem contact op met de sitebeheerder', 'type' => 'danger'];
+            }
+        }
+        else{
+            $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
+        }
 
-        // Save the object to the database
-        $user->save();
-
-        // Redirects to the user overview
-        return redirect()->route('users');
-
+        return redirect()->route('users')->with($message);
     }
 
     public function show($id)
@@ -78,12 +77,23 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit', ['user' => $user]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+//        $request->merge(['password' => Hash::make($request->password)]);
+//
+//        $user = User::finfOrFail($id);
+//        $user->fill($request->all())->save();
+//
+//        if ($user->exists)
+//        {
+//            Password::broker()->sendResetLink(['email' => $user->email]);
+//        }
+//
+//        return redirect()->route('users')->with('message', 'success:Gebruikersaccount succesvol aangepast');
     }
 
     public function destroy($id)
