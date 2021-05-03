@@ -66,7 +66,6 @@ class LayerItemController extends Controller
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
-
         $BDitems = BDEncoder::decode($breadcrumb);
         array_push($BDitems, $item);
         $newBreadcrumb = BDEncoder::encode($BDitems);
@@ -98,6 +97,8 @@ class LayerItemController extends Controller
 
         return redirect()->route('show.item', ['id' => $id]);
     }
+
+    
 
     public function downloadFile($id)
     {

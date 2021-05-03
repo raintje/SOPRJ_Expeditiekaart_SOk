@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // UserController routes
-Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');
+Route::resource('users', UserController::class);
 Route::get('/users/create', [UserController::class, 'create'])->name('create.user');
 Route::post('/users', [UserController::class, 'store'])->name('store.user');
 Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
@@ -28,6 +28,10 @@ Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 
+Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('edit.users');
+Route::post('/users/{id}', [UserController::class, 'update'])->name('update.users');
+
 route::get('/items/{id}/breadcrumb/{breadcrumb}', [LayerItemController::class, 'show'])->name('breadcrumb.add');
 route::get('/items/{id}/breadcrumb/{breadcrumb}/returnNr/{returnNr}', [LayerItemController::class, 'updateBreadcrumb'])->name('breadcrumb.update');
 
@@ -39,6 +43,8 @@ Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('d
 Route::get('/items/{id}/delete', [LayerItemController::class, 'destroy'])->name('destroy.item');
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 Route::get('/items/edit/location', [LayerItemController::class, 'editLocation'])->name('edit.item.location');
+
+
 Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 Route::post('/items', [LayerItemController::class, 'store'])->name('store.item');
