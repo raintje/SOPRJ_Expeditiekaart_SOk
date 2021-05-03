@@ -13,7 +13,6 @@
     <div class="text-center pb-3">
         <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip" title="{{__('info.user_overview')}}"></i></h2>
         <a class="btn btn-primary" href="{{route('create.user')}}" role="button">Gebruiker toevoegen</a>
-{{--        <a href="{{route('destroy.user', 2)}}" class="btn btn-danger">Verwijderen Test</a>--}}
     </div>
 
     {{-- Styling for columns actions and delete are located in UserController.php in getUsers method --}}
