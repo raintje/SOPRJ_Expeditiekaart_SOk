@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdatePasswordRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +31,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     return " <div  class='d-flex'>
-                                <a  href='#' class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
+                                <a  href=".route('users.edit', ['user' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
                             </div>";
                 })
                 ->addColumn('extra', function () {
@@ -67,7 +69,7 @@ class UserController extends Controller
             $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
         }
 
-        return redirect()->route('users')->with($message);
+        return redirect()->route('users.index')->with($message);
     }
 
     public function show($id)
@@ -77,22 +79,30 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit', ['user' => $user]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-//        $request->merge(['password' => Hash::make($request->password)]);
-//
-//        $user = User::finfOrFail($id);
-//        $user->fill($request->all())->save();
-//
-//        if ($user->exists)
-//        {
-//            Password::broker()->sendResetLink(['email' => $user->email]);
-//        }
-//
-//        return redirect()->route('users')->with('message', 'success:Gebruikersaccount succesvol aangepast');
+        $user = User::findOrFail($id);
+        $request->merge(['password' => $request->input('password')]);
+        $user->fill($request->all())->save();
+
+
+        $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
+
+        return redirect()->route('users.index')->with($message);
+    }
+
+    public function updatePassword(UserUpdatePasswordRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->fill($request->all())->save();
+
+        $message = ['message' =>'Wachtwoord succesvol aangepast', 'type' => 'success'];
+
+        return redirect()->route('users.index')->with($message);
     }
 
     public function destroy($id)

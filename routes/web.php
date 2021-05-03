@@ -13,6 +13,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // UserController routes
 Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');
+Route::put('/users/update/password/{user}',[UserController::class, 'updatePassword'])->name('user.update.password');
 Route::resource('users', UserController::class);
 
 // DashboardController routes
@@ -24,8 +25,6 @@ Route::get('/items/create', [LayerItemController::class, 'create'])->name('creat
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
 Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit.item');
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
-
-Route::get('/users', [UserController::class, 'index'])->name('users');
 
 route::get('/items/{id}/breadcrumb/{breadcrumb}', [LayerItemController::class, 'show'])->name('breadcrumb.add');
 route::get('/items/{id}/breadcrumb/{breadcrumb}/returnNr/{returnNr}', [LayerItemController::class, 'updateBreadcrumb'])->name('breadcrumb.update');
