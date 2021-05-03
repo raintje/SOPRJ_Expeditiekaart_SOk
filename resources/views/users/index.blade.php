@@ -48,8 +48,12 @@
                     Weet u het zeker?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                    <button type="button" class="btn btn-danger">Verwijderen</button>
+                    <form action="{{ route('destroy.user') }}" method="POST">
+                        @csrf
+                        <input type=hidden id="id" name=id value="">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                        <button type="submit" class="btn btn-danger" >Verwijderen</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -96,6 +100,12 @@
             });
 
         });
+    </script>
+    <script>
+        $(document).on("click", ".addAttr",function () {
+                let id = $(this).data('id');
+                $('#id').val(id);
+            });
     </script>
 @endsection
 @endsection
