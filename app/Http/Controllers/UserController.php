@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Throwable;
 use Illuminate\Support\Facades\Mail;
-use Str;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -108,8 +107,15 @@ class UserController extends Controller
             'email' => $user->email
         ];
 
+        $user->delete();
         Mail::to($user->email)->send(new UserDeleteMail($details));
 
-        dd("Email is Sent.");
+        if(!$user->exists) {
+            $message = ['message' =>'Gebruikersaccount succesvol verwijderd', 'type' => 'success'];
+        }
+        else{
+            $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
+        }
+        return redirect()->route('users')->with($message);
     }
 }
