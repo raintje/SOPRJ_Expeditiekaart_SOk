@@ -2,17 +2,55 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use App\Http\Helpers\BDEncoder;
+use App\Models\LayerItemsLayerItems;
+use Tests\TestCase;
+
 
 class BreadcrumbTest extends TestCase
 {
+    
     /**
-     * A basic unit test example.
-     *
+     * A test to see if the breadcrumb correctly handels incorrect path
+     * 
      * @return void
      */
-    public function test_example()
+    public function testBreadcrumbShouldFail() : void
     {
-        $this->assertTrue(true);
+        $incorrectPath = 'should fail';
+
+        $response = $this->get(route('breadcrumb.add', ['id' => 3, 'breadcrumb' => $incorrectPath]));
+        $response->assertStatus(404);
     }
+
+    /**
+     * A test to see if an the breadcrumb can be updated
+     * 
+     * @return void
+     */
+    public function testBreadcrumbShouldUpdate()
+    {
+        $linkItem = LayerItemsLayerItems::first();
+        
+        $bdPath = $linkItem->layer_item_id . BDEncoder::SEPERATOR . $linkItem->linked_layer_item_id;
+   
+        $response = $this->get(route('breadcrumb.update', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $bdPath, 'returnNr' => 0]));
+        $response->assertRedirect(route('show.item', ['id' => $linkItem->linked_layer_item_id]));
+        $response->assertStatus(302);
+    }
+
+    /**
+     * A test to see if an item can be added to the breadcrumb
+     * 
+     * @return void
+     */
+    public function testBreadcrumbShouldAdd() : void
+    {
+        $linkItem = LayerItemsLayerItems::first();
+
+        $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
+        $response->assertViewIs('items.show');
+        $response->assertStatus(200);
+    }
+
 }
