@@ -88,7 +88,6 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        $request->merge(['password' => $request->input('password')]);
         $user->fill($request->all())->save();
 
 
