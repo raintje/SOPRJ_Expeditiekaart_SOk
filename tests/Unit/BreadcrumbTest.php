@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Http\Helpers\BDEncoder;
+use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
 use Tests\TestCase;
 
@@ -18,8 +19,8 @@ class BreadcrumbTest extends TestCase
     public function testBreadcrumbShouldFail() : void
     {
         $incorrectPath = 'should fail';
-
-        $response = $this->get(route('breadcrumb.add', ['id' => 3, 'breadcrumb' => $incorrectPath]));
+        
+        $response = $this->get(route('breadcrumb.add', ['id' => Layeritem::first()->id, 'breadcrumb' => $incorrectPath]));
         $response->assertStatus(404);
     }
 
@@ -51,6 +52,26 @@ class BreadcrumbTest extends TestCase
         $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
         $response->assertViewIs('items.show');
         $response->assertStatus(200);
+    }
+
+    /**
+     * A test to see if the breadcrumb is correctly handled after the links is deleted
+     * 
+     * @return void
+     */
+    public function testBreadcrumbRemoveAddedTest() : void
+    {
+        $linkItem = LayerItemsLayerItems::first();
+        
+        $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
+        $response->assertStatus(200);
+
+        $linkItem->delete();
+
+        $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
+        $response->assertStatus(404);
+
+        $linkItem->save();
     }
 
 }

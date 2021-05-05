@@ -12,6 +12,9 @@ class BDEncoder {
   public static function encode($items) 
   {
     $encoder = '';
+
+    self::isCorrectLink($items);
+
     foreach($items as $item){
       $encoder .= $item->id;
       $encoder .= self::SEPERATOR;
