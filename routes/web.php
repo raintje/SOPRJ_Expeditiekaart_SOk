@@ -16,6 +16,7 @@ Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');
 Route::resource('users', UserController::class);
 Route::get('/users/create', [UserController::class, 'create'])->name('create.user');
 Route::post('/users', [UserController::class, 'store'])->name('store.user');
+Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
 
 // DashboardController routes
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -28,6 +29,8 @@ Route::get('/items/{id}/edit', [LayerItemController::class, 'edit'])->name('edit
 Route::post('/items/{id}', [LayerItemController::class, 'update'])->name('update.item');
 
 Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('edit.users');
+Route::post('/users/{id}', [UserController::class, 'update'])->name('update.users');
 
 route::get('/items/{id}/breadcrumb/{breadcrumb}', [LayerItemController::class, 'show'])->name('breadcrumb.add');
 route::get('/items/{id}/breadcrumb/{breadcrumb}/returnNr/{returnNr}', [LayerItemController::class, 'updateBreadcrumb'])->name('breadcrumb.update');

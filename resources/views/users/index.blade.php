@@ -5,7 +5,6 @@
           href="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.css"/>
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
@@ -14,7 +13,6 @@
     <div class="text-center pb-3">
         <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip" title="{{__('info.user_overview')}}"></i></h2>
         <a class="btn btn-primary" href="{{route('create.user')}}" role="button">Gebruiker toevoegen</a>
-
     </div>
 
     {{-- Styling for columns actions and delete are located in UserController.php in getUsers method --}}
@@ -48,8 +46,12 @@
                     Weet u het zeker?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                    <button type="button" class="btn btn-danger">Verwijderen</button>
+                    <form action="{{ route('destroy.user') }}" method="POST">
+                        @csrf
+                        <input type=hidden id="id" name=id value="">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                        <button type="submit" class="btn btn-danger" >Verwijderen</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -96,6 +98,12 @@
             });
 
         });
+    </script>
+    <script>
+        $(document).on("click", ".addAttr",function () {
+                let id = $(this).data('id');
+                $('#id').val(id);
+            });
     </script>
 @endsection
 @endsection
