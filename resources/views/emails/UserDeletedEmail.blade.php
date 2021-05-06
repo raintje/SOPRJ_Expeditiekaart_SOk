@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test email</title>
+    <title>Gebruiker verwijderd</title>
 </head>
 <body>
     <p>Beste {{ $details['name'] }}, </p>
