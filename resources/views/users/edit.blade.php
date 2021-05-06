@@ -79,7 +79,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label>Nieuw wachtwoord</label>
-                                            <input class="form-control" value="{{old('password', '')}}" name="password" type="text" placeholder="Wachtwoord">
+                                            <input class="form-control" value="{{old('password', '')}}" name="password" type="password" placeholder="Wachtwoord">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label>Bevestig <span class="d-none d-xl-inline">Wachtwoord</span></label>
-                                            <input class="form-control" value="{{old('password_confirmation', '')}}" name="password_confirmation" type="text" placeholder="Wachtwoord"></div>
+                                            <input class="form-control" value="{{old('password_confirmation', '')}}" name="password_confirmation" type="password" placeholder="Wachtwoord"></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

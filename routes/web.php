@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Route;
 // HomeController routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::group(['middleware' => ['auth']], function () {
 // UserController routes
-Route::get('api/users',[UserController::class, 'getUsers'])->name('get.user');
-Route::put('/users/update/password/{user}',[UserController::class, 'updatePassword'])->name('user.update.password');
-Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
-Route::resource('users', UserController::class);
+    Route::get('api/users', [UserController::class, 'getUsers'])->name('get.user');
+    Route::put('/users/update/password/{user}', [UserController::class, 'updatePassword'])->name('user.update.password');
+    Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
+    Route::resource('users', UserController::class);
+});
 
 // DashboardController routes
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
