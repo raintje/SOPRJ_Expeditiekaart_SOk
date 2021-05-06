@@ -2,17 +2,66 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use App\Http\Controllers\UserController;
+use App\Http\Requests\UserStoreRequest;
+use App\Models\User;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class CreateUserTest extends TestCase
 {
+
+    use WithFaker;
+
+    protected function setUpFaker()
+    {
+        $this->faker = $this->makeFaker('nl_NL');
+    }
+
     /**
-     * A basic unit test example.
+     * Tests if the view is correctly displayed.
      *
      * @return void
      */
-    public function test_example()
+    public function testCreateUserPageResponse()
     {
-        $this->assertTrue(true);
+        $response = $this->get(route('create.user'));
+        $response->assertViewIs('users.create');
+        $response->assertStatus(200);
     }
+
+    /**
+     * Asserts if the correct response is returned when a user is stored.
+     *
+     * @return void
+     */
+    public function testUserStore()
+    {
+        // Controller
+        $controller = new UserController();
+
+        // Request for parameter
+        $request = UserStoreRequest::create('/users/', 'POST', [
+           'name' => $this->faker->name,
+           'email' => $this->faker->unique()->email,
+        ]);
+
+        // Response
+        $response = $controller->store($request);
+
+        // Assert status
+        $this->assertEquals(302, $response->getStatusCode());
+    }
+
+    /**
+     * Tries to insert a new user with valid information into the database and asserts if all goes as planned.
+     *
+     * @return void
+     */
+    public function testCreateValidInformation()
+    {
+        $response = $this->post(route('create.user', ['name' => $this->faker->name], ['email' => $this->faker->unique()->email]));
+        $response->assertSessionHasNoErrors();
+    }
+
 }
