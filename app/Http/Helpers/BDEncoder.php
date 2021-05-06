@@ -7,11 +7,14 @@ use App\Models\LayerItemsLayerItems;
 
 class BDEncoder {
 
-  private const SEPERATOR = ';';
+  public const SEPERATOR = ';';
 
   public static function encode($items) 
   {
     $encoder = '';
+
+    self::isCorrectLink($items);
+
     foreach($items as $item){
       $encoder .= $item->id;
       $encoder .= self::SEPERATOR;
