@@ -72,7 +72,7 @@ class CreateUserTest extends TestCase
     public function testCreateInvalidInformation()
     {
         $response = $this->post(route('create.user', ['name' => null], ['email' => null]));
-        $response->assertStatus(405);
+        $response->assertSeeText('Er is iets fout gegaan, probeer het opnieuw.');
     }
 
 }
