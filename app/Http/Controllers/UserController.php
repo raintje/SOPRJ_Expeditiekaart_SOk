@@ -67,8 +67,8 @@ class UserController extends Controller
                 $message = ['message' =>'Er is iets fout gegaan, neem contact op met de sitebeheerder', 'type' => 'danger'];
             }
         }
-        else{
-            $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
+        else {
+            $message = ['message' => 'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
         }
 
         return redirect()->route('users.index')->with($message);
