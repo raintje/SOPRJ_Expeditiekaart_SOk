@@ -64,4 +64,15 @@ class CreateUserTest extends TestCase
         $response->assertSessionHasNoErrors();
     }
 
+    /**
+     * Tries to insert a new user with invalid data and asserts if the error is successfully caught.
+     *
+     * @return void
+     */
+    public function testCreateInvalidInformation()
+    {
+        $response = $this->post(route('create.user'));
+        $response->assertSeeText('Er is iets fout gegaan, probeer het opnieuw.');
+    }
+
 }
