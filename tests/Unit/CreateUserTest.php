@@ -66,13 +66,45 @@ class CreateUserTest extends TestCase
 
     /**
      * Tries to insert a new user with invalid data and asserts if the error is successfully caught.
-     *
+     * @dataProvider additionalInvalidInformation
      * @return void
      */
-    public function testCreateInvalidInformation()
+    public function testCreateInvalidInformation($name, $email, $nameAssert, $emailAssert)
     {
-        $response = $this->post(route('create.user', ['name' => null], ['email' => null]));
-        $response->assertSeeText('Er is iets fout gegaan, probeer het opnieuw.');
+        $user = new User(array('name' => 'fake'));
+
+        $response = $this->be($user)->post('/users', [
+            'name' => $name,
+            'email' => $email,
+        ]);
+
+        if($nameAssert){
+            $response->assertSessionDoesntHaveErrors('name');
+        } else {
+            $response->assertSessionHasErrors('name');
+        }
+
+        if($emailAssert){
+            $response->assertSessionDoesntHaveErrors('email');
+        } else {
+            $response->assertSessionHasErrors('email');
+        }
+
+        //remove
+        if($emailAssert && $nameAssert){
+            $response->assertSessionHasNoErrors();
+            User::where('email', $email)->delete();
+        }
+    }
+
+    public function additionalInvalidInformation(): array
+    {
+        return [
+            ['', '', false, false],
+            [null, null, false, false],
+            ['works', 'works@gmail.com', true, true],
+            ['test', 'test', true, false]
+        ];
     }
 
 }
