@@ -13,8 +13,7 @@
 
     <div class="text-center pb-3">
         <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip" title="{{__('info.user_overview')}}"></i></h2>
-        <a href="{{ route('create.user') }}"><button class="btn btn-primary">Gebruiker toevoegen</button></a>
-
+        <a href="{{ route('users.create') }}"><button class="btn btn-primary">Gebruiker toevoegen</button></a>
     </div>
 
     {{-- Styling for columns actions and delete are located in UserController.php in getUsers method --}}
@@ -52,7 +51,7 @@
                         @csrf
                         <input type=hidden id="id" name=id value="">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                        <button type="submit" class="btn btn-danger" >Verwijderen</button>
+                        <button type="submit" class="btn btn-danger">Verwijderen</button>
                     </form>
                 </div>
             </div>
