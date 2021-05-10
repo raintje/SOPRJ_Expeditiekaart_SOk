@@ -28,6 +28,7 @@ class IndexUserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(31))
+                    ->assertAuthenticated()
                     ->visit('/users')
                     ->assertSee('Gebruiker toevoegen')
                     ->press('Gebruiker toevoegen')
@@ -36,21 +37,24 @@ class IndexUserTest extends DuskTestCase
     }
 
     /**
-     * Selects a random user and asserts if the 
+     * Selects a random user and asserts if said user's data is displayed on the page.
      * @group index.user
      * @return void
      */
-    public function testUsersAreDisplayed() {
+    public function testSingleUserIsDisplayed() 
+    {
         $this->browse(function (Browser $browser) {
             $randomUser = $this->faker->randomElement(User::all());
             $browser->loginAs(User::find(31))
+                    ->assertAuthenticated()
                     ->visit('/users')
-                    ->pause(500)
+                    ->pause(200)
                     ->select('usersTable_length', 100)
                     ->assertSelected('usersTable_length', 100)
-                    ->pause(100)
+                    ->pause(500)
                     ->assertSee($randomUser->email)
                     ->assertSee($randomUser->name);
         });
     }
+
 }
