@@ -6,8 +6,11 @@ use App\Http\Requests\UserStoreRequest;
 use App\Mail\UserDeleteMail;
 use App\Http\Requests\UserUpdatePasswordRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Mail\UserUpdateMail;
+use App\Mail\UserUpdatePasswordMail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
@@ -90,6 +93,12 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->fill($request->all())->save();
 
+        $details = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
+
+        Mail::to($user->email)->send(new UserUpdateMail($details));
 
         $message = ['message' =>'Gebruikersaccount succesvol aangepast', 'type' => 'success'];
 
@@ -100,6 +109,18 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->fill($request->all())->save();
+
+        if ($user->id != Auth::id())
+        {
+            $details = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $request->password
+            ];
+
+            Mail::to($user->email)->send(new UserUpdatePasswordMail($details));
+        }
+
 
         $message = ['message' =>'Wachtwoord succesvol aangepast', 'type' => 'success'];
 
