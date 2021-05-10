@@ -76,7 +76,7 @@ class CreateUserTest extends DuskTestCase
     public function testSuccesfulUserCreation() {
         $this->browse(function (Browser $browser) {
             $randomName = $this->faker->name;
-            $randomEmail = $this->faker->unique()->email;
+            $randomEmail = 'laraveldusktestadres@gmail.com';
             $browser->loginAs(User::find(31))
                     ->visit('/users/create')
                     ->type('name', $randomName)
