@@ -30,7 +30,7 @@ class DeleteUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
                 ->visitRoute('users.index')
-            ->assertSee('Gebruikers overzicht');
+                ->assertSee('Gebruikers overzicht');
 
         });
     }
@@ -40,23 +40,22 @@ class DeleteUserTest extends DuskTestCase
      */
     public function testDeleteUser()
     {
-        $this->browse(function (Browser $browser)  {
+        $this->browse(function (Browser $browser) {
             $users = User::all()->count();
             $user = User::all()->random()->id;
             $browser->loginAs(User::find(1))
                 ->visitRoute('users.index')
                 ->assertSee('Gebruikers overzicht')
-                ->select('usersTable_length','100')
+                ->select('usersTable_length', '100')
                 ->pause(1000)
-                ->click('@delete'.$user)
+                ->click('@delete' . $user)
                 ->pause(1000)
                 ->press('#deleteUser')
                 ->pause(5000)
                 ->assertSee('Gebruikersaccount succesvol verwijderd');
 
             $newUserCount = User::all()->count();
-            Assert::assertTrue($newUserCount == $users-1);
-
+            Assert::assertTrue($newUserCount == $users - 1);
         });
     }
 
@@ -65,21 +64,21 @@ class DeleteUserTest extends DuskTestCase
      */
     public function testDeleteUserWrong()
     {
-        $this->browse(function (Browser $browser)  {
+        $this->browse(function (Browser $browser) {
             $users = User::all()->count();
             $user = User::all()->random()->id;
             $browser->loginAs(User::find(1))
                 ->visitRoute('users.index')
                 ->assertSee('Gebruikers overzicht')
-                ->select('usersTable_length','100')
+                ->select('usersTable_length', '100')
                 ->pause(1000)
-                ->click('@delete'.$user)
+                ->click('@delete' . $user)
                 ->pause(1000)
                 ->press('#deleteUser')
                 ->pause(5000);
 
             $newUserCount = User::all()->count();
-            Assert::assertFalse($newUserCount == $users-2);
+            Assert::assertFalse($newUserCount == $users - 2);
         });
     }
 
