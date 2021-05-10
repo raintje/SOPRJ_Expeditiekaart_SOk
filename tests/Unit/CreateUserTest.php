@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Http\Controllers\UserController;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -25,7 +26,8 @@ class CreateUserTest extends TestCase
      */
     public function testCreateUserPageResponse()
     {
-        $response = $this->get(route('create.user'));
+        $response = $this->get(route('users.create'));
+//        dd($response);
         $response->assertViewIs('users.create');
         $response->assertStatus(200);
     }
@@ -60,7 +62,7 @@ class CreateUserTest extends TestCase
      */
     public function testCreateValidInformation()
     {
-        $response = $this->post(route('create.user', ['name' => $this->faker->name], ['email' => $this->faker->unique()->email]));
+        $response = $this->post(route('users.create', ['name' => $this->faker->name], ['email' => $this->faker->unique()->email]));
         $response->assertSessionHasNoErrors();
     }
 
