@@ -26,7 +26,6 @@ class CreateUserTest extends TestCase
     public function testCreateUserPageResponse()
     {
         $response = $this->get(route('users.create'));
-        // $response->assertViewIs('users.create');
         $response->assertStatus(302);
     }
 
