@@ -29,7 +29,8 @@ class IndexUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(31))
                     ->assertAuthenticated()
-                    ->visit('/users')
+                    ->visitRoute('users.index')
+                    ->assertPathIs('/users')
                     ->assertSee('Gebruiker toevoegen')
                     ->press('Gebruiker toevoegen')
                     ->assertPathIs('/users/create');
@@ -47,7 +48,8 @@ class IndexUserTest extends DuskTestCase
             $randomUser = $this->faker->randomElement(User::all());
             $browser->loginAs(User::find(31))
                     ->assertAuthenticated()
-                    ->visit('/users')
+                    ->visitRoute('users.index')
+                    ->assertPathIs('/users')
                     ->pause(200)
                     ->select('usersTable_length', 100)
                     ->assertSelected('usersTable_length', 100)
