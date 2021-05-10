@@ -13,7 +13,7 @@
 
     <div class="text-center pb-3">
         <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip" title="{{__('info.user_overview')}}"></i></h2>
-        <a class="btn btn-primary" href="{{ route('create.user') }}" role="button">Gebruiker toevoegen</a>
+        <a href="{{ route('create.user') }}"><button class="btn btn-primary">Gebruiker toevoegen</button></a>
 
     </div>
 
