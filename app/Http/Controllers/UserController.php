@@ -40,7 +40,7 @@ class UserController extends Controller
                             </div>";
                 })
                 ->addColumn('extra', function ($row) {
-                    return "<div class='text-center'><i data-toggle='modal' data-target='#exampleModal' data-id=".$row->id." class='delete-icon far fa-trash-alt addAttr'></i></div>";
+                    return "<div class='text-center'><i data-toggle='modal' dusk='delete$row->id' data-target='#exampleModal' data-id=".$row->id." class='delete-icon far fa-trash-alt addAttr'></i></div>";
                 })
                 ->rawColumns(['action', 'body', 'extra'])
                 ->make(true);
@@ -92,7 +92,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->fill($request->all())->save();
-
+      
         $details = [
             'name' => $user->name,
             'email' => $user->email
@@ -120,7 +120,6 @@ class UserController extends Controller
 
             Mail::to($user->email)->send(new UserUpdatePasswordMail($details));
         }
-
 
         $message = ['message' =>'Wachtwoord succesvol aangepast', 'type' => 'success'];
 
