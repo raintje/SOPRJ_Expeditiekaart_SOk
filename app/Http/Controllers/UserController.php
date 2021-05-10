@@ -6,8 +6,11 @@ use App\Http\Requests\UserStoreRequest;
 use App\Mail\UserDeleteMail;
 use App\Http\Requests\UserUpdatePasswordRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Mail\UserUpdateMail;
+use App\Mail\UserUpdatePasswordMail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
@@ -37,7 +40,7 @@ class UserController extends Controller
                             </div>";
                 })
                 ->addColumn('extra', function ($row) {
-                    return "<div class='text-center'><i data-toggle='modal' data-target='#exampleModal' data-id=".$row->id." class='delete-icon far fa-trash-alt addAttr'></i></div>";
+                    return "<div class='text-center'><i data-toggle='modal' dusk='delete$row->id' data-target='#exampleModal' data-id=".$row->id." class='delete-icon far fa-trash-alt addAttr'></i></div>";
                 })
                 ->rawColumns(['action', 'body', 'extra'])
                 ->make(true);
@@ -89,7 +92,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->fill($request->all())->save();
+      
+        $details = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
 
+        Mail::to($user->email)->send(new UserUpdateMail($details));
 
         $message = ['message' =>'Gebruikersaccount succesvol aangepast', 'type' => 'success'];
 
@@ -100,6 +109,17 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->fill($request->all())->save();
+
+        if ($user->id != Auth::id())
+        {
+            $details = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $request->password
+            ];
+
+            Mail::to($user->email)->send(new UserUpdatePasswordMail($details));
+        }
 
         $message = ['message' =>'Wachtwoord succesvol aangepast', 'type' => 'success'];
 
