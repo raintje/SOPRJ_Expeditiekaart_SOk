@@ -3,8 +3,7 @@
 namespace Tests\Browser;
 
 use App\Models\LayerItem;
-use Facebook\WebDriver\WebDriverBy;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\LayerItemsLayerItems;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -20,7 +19,7 @@ class BreadcrumbTest extends DuskTestCase
     }
 
     /**
-     * @group test     
+     * @group map     
      * @group breadcrumb
      */
     public function testContainsLinks()
@@ -29,8 +28,8 @@ class BreadcrumbTest extends DuskTestCase
             $item = $this->faker()->randomElement(LayerItem::all());
 
             $browser->visitRoute('show.item', ['id' => $item])
+                    ->assertSeeIn('@breadcrumb-list', 'Expeditiekaart')
                     ->assertSeeIn('@breadcrumb-list', $item->title);
-
         });
     }
 
@@ -38,35 +37,22 @@ class BreadcrumbTest extends DuskTestCase
      * @group map     
      * @group breadcrumb
      */
-    public function testLinkCanUpdate()
+    public function testSeeUpdatedBreadcrumb()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Laravel');
+            $linkItem = $this->faker()->randomElement(LayerItemsLayerItems::all());
+            
+            $value = $browser->visitRoute('show.item', ['id' => $linkItem->layer_item_id])
+                             ->text('@link-button');
+
+            $browser->click('@link-button')
+                    ->assertSeeIn('@breadcrumb-list', LayerItem::find($linkItem->layer_item_id)->title)
+                    ->assertSeeIn('@breadcrumb-list', $value)
+                    ->clickLink(LayerItem::find($linkItem->layer_item_id)->title)
+                    ->assertSeeIn('@breadcrumb-list', LayerItem::find($linkItem->layer_item_id)->title)
+                    ->assertDontSeeIn('@breadcrumb-list', $value);
         });
     }
 
-    /**
-     * @group map     
-     * @group breadcrumb
-     */
-    public function testLinkCanFail()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Laravel');
-        });
-    }
 
-    /**
-     * @group map     
-     * @group breadcrumb
-     */
-    public function testLinkCanReturn()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Laravel');
-        });
-    }
 }
