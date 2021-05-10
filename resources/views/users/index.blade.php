@@ -51,7 +51,7 @@
                         @csrf
                         <input type=hidden id="id" name=id value="">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
-                        <button type="submit" class="btn btn-danger">Verwijderen</button>
+                        <button id="deleteUser" type="submit" class="btn btn-danger">Verwijderen</button>
                     </form>
                 </div>
             </div>
