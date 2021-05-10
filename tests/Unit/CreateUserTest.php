@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -26,8 +27,9 @@ class CreateUserTest extends TestCase
      */
     public function testCreateUserPageResponse()
     {
+        $user = User::first();
+        Auth::login($user);
         $response = $this->get(route('users.create'));
-//        dd($response);
         $response->assertViewIs('users.create');
         $response->assertStatus(200);
     }
