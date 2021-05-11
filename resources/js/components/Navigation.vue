@@ -6,7 +6,7 @@
                 </button>
 
                 <div class="Dropdown">
-                    <a :href="Laravel.routes['users']" aria-label="Account">
+                    <a :href="Laravel.routes['users.index']" aria-label="Account">
                         <SvgIcon icon="account"></SvgIcon>
                         <span class="Tooltip">
                      Account
