@@ -27,7 +27,7 @@ class IndexUserTest extends DuskTestCase
     public function testCreateButtonDirectsToCorrectPage()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(31))
+            $browser->loginAs(User::first())
                     ->assertAuthenticated()
                     ->visitRoute('users.index')
                     ->assertPathIs('/users')
@@ -46,7 +46,7 @@ class IndexUserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $randomUser = $this->faker->randomElement(User::all());
-            $browser->loginAs(User::find(31))
+            $browser->loginAs(User::first())
                     ->assertAuthenticated()
                     ->visitRoute('users.index')
                     ->assertPathIs('/users')

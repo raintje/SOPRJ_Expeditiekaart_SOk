@@ -27,7 +27,7 @@ class CreateUserTest extends TestCase
      */
     public function testCreateUserPageResponse()
     {
-        $user = User::find(31);
+        $user = User::first();
         Auth::login($user);
         $response = $this->get(route('users.create'));
         $response->assertViewIs('users.create');

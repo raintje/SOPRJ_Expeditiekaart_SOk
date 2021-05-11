@@ -24,7 +24,7 @@ class CreateUserTest extends DuskTestCase
      */
     public function testValidationOnEmpty() {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(31))
+            $browser->loginAs(User::first())
                     ->visit('/users/create')
                     ->press('Gebruiker aanmaken')
                     ->assertPathIs('/users/create')
@@ -40,7 +40,7 @@ class CreateUserTest extends DuskTestCase
      */
     public function testValidationOnInvalidEmail() {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(31))
+            $browser->loginAs(User::first())
                     ->visit('/users/create')
                     ->type('name', $this->faker->name)
                     ->type('email', 'aaaa')
@@ -58,7 +58,7 @@ class CreateUserTest extends DuskTestCase
     public function testValidationOnDuplicateUser() {
         $this->browse(function (Browser $browser) {
             $randomUser = $this->faker->randomElement(User::all());
-            $browser->loginAs(User::find(31))
+            $browser->loginAs(User::first())
                     ->visit('/users/create')
                     ->type('name', $randomUser->name)
                     ->type('email', $randomUser->email)
@@ -77,7 +77,7 @@ class CreateUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $randomName = $this->faker->name;
             $randomEmail = 'laraveldusktestadres@gmail.com';
-            $browser->loginAs(User::find(31))
+            $browser->loginAs(User::first())
                     ->visit('/users/create')
                     ->type('name', $randomName)
                     ->type('email', $randomEmail)
