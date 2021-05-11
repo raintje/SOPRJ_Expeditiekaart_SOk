@@ -64,7 +64,7 @@ class ShowItemInformationTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
 
-            $item =LayerItem::first();
+            $item = LayerItem::first();
             $browser->visit('/items/' . strval($item->id))
                     ->clickLink('Verwijderen')
                     ->pause(500)
@@ -73,6 +73,8 @@ class ShowItemInformationTest extends DuskTestCase
                     ->assertSee('Het item is succesvol verwijderd!')
                     ->clickLink('Terug naar de expeditiekaart')
                     ->assertPathIs('/');
+
+            $item->save();
         });
     }
     
