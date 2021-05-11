@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UserStoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,11 @@ class UserStoreRequest extends FormRequest
      */
     public function rules()
     {
+        $data = parent::all();
+        $user = $data['user'];
         return [
             'name' => 'required|max:191',
-            'email' => 'required|unique:users|email:rfc,dns,spoof|max:191',
+            'email' => "required|unique:users,email,$user,id|email:rfc,dns,spoof|max:191",
         ];
     }
 

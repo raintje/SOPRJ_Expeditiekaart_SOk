@@ -67,7 +67,7 @@ class EditItemTest extends TestCase
     function testCanUpdatelayerItemWrongDataLocation()
     {
         $response = $this->post(route('update.item', ['id' => LayerItem::first()->id]), [
-            'title' => '',
+            'title' => null
         ]);
 
         $response->assertSessionHasErrors('title');

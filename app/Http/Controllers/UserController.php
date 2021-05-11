@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
+use App\Mail\UserDeleteMail;
+use App\Http\Requests\UserUpdatePasswordRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Mail\UserUpdateMail;
+use App\Mail\UserUpdatePasswordMail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Throwable;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -28,12 +35,12 @@ class UserController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    return " <div  class='d-flex'>
-                                <a  href=".route('edit.users', ['id' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
+                    return "<div class='d-flex'>
+                                <a href=".route('users.edit', ['user' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
                             </div>";
                 })
-                ->addColumn('extra', function () {
-                    return "<div class='text-center'><i data-toggle='modal' data-target='#exampleModal' class='delete-icon far fa-trash-alt'></i></div>";
+                ->addColumn('extra', function ($row) {
+                    return "<div class='text-center'><i data-toggle='modal' dusk='delete$row->id' data-target='#exampleModal' data-id=".$row->id." class='delete-icon far fa-trash-alt addAttr'></i></div>";
                 })
                 ->rawColumns(['action', 'body', 'extra'])
                 ->make(true);
@@ -63,11 +70,11 @@ class UserController extends Controller
                 $message = ['message' =>'Er is iets fout gegaan, neem contact op met de sitebeheerder', 'type' => 'danger'];
             }
         }
-        else{
-            $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
+        else {
+            $message = ['message' => 'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
         }
 
-        return redirect()->route('users')->with($message);
+        return redirect()->route('users.index')->with($message);
     }
 
     public function show($id)
@@ -81,23 +88,63 @@ class UserController extends Controller
         return view('users.edit', ['user' => $user]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-//        $request->merge(['password' => Hash::make($request->password)]);
-//
-//        $user = User::finfOrFail($id);
-//        $user->fill($request->all())->save();
-//
-//        if ($user->exists)
-//        {
-//            Password::broker()->sendResetLink(['email' => $user->email]);
-//        }
-//
-//        return redirect()->route('users')->with('message', 'success:Gebruikersaccount succesvol aangepast');
+        $user = User::findOrFail($id);
+        $user->fill($request->all())->save();
+      
+        $details = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
+
+        Mail::to($user->email)->send(new UserUpdateMail($details));
+
+        $message = ['message' =>'Gebruikersaccount succesvol aangepast', 'type' => 'success'];
+
+        return redirect()->route('users.index')->with($message);
     }
 
-    public function destroy($id)
+    public function updatePassword(UserUpdatePasswordRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->fill($request->all())->save();
+
+        if ($user->id != Auth::id())
+        {
+            $details = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $request->password
+            ];
+
+            Mail::to($user->email)->send(new UserUpdatePasswordMail($details));
+        }
+
+        $message = ['message' =>'Wachtwoord succesvol aangepast', 'type' => 'success'];
+
+        return redirect()->route('users.index')->with($message);
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+
+        $details = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
+
+        $user->delete();
+        Mail::to($user->email)->send(new UserDeleteMail($details));
+
+        if(!$user->exists) {
+            $message = ['message' =>'Gebruikersaccount succesvol verwijderd', 'type' => 'success'];
+        }
+        else{
+            $message = ['message' =>'Er is iets fout gegaan, probeer het opnieuw.', 'type' => 'danger'];
+        }
+
+        return redirect()->route('users.index')->with($message);
     }
 }
