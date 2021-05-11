@@ -27,7 +27,7 @@ class CreateItemTest extends DuskTestCase
     public function testPageExists()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visit('/items/create')
                     ->assertSee('Items aanmaken');
         });
@@ -36,7 +36,7 @@ class CreateItemTest extends DuskTestCase
     public function testValidationWithoutData()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visit('/items/create')
                 ->press('Opslaan')
                 ->assertSee('De titel van een item is verplicht.')
@@ -48,7 +48,7 @@ class CreateItemTest extends DuskTestCase
     public function testBodyValidation()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visit('/items/create')
                 ->type('title', 'this is a testTitle')
                 ->press('Opslaan')
@@ -60,7 +60,7 @@ class CreateItemTest extends DuskTestCase
     public function testDuplicateItemCreation()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visit('/items/create')
                 ->type('title', LayerItem::first()->title)
                 ->press('Opslaan')

@@ -15,7 +15,7 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testHasLocationMap()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item.location')
                 ->assertVisible('.vue2leaflet-map')
                 ->assertVisible('.leaflet-container')
@@ -30,7 +30,7 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testLocationItems()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item.location')
                 ->assertVueIsNot('items', '', '@editLocation-component');
         });
@@ -43,7 +43,7 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testHasSaveButton()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item.location')
                 ->assertVisible('#saveLocation');
         });
@@ -57,7 +57,7 @@ class ChangeLocationMapTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->resize(360, 640);
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item.location')
                 ->assertVisible('#saveLocation');
         });
@@ -70,7 +70,7 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testSaveItems()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item.location')
                 ->click('@save-button')
                 ->pause(2000)
@@ -86,7 +86,7 @@ class ChangeLocationMapTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->resize(360, 640);
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item.location')
                 ->assertVisible('.legend');
         });

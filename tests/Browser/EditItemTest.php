@@ -28,7 +28,7 @@ class EditItemTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $item = $this->faker()->randomElement(LayerItem::all());
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item', $item->id)
                     ->type('title', '')
                     ->press('Wijzigingen opslaan')
@@ -56,7 +56,7 @@ class EditItemTest extends DuskTestCase
             $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $item->id)->first();
 
             // Asserts if the title and body of the item are displayed in the correct location.
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('edit.item', $item->id)
                     ->assertInputValue('title', $item->title)
                     ->assertInputValue('body', $item->body);
