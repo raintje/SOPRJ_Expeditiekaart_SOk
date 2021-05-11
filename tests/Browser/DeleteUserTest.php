@@ -28,7 +28,7 @@ class DeleteUserTest extends DuskTestCase
     public function testSeeOverview()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('users.index')
                 ->assertSee('Gebruikers overzicht');
 
@@ -43,7 +43,7 @@ class DeleteUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $users = User::all()->count();
             $user = User::all()->random()->id;
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('users.index')
                 ->assertSee('Gebruikers overzicht')
                 ->select('usersTable_length', '100')
@@ -67,7 +67,7 @@ class DeleteUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $users = User::all()->count();
             $user = User::all()->random()->id;
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                 ->visitRoute('users.index')
                 ->assertSee('Gebruikers overzicht')
                 ->select('usersTable_length', '100')

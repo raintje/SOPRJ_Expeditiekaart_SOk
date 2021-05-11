@@ -4,19 +4,11 @@ namespace Tests\Browser;
 
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class BreadcrumbTest extends DuskTestCase
 {
-
-    use WithFaker;
-
-    protected function setUpFaker()
-    {
-        $this->faker = $this->makeFaker('nl_NL');
-    }
 
     /**
      * @group map     
@@ -25,7 +17,7 @@ class BreadcrumbTest extends DuskTestCase
     public function testContainsLinks()
     {
         $this->browse(function (Browser $browser) {
-            $item = $this->faker()->randomElement(LayerItem::all());
+            $item = LayerItem::first();
 
             $browser->visitRoute('show.item', ['id' => $item])
                     ->assertSeeIn('@breadcrumb-list', 'Expeditiekaart')
@@ -40,7 +32,7 @@ class BreadcrumbTest extends DuskTestCase
     public function testSeeUpdatedBreadcrumb()
     {
         $this->browse(function (Browser $browser) {
-            $linkItem = $this->faker()->randomElement(LayerItemsLayerItems::all());
+            $linkItem = LayerItemsLayerItems::first();
             
             $value = $browser->visitRoute('show.item', ['id' => $linkItem->layer_item_id])
                              ->text('@link-button');

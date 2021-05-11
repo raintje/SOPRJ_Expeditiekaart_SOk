@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Browser;
+//namespace Tests\Browser;
 
-use App\Models\User;
-use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+//use App\Models\User;
+//use Laravel\Dusk\Browser;
+//use Tests\DuskTestCase;
+//use Illuminate\Foundation\Testing\WithFaker;
 
-class CreateUserTest extends DuskTestCase
-{
+//class CreateUserTest extends DuskTestCase
+//{
 //
 //    use WithFaker;
 //
@@ -86,4 +86,4 @@ class CreateUserTest extends DuskTestCase
 //        });
 //    }
 
-}
+//}
