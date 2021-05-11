@@ -20,13 +20,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(30)->create();
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('Admin123!'), // password = Admin123!
         ]);
+        User::factory(30)->create();
         LayerItem::factory(10)->create();
         FirstLayerItem::factory(10)->create();
         $this->call(CategoriesTableSeeder::class);
