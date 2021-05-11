@@ -7,7 +7,9 @@ use App\Http\Requests\LayerItemEditRequest;
 use App\Models\File;
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class EditItemTest extends TestCase
@@ -19,6 +21,8 @@ class EditItemTest extends TestCase
      */
     public function testEditItemPageResponse()
     {
+        $user = User::first();
+        Auth::login($user);
         $response = $this->get(route('edit.item', LayerItem::first()->id));
         $response->assertViewIs('items.edit');
         $response->assertStatus(200);
@@ -31,6 +35,8 @@ class EditItemTest extends TestCase
      */
     public function testEditItemPageResponseWithWrongID()
     {
+        $user = User::first();
+        Auth::login($user);
         $response = $this->get(route('edit.item', LayerItem::all()->last()->id + 1 ));
         $response->assertStatus(404);
     }
@@ -42,6 +48,9 @@ class EditItemTest extends TestCase
      */
     public function testUpdateMethod()
     {
+        $user = User::first();
+        Auth::login($user);
+
         $id = LayerItem::first()->id;
 
         // create LayerItemEditRequest to pass parameter.
@@ -66,6 +75,8 @@ class EditItemTest extends TestCase
      */
     function testCanUpdatelayerItemWrongDataLocation()
     {
+        $user = User::first();
+        Auth::login($user);
         $response = $this->post(route('update.item', ['id' => LayerItem::first()->id]), [
             'title' => null
         ]);
@@ -80,6 +91,8 @@ class EditItemTest extends TestCase
      */
     function testCanUpdatelayerItemRightDataLocation()
     {
+        $user = User::first();
+        Auth::login($user);
         $response = $this->post(route('update.item', ['id' => LayerItem::first()->id]), [
             'title' => 'Nice title',
             'body' => 'Body text',
@@ -94,6 +107,8 @@ class EditItemTest extends TestCase
      * @return void
      */
     public function testDeleteLayerItemAppendix(){
+        $user = User::first();
+        Auth::login($user);
         $file = File::first();
         $id = $file->layer_item_id;
 
@@ -111,6 +126,8 @@ class EditItemTest extends TestCase
      * @return void
      */
     public function testDeleteLinkedLayerItem(){
+        $user = User::first();
+        Auth::login($user);
         $layerItem = LayerItemsLayerItems::first();
 
 
