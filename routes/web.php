@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Route;
 // HomeController routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['auth']], function () {
 // UserController routes
+Route::group(['middleware' => ['auth']], function () {
     Route::get('api/users', [UserController::class, 'getUsers'])->name('get.user');
     Route::put('/users/update/password/{user}', [UserController::class, 'updatePassword'])->name('user.update.password');
     Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');

@@ -28,10 +28,12 @@ class DeleteUserTest extends DuskTestCase
     public function testSeeOverview()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
-                ->visitRoute('users.index')
-                ->assertSee('Gebruikers overzicht');
-
+            $browser->loginAs(User::first())
+                    ->assertAuthenticated()
+                    ->visitRoute('users.index')
+                    ->assertSee('Gebruikers overzicht')
+                    ->visitRoute('users.index')
+                    ->assertSee('Gebruikers overzicht');
         });
     }
 
@@ -43,16 +45,19 @@ class DeleteUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $users = User::all()->count();
             $user = User::all()->random()->id;
-            $browser->loginAs(User::find(1))
-                ->visitRoute('users.index')
-                ->assertSee('Gebruikers overzicht')
-                ->select('usersTable_length', '100')
-                ->pause(1000)
-                ->click('@delete' . $user)
-                ->pause(1000)
-                ->press('#deleteUser')
-                ->pause(5000)
-                ->assertSee('Gebruikersaccount succesvol verwijderd');
+            $browser->loginAs(User::first())
+                    ->assertAuthenticated()
+                    ->visitRoute('users.index')
+                    ->assertSee('Gebruikers overzicht')
+                    ->pause(500)
+                    ->select('usersTable_length', 100)
+                    ->assertSelected('usersTable_length', 100)
+                    ->pause(500)
+                    ->click('@delete' . $user)
+                    ->pause(500)
+                    ->press('#deleteUser')
+                    ->pause(500)
+                    ->assertSee('Gebruikersaccount succesvol verwijderd');
 
             $newUserCount = User::all()->count();
             Assert::assertTrue($newUserCount == $users - 1);
@@ -67,15 +72,16 @@ class DeleteUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $users = User::all()->count();
             $user = User::all()->random()->id;
-            $browser->loginAs(User::find(1))
-                ->visitRoute('users.index')
-                ->assertSee('Gebruikers overzicht')
-                ->select('usersTable_length', '100')
-                ->pause(1000)
-                ->click('@delete' . $user)
-                ->pause(1000)
-                ->press('#deleteUser')
-                ->pause(5000);
+            $browser->loginAs(User::first())
+                    ->assertAuthenticated()
+                    ->visitRoute('users.index')
+                    ->assertSee('Gebruikers overzicht')
+                    ->select('usersTable_length', 100)
+                    ->pause(500)
+                    ->click('@delete' . $user)
+                    ->pause(500)
+                    ->press('#deleteUser')
+                    ->pause(500);
 
             $newUserCount = User::all()->count();
             Assert::assertFalse($newUserCount == $users - 2);

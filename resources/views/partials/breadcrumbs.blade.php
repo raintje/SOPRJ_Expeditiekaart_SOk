@@ -1,5 +1,5 @@
 @unless ($breadcrumbs->isEmpty())
-    <ol class="breadcrumb bg-white">
+    <ol class="breadcrumb bg-white" dusk="breadcrumb-list">
         <i class="fas fa-info-circle line-height-default mr-2" rel="tooltip" title="{{__('info.breadcrumb')}}"></i>   
         @foreach ($breadcrumbs as $breadcrumb)
 
