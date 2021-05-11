@@ -3,20 +3,11 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use App\Http\Controllers\UserController;
-use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class IndexUserTest extends TestCase
 {
-
-    use WithFaker;
-
-    protected function setUpFaker() {
-        $this->faker = $this->makeFaker('nl_NL');
-    }
 
     /**
      * Tests if the view is correctly displayed.
