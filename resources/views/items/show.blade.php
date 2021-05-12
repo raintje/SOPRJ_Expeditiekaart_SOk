@@ -123,7 +123,6 @@
         $( document ).ready(function() {
             $("#collapseHistory").hide();
             $('#showHistory').click(function () {
-                console.log("hi");
                 $('#collapseHistory').toggle('slow');
             });
         });
