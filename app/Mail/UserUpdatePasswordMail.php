@@ -30,6 +30,6 @@ class UserUpdatePasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Uw wachtwoord is gewijzigd')->view('emails.UserUpdatePasswordEMail');
+        return $this->subject('Uw wachtwoord is gewijzigd')->view('emails.UserUpdatePasswordEmail');
     }
 }

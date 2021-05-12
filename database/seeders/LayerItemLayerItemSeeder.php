@@ -18,7 +18,9 @@ class LayerItemLayerItemSeeder extends Seeder
 
         LayerItem::all()->each(function ($item) use ($layerItems)
         {
-            $item->referencesLayerItems()->saveMany($layerItems->random(rand(1,5)));
+            $links = $layerItems->where('id', '!=', $item->id)->random(rand(1, 5));
+
+            $item->referencesLayerItems()->saveMany($links);
         });
     }
 }
