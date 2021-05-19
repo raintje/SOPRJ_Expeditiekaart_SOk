@@ -19,6 +19,7 @@
         "laravel/ui": "^3.2",
         "panoscape/history": "^2.2",
         "php-webdriver/webdriver": "1.9.0",
+        "spatie/laravel-permission": "^4.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
@@ -29,8 +30,7 @@
         "laravel/sail": "1.4.1",
         "mockery/mockery": "1.4.2",
         "nunomaduro/collision": "5.3.0",
-        "phpunit/phpunit": "9.5.2",
-      "ext-http": "*"
+        "phpunit/phpunit": "9.5.2"
     },
     "config": {
         "optimize-autoloader": true,
