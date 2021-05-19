@@ -4,6 +4,7 @@ namespace Tests\Browser;
 
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -27,7 +28,8 @@ class EditItemTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $item = $this->faker()->randomElement(LayerItem::all());
-            $browser->visitRoute('edit.item', $item->id)
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item', $item->id)
                     ->type('title', '')
                     ->press('Wijzigingen opslaan')
                     ->assertPathIs('/items/' . $item->id . '/edit')
@@ -54,7 +56,8 @@ class EditItemTest extends DuskTestCase
             $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $item->id)->first();
 
             // Asserts if the title and body of the item are displayed in the correct location.
-            $browser->visitRoute('edit.item', $item->id)
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item', $item->id)
                     ->assertInputValue('title', $item->title)
                     ->assertInputValue('body', $item->body);
 
@@ -81,7 +84,8 @@ class EditItemTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $item = $this->faker()->randomElement(LayerItem::all());
-            $browser->visitRoute('edit.item', $item->id)
+            $browser->loginAs(User::find(1))
+                    ->visitRoute('edit.item', $item->id)
                     ->assertPathIs('/items/' . $item->id . '/edit')
                     ->type('title', $this->faker->text(20))
                     ->check('@categories-' . random_int(1, 3))

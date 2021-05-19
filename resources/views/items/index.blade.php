@@ -15,16 +15,15 @@
     <div class="text-left pb-3">
         <h2 class="mb-4">Item overzicht  <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.overview')}}"></i></h2>
         <a class="btn btn-primary" href="{{route('create.item')}}" role="button">Item toevoegen</a>
-
     </div>
 
+    {{-- Styling for column actions are located in LayerItemController.php in method getItems--}}
     <table id="itemsTable" class=" table table-bordered yajra-datatable">
         <thead>
         <tr>
             <th>Titel</th>
             <th>Inhoud</th>
             <th>Acties</th>
-
         </tr>
         </thead>
         <tbody>

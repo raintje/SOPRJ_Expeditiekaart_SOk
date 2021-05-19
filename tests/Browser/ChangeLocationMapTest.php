@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Models\User;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -14,7 +15,8 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testHasLocationMap()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visitRoute('edit.item.location')
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item.location')
                 ->assertVisible('.vue2leaflet-map')
                 ->assertVisible('.leaflet-container')
                 ->assertVisible('.leaflet-touch');
@@ -28,7 +30,8 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testLocationItems()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visitRoute('edit.item.location')
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item.location')
                 ->assertVueIsNot('items', '', '@editLocation-component');
         });
     }
@@ -40,7 +43,8 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testHasSaveButton()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visitRoute('edit.item.location')
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item.location')
                 ->assertVisible('#saveLocation');
         });
     }
@@ -53,7 +57,8 @@ class ChangeLocationMapTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->resize(360, 640);
-            $browser->visitRoute('edit.item.location')
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item.location')
                 ->assertVisible('#saveLocation');
         });
     }
@@ -65,7 +70,8 @@ class ChangeLocationMapTest extends DuskTestCase
     public function testSaveItems()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visitRoute('edit.item.location')
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item.location')
                 ->click('@save-button')
                 ->pause(2000)
                 ->assertVisible('.toast-body');
@@ -80,7 +86,8 @@ class ChangeLocationMapTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->resize(360, 640);
-            $browser->visitRoute('edit.item.location')
+            $browser->loginAs(User::first())
+                ->visitRoute('edit.item.location')
                 ->assertVisible('.legend');
         });
     }

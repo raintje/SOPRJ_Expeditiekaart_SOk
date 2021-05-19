@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\File;
 use App\Models\LayerItem;
 use App\Models\FirstLayerItem;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -93,6 +95,8 @@ class LayerItemControllerTest extends TestCase
      */
     public function test_not_existing_item_gives_404_on_destroy()
     {
+        $user = User::first();
+        Auth::login($user);
         $layerItem = LayerItem::all()->last();
         $response = $this->get(route('destroy.item', ($layerItem->id+1)));
         $response->assertStatus(404);
@@ -104,6 +108,8 @@ class LayerItemControllerTest extends TestCase
      */
     public function test_existing_item_can_be_destroyed()
     {
+        $user = User::first();
+        Auth::login($user);
         $layerItem = LayerItem::factory()->create();
         $this->get(route('destroy.item', $layerItem->id));
         $layerItem = LayerItem::find($layerItem->id);
@@ -116,6 +122,8 @@ class LayerItemControllerTest extends TestCase
      */
     public function test_existing_item_with_firstLayerItem_can_be_destroyed()
     {
+        $user = User::first();
+        Auth::login($user);
         $layerItem = LayerItem::factory()->create();
         $firstLayerItem = FirstLayerItem::factory()->create(['layer_item_id' => $layerItem->id]);
         $this->get(route('destroy.item', $layerItem->id));
@@ -130,6 +138,8 @@ class LayerItemControllerTest extends TestCase
      */
     public function test_existing_item_with_file_can_be_destroyed()
     {
+        $user = User::first();
+        Auth::login($user);
         $layerItem = LayerItem::factory()->create();
         $file = File::factory()->create(['layer_item_id' => $layerItem->id]);
         $this->get(route('destroy.item', $layerItem->id));

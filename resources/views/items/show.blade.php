@@ -25,11 +25,16 @@
         </div>
     </div>
     <div class="container">
-        <div class="float-right">
-            <a dusk="edit-button" class="btn btn-outline-secondary"
-               href="{{route('edit.item', $item->id)}}">Aanpassen</a>
-            <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
-        </div>
+
+    {{ Breadcrumbs::render('items', $breadcrumb) }}
+
+        @auth
+            <div class="float-right">
+                <a dusk="edit-button" class="btn btn-outline-secondary"
+                   href="{{route('edit.item', $item->id)}}">Aanpassen</a>
+                <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
+            </div>
+        @endauth
         <h1 class="text-center">{{$item->title}}</h1>
 
         @if($categories != null)
@@ -75,7 +80,7 @@
             <div class="m-2 row justify-content-start">
                 @foreach($linkedItems as $linkedItem)
                     <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
-                        <a dusk="link-button" class="btn btn-outline-info w-100 h-100" href="{{route('show.item', [$linkedItem->id])}}">{{$linkedItem->title}}</a>
+                        <a dusk="link-button" class="btn btn-outline-info w-100 h-100" href="{{route('breadcrumb.add', ['id' => $linkedItem->id, 'breadcrumb' => $breadcrumb])}}">{{$linkedItem->title}}</a>
                     </div>
                 @endforeach
             </div>
@@ -118,10 +123,14 @@
         $( document ).ready(function() {
             $("#collapseHistory").hide();
             $('#showHistory').click(function () {
-                console.log("hi");
                 $('#collapseHistory').toggle('slow');
             });
         });
+
+        $(document).ready(function(){
+            $("[rel=tooltip]").tooltip();
+        });
     </script>
 
+    <script src="{{ mix('js/app.js') }}"></script>
 @endsection

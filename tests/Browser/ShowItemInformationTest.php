@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
+use App\Models\User;
 use Laravel\Dusk\Browser;
 use SebastianBergmann\Environment\Console;
 use Tests\DuskTestCase;
@@ -50,7 +51,8 @@ class ShowItemInformationTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $item =LayerItem::first();
-            $browser->visit('/items/' . strval($item->id))
+            $browser->loginAs(User::first())
+                    ->visit('/items/' . strval($item->id))
                     ->click('@edit-button')
                     ->assertPathIs('/items/' . strval($item->id) . '/edit');
         });
@@ -64,8 +66,10 @@ class ShowItemInformationTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
 
-            $item =LayerItem::first();
-            $browser->visit('/items/' . strval($item->id))
+
+            $item = LayerItem::first();
+            $browser->loginAs(User::first())
+                    ->visit('/items/' . strval($item->id))
                     ->clickLink('Verwijderen')
                     ->pause(500)
                     ->click('@modal-delete-button')
@@ -73,9 +77,11 @@ class ShowItemInformationTest extends DuskTestCase
                     ->assertSee('Het item is succesvol verwijderd!')
                     ->clickLink('Terug naar de expeditiekaart')
                     ->assertPathIs('/');
+
+            $item->save();
         });
     }
-    
+
     /**
      * @group linkItem
      */

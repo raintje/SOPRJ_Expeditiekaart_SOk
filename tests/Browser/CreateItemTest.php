@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\Models\LayerItem;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
@@ -26,7 +27,8 @@ class CreateItemTest extends DuskTestCase
     public function testPageExists()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/items/create')
+            $browser->loginAs(User::first())
+                ->visit('/items/create')
                     ->assertSee('Items aanmaken');
         });
     }
@@ -34,7 +36,8 @@ class CreateItemTest extends DuskTestCase
     public function testValidationWithoutData()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/items/create')
+            $browser->loginAs(User::first())
+                ->visit('/items/create')
                 ->press('Opslaan')
                 ->assertSee('De titel van een item is verplicht.')
                 ->assertSee('De inhoud van het item mag niet leeg zijn.')
@@ -45,7 +48,8 @@ class CreateItemTest extends DuskTestCase
     public function testBodyValidation()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/items/create')
+            $browser->loginAs(User::first())
+                ->visit('/items/create')
                 ->type('title', 'this is a testTitle')
                 ->press('Opslaan')
                 ->assertSee('De inhoud van het item mag niet leeg zijn.')
@@ -56,7 +60,8 @@ class CreateItemTest extends DuskTestCase
     public function testDuplicateItemCreation()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/items/create')
+            $browser->loginAs(User::first())
+                ->visit('/items/create')
                 ->type('title', LayerItem::first()->title)
                 ->press('Opslaan')
                 ->assertSee('De titel moet uniek zijn.')
