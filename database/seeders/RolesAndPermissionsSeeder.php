@@ -20,6 +20,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Role::create(['name' => 'agrarische notarissen']);
         Role::create(['name' => 'testamenten specialist']);
         Role::create(['name' => 'fiscale specialist']);
+        Role::create(['name' => 'gebruiker']);
 
         $adminRole->givePermissionTo(Permission::all());
 
