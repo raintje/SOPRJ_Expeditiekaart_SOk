@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Panoscape\History\HasOperations;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasOperations;
+    use HasRoles, HasFactory, Notifiable, HasOperations;
 
     /**
      * The attributes that are mass assignable.

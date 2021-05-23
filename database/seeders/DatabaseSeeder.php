@@ -10,7 +10,6 @@ use Illuminate\Database\Seeder;
 use \App\Models\File;
 use Illuminate\Support\Facades\Hash;
 
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -31,6 +30,8 @@ class DatabaseSeeder extends Seeder
         FirstLayerItem::factory(10)->create();
         $this->call(CategoriesTableSeeder::class);
         $this->call(LayerItemLayerItemSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
         File::factory(10)->create();
+
     }
 }
