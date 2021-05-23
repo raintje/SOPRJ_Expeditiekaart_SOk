@@ -126,6 +126,11 @@ class UserController extends Controller
         return redirect()->route('users.index')->with($message);
     }
 
+    public function updateRole(Request $request, $id)
+    {
+        return redirect()->route('users.index')->with(['message' =>'deelbeheerders rol aanpassen nog niet functioneerbaar', 'type' => 'warning']);
+    }
+
     public function destroy(Request $request)
     {
         $user = User::findOrFail($request->id);

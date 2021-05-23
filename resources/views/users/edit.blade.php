@@ -97,7 +97,37 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('user.update.role', $user->id) }}"
+                              enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+                            <input type="hidden" name="user" class="form-control" value="{{$user->id}}">
+
+                            <div class="col-12 col-sm-12 mb-3">
+                                <div class="mb-3"><b>Verander deelbeheerders rol</b></div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update
+                                        Wachtwoord
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
