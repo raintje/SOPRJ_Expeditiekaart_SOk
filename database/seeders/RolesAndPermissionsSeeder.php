@@ -16,12 +16,15 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::create(['name' => 'admin']);
+        $adminRole = Role::create(['name' => 'admin']);
+        Role::create(['name' => 'agrarische notarissen']);
+        Role::create(['name' => 'testamenten specialist']);
+        Role::create(['name' => 'fiscale specialist']);
 
-        $role->givePermissionTo(Permission::all());
+        $adminRole->givePermissionTo(Permission::all());
 
         $admin = User::find(1);
 
-        $admin->assignRole($role);
+        $admin->assignRole($adminRole);
     }
 }
