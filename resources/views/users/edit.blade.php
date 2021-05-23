@@ -116,7 +116,13 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            {{}}
+                                            <select class="custom-select">
+                                                @foreach (Spatie\Permission\Models\Role::all() as $role)
+                                                    <option @if ($user->hasRole($role))
+                                                        selected
+                                                    @endif>{{$role->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
