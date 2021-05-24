@@ -24,15 +24,17 @@
             </div>
         </div>
     </div>
-    <div class="container">  
+    <div class="container">
 
     {{ Breadcrumbs::render('items', $breadcrumb) }}
 
-        <div class="float-right">
-            <a dusk="edit-button" class="btn btn-outline-secondary"
-               href="{{route('edit.item', $item->id)}}">Aanpassen</a>
-            <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
-        </div>
+        @auth
+            <div class="float-right">
+                <a dusk="edit-button" class="btn btn-outline-secondary"
+                   href="{{route('edit.item', $item->id)}}">Aanpassen</a>
+                <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
+            </div>
+        @endauth
         <h1 class="text-center">{{$item->title}}</h1>
 
         @if($categories != null)
@@ -121,14 +123,14 @@
         $( document ).ready(function() {
             $("#collapseHistory").hide();
             $('#showHistory').click(function () {
-                console.log("hi");
                 $('#collapseHistory').toggle('slow');
             });
-        }); 
-        
+        });
+
         $(document).ready(function(){
             $("[rel=tooltip]").tooltip();
         });
     </script>
 
+    <script src="{{ mix('js/app.js') }}"></script>
 @endsection

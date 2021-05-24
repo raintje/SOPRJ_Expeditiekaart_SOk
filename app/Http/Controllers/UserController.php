@@ -92,7 +92,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->fill($request->all())->save();
-      
+
         $details = [
             'name' => $user->name,
             'email' => $user->email
