@@ -22,7 +22,7 @@
 
         <form method="POST" action="{{ route('roles.store') }}" enctype="multipart/form-data">
             @csrf
-            
+
             <div class="form-group">
                 <label for="nameInput">Naam <i class="fas fa-info-circle" rel="tooltip" title="{{ __('info.role_name') }}"></i></label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="nameInput" placeholder="Naam" value="{{ old('name', '') }}">
@@ -37,7 +37,7 @@
                     @endforeach
                 </select>
                 <div id="item-links-container">
-               
+
                 </div>
             </div>
 

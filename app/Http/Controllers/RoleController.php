@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LayerItem;
+use App\Http\Requests\RoleStoreRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use App\Models\LayerItem;
 
 class RoleController extends Controller
 {
@@ -31,12 +35,15 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleStoreRequest $request)
     {
-        //
+        $role = Role::create(['name' => $request->input('name')]);
+        $permission = Permission::create(['name'=>'layerItem.edit.'.implode(",", $request->input('itemLinks')).'']);
+
+        $role->givePermissionTo($permission);
+
+        return redirect()->route('users.index');
     }
 
     /**

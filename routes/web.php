@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     //FirstLayer
     Route::post('/items/edit/location/save', [FirstLayerItemController::class, 'saveLocations'])->name('edit.item.location.save');
     Route::get('/items/edit/location', [LayerItemController::class, 'editLocation'])->name('edit.item.location');
-    
+
     // RoleController routes
     Route::resource('roles', RoleController::class);
 });
