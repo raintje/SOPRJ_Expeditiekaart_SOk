@@ -28,8 +28,8 @@ class RoleStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:roles,name|max:191',
-            'items' => 'required|array',
-            'items.*' => 'exists:layer_items,id',
+            'itemLinks' => 'required|array',
+            'itemLinks.*' => 'exists:layer_items,id',
         ];
     }
 

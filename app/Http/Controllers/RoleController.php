@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\LayerItem;
 
 class RoleController extends Controller
 {
@@ -27,33 +28,22 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $items = LayerItem::all();
+        return view('roles.create', ['items' => $items]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(RoleStoreRequest $request)
     {
-        $user = User::first();
-
-        $role = Role::create(['name' => "notiaris"]);
-        $permission = Permission::create(['name'=>'layerItem.edit.1,6']);
+        $role = Role::create(['name' => $request->input('name')]);
+        $permission = Permission::create(['name'=>'layerItem.edit.'.implode(",", $request->input('itemLinks')).'']);
 
         $role->givePermissionTo($permission);
-//
-////        $user->givePermissionTo($permission);
-//
-//        $user->assignRole($role);
 
-//        $bool = $user->can('layerItem.edit.10');
-
-        return $user->can('layerItem.edit.16');
-
-
+        return redirect()->route('users.index');
     }
 
     /**

@@ -38,11 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/items/edit/location/save', [FirstLayerItemController::class, 'saveLocations'])->name('edit.item.location.save');
     Route::get('/items/edit/location', [LayerItemController::class, 'editLocation'])->name('edit.item.location');
 
-
+    // RoleController routes
+    Route::resource('roles', RoleController::class);
 });
-
-//Roles
-Route::resource('roles', RoleController::class);
 
 // LayerItemController routes
 Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item');
@@ -55,7 +53,6 @@ Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('d
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 
 Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
-
 
 // FirstLayerItemController routes
 Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
