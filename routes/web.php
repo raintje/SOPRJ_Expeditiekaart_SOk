@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FirstLayerItemController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LayerItemController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,8 @@ Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('d
 
 Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
 
+// RoleController route
+Route::resource('roles', RoleController::class);
 
 // FirstLayerItemController routes
 Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
