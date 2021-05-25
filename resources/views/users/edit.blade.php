@@ -117,7 +117,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <select class="custom-select">
-                                                @foreach (Spatie\Permission\Models\Role::all() as $role)
+                                                @foreach ($roles as $role)
                                                     <option @if ($user->hasRole($role))
                                                         selected
                                                     @endif>{{$role->name}}</option>
