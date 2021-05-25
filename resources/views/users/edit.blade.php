@@ -64,7 +64,7 @@
             </div>
 
 
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.update.password', $user->id) }}"
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.update.role', $user->id) }}"
