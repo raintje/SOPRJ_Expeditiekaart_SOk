@@ -26,13 +26,14 @@
     </div>
     <div class="container">
 
-    {{ Breadcrumbs::render('items', $breadcrumb) }}
+        {{ Breadcrumbs::render('items', $breadcrumb) }}
 
         @auth
             <div class="float-right">
                 <a dusk="edit-button" class="btn btn-outline-secondary"
                    href="{{route('edit.item', $item->id)}}">Aanpassen</a>
-                <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
+                <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal"
+                   data-target="#exampleModal">Verwijderen</a>
             </div>
         @endauth
         <h1 class="text-center">{{$item->title}}</h1>
@@ -74,63 +75,93 @@
             </div>
         @endif
 
-    @if(!$linkedItems->isEmpty())
-        <div class="m-2">
-            <h3>Vervolg paden:</h3>
-            <div class="m-2 row justify-content-start">
-                @foreach($linkedItems as $linkedItem)
-                    <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
-                        <a dusk="link-button" class="btn btn-outline-info w-100 h-100" href="{{route('breadcrumb.add', ['id' => $linkedItem->id, 'breadcrumb' => $breadcrumb])}}">{{$linkedItem->title}}</a>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-
-
-        @if(!$histories->isEmpty())
-
-            <p>
-                <button class="btn btn-info w-100 mt-auto" type="button" id="showHistory">
-                    Voorgaande aanpassingen weergeven
-                </button>
-            </p>
-
-
-            <div class="row">
-                <div class="col-md-6  " id="collapseHistory">
-                    <h4>Voorgaande aanpassingen</h4>
-                    <ul class="timeline">
-                        @foreach($histories as $history)
-                            @foreach($history->meta as $historyData)
-                                <li>
-                                    <a href="#">{{$historyData['key']}}</a>
-                                    <a href="#"
-                                       class="float-right">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
-                                    <p>{!! $historyData['old']!!}</p>
-                                </li>
-                            @endforeach
-                        @endforeach
-
-                    </ul>
+        @if(!$linkedItems->isEmpty())
+            <div class="m-2">
+                <h3>Vervolg paden:</h3>
+                <div class="m-2 row justify-content-start">
+                    @foreach($linkedItems as $linkedItem)
+                        <div class=" align-items-center text-center mb-2 mt-2 col-md-3">
+                            <a dusk="link-button" class="btn btn-outline-info w-100 h-100"
+                               href="{{route('breadcrumb.add', ['id' => $linkedItem->id, 'breadcrumb' => $breadcrumb])}}">{{$linkedItem->title}}</a>
+                        </div>
+                    @endforeach
                 </div>
+                @endif
+
+
+                @if(!$histories->isEmpty())
+
+                    <p>
+                        <button class="btn btn-info w-100 mt-auto" type="button" id="showHistory">
+                            Voorgaande aanpassingen weergeven
+                        </button>
+                    </p>
+
+
+                    <div class="row">
+                        <div class="col-md" id="collapseHistory">
+                            <h4>Voorgaande aanpassingen</h4>
+                            <ul class="timeline">
+                                @foreach($histories as $history)
+                                    @foreach($history->meta as $historyData)
+
+
+                                        <li class="shadow ml-3 version--control">
+                                            <div class="row">
+                                                <div class="col-md-11 p-3">
+                                                    <a href="#">{{$historyData['key']}}</a>
+                                                    <a href="#"
+                                                       class="float-right">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
+                                                    <p>{!! $historyData['old']!!}</p>
+                                                </div>
+                                                <div class="col-md-1">
+
+                                                    <div class="management--container">
+                                                        <div class="content">
+{{--                                                            <div class="icon-container">--}}
+
+                                                                <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Aanpassen"><i class="fa fa-edit"></i>
+                                                                </div>
+                                                                <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+{{--                                                    </div>--}}
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+
+                                    @endforeach
+                                @endforeach
+
+                            </ul>
+
+
+                        </div>
+                    </div>
+                @endif
             </div>
-        @endif
-    </div>
-@endsection
+            @endsection
 
-@section('script')
-    <script>
-        $( document ).ready(function() {
-            $("#collapseHistory").hide();
-            $('#showHistory').click(function () {
-                $('#collapseHistory').toggle('slow');
-            });
-        });
+        @section('script')
+            <script>
+                $(document).ready(function () {
+                    $("#collapseHistory").hide();
+                    $('#showHistory').click(function () {
+                        $('#collapseHistory').toggle('slow');
+                    });
+                });
 
-        $(document).ready(function(){
-            $("[rel=tooltip]").tooltip();
-        });
-    </script>
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
 
-    <script src="{{ mix('js/app.js') }}"></script>
+                $(document).ready(function () {
+                    $("[rel=tooltip]").tooltip();
+                });
+            </script>
+
+            <script src="{{ mix('js/app.js') }}"></script>
 @endsection
