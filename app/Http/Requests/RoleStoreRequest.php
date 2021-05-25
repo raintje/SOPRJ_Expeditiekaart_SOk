@@ -43,7 +43,7 @@ class RoleStoreRequest extends FormRequest
         return [
             'name.required' => 'De naam van de rol kan niet leeggelaten worden.',
             'name.max' => 'Een naam mag maximaal 191 karakters lang zijn',
-            'items.required' => 'Er moet minimaal 1 item geselecteerd worden',
+            'itemLinks.required' => 'Er moet minimaal 1 item geselecteerd worden',
         ];
     }
 }
