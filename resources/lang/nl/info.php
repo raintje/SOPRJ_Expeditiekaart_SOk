@@ -15,5 +15,7 @@ return [
     'password' => 'Er wordt een willekeurig gegenereerd wachtwoord opgestuurd naar het opgegeven emailadres.',
     'user_create' => 'Hier kan u een nieuwe gebruiker aanmaken, dit vereist een geldig emailadres en de volledige naam van de gebruiker in kwestie.',
     'breadcrumb' => 'Hier kunt u terug gaan naar de expeditiekaart of vorige items. ',
-    
+    'role_create' => 'Hier kan u een nieuwe rol aanmaken, deze kan u vervolgens aan gebruikers toewijzen om ze gemakkelijk te bemachtigen om bepaalde items te beheren.',
+    'role_name' => 'Dit is de naam van de rol.',
+    'role_items' => 'De items die een gebruiker met de rol aan kan passen.',
 ];
