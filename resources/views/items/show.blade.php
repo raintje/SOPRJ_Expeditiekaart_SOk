@@ -104,9 +104,7 @@
                             <ul class="timeline">
                                 @foreach($histories as $history)
                                     @foreach($history->meta as $historyData)
-
-
-                                        <li class="shadow ml-3 version--control">
+                                 <li class="shadow ml-3">
                                             <div class="row">
                                                 <div class="col-md-11 p-3">
                                                     <a href="#">{{$historyData['key']}}</a>
@@ -118,15 +116,12 @@
 
                                                     <div class="management--container">
                                                         <div class="content">
-{{--                                                            <div class="icon-container">--}}
-
                                                                 <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Aanpassen"><i class="fa fa-edit"></i>
                                                                 </div>
                                                                 <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
-{{--                                                    </div>--}}
                                                 </div>
                                             </div>
                                         </li>
