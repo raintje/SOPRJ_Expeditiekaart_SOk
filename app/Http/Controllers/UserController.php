@@ -35,6 +35,10 @@ class UserController extends Controller
             $data = User::all();
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('Rol', function ($row) {
+                    $user = User::findOrFail($row->id);
+                    return $rol = implode(',', $user->getRoleNames()->toArray());;
+                })
                 ->addColumn('action', function ($row) {
                     return "<div class='d-flex'>
                                 <a href=".route('users.edit', ['user' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
