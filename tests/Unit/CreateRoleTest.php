@@ -63,7 +63,6 @@ class CreateRoleTest extends TestCase
     /**
      * Tries to insert a new role with valid information into the database and asserts if all goes as planned.
      *
-     * @dataprovider ValidInformation
      * @return void
      */
     public function testCreateValidInformation()
