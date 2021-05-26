@@ -131,7 +131,14 @@ class UserController extends Controller
 
     public function updateRole(Request $request, $id)
     {
-        return redirect()->route('users.index')->with(['message' =>'deelbeheerders rol aanpassen nog niet functioneerbaar', 'type' => 'warning']);
+        $user = User::findOrFail($id);
+        $roles = $user->getRoleNames();
+
+        foreach ($roles as $role) { $user->removeRole($role); }
+
+        $user->assignRole($request->input('role'));
+
+        return redirect()->route('users.index')->with(['message' =>'Rol toegekend aan gebruiker', 'type' => 'success']);
     }
 
     public function destroy(Request $request)
