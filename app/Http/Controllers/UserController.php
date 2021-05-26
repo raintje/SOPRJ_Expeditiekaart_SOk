@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleAssignRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Mail\UserDeleteMail;
 use App\Http\Requests\UserUpdatePasswordRequest;
@@ -133,10 +134,12 @@ class UserController extends Controller
         return redirect()->route('users.index')->with($message);
     }
 
-    public function updateRole(Request $request, $id)
+    public function updateRole(RoleAssignRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $roles = $user->getRoleNames();
+
+
 
         foreach ($roles as $role) { $user->removeRole($role); }
 
