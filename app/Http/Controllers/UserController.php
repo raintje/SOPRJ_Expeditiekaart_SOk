@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Throwable;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -85,7 +86,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', ['user' => $user]);
+        $roles = $user->hasRole('super admin') ? Role::where('name', 'super admin')->get() : Role::where('name', '!=', 'super admin')->get();
+
+        return view('users.edit', ['user' => $user, 'roles' => $roles]);
     }
 
     public function update(UserUpdateRequest $request, $id)
@@ -124,6 +127,11 @@ class UserController extends Controller
         $message = ['message' =>'Wachtwoord succesvol aangepast', 'type' => 'success'];
 
         return redirect()->route('users.index')->with($message);
+    }
+
+    public function updateRole(Request $request, $id)
+    {
+        return redirect()->route('users.index')->with(['message' =>'deelbeheerders rol aanpassen nog niet functioneerbaar', 'type' => 'warning']);
     }
 
     public function destroy(Request $request)
