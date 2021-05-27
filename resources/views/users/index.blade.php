@@ -80,11 +80,8 @@
                 columns: [
                     {data: 'name', name: 'name', sortable: true,},
                     {data: 'email', name: 'email'},
-                    {
-                        data: null,
-                        defaultContent: 'gebruiker',
-                        name: 'role'
-                    },
+                    {data: 'Rol', name: 'Rol'},
+
                     {
                         data: 'action',
                         name: 'acties',

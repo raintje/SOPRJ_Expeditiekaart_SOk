@@ -17,6 +17,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('api/users', [UserController::class, 'getUsers'])->name('get.user');
     Route::put('/users/update/password/{user}', [UserController::class, 'updatePassword'])->name('user.update.password');
+    Route::put('/users/update/role/{user}', [UserController::class, 'updateRole'])->name('user.update.role');
     Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
     Route::resource('users', UserController::class);
 
