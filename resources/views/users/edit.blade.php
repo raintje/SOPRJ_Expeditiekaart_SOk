@@ -112,15 +112,15 @@
 
                             <div class="col-12 col-sm-12 mb-3">
                                 <div class="mb-3"><b>Verander Deelbeheerders rol</b></div>
-                                
+
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <select class="custom-select">
+                                            <select name="role" class="custom-select">
                                                 @foreach ($roles as $role)
                                                     <option @if ($user->hasRole($role))
                                                         selected
-                                                    @endif>{{$role->name}}</option>
+                                                    @endif value="{{$role->id}}">{{$role->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -129,7 +129,7 @@
 
                                 <div class="modal-footer">
                                     <button type="submit" id="submit" name="submit" class="btn btn-primary">Update
-                                        Deelbeheerders rol  
+                                        Deelbeheerders rol
                                     </button>
                                 </div>
                             </div>
