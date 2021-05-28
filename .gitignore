@@ -101,4 +101,3 @@ fabric.properties
 .history/
 
 database/dusk_database.sqlite
-tests/Browser/EditItemTest.php
