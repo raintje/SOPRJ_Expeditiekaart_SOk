@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FirstLayerItemController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemHistoryController;
 use App\Http\Controllers\LayerItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -19,6 +20,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/users/update/role/{user}', [UserController::class, 'updateRole'])->name('user.update.role');
     Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
     Route::resource('users', UserController::class);
+
+    //Item History
+    Route::get('/items/restoreHistory/{id}', [ItemHistoryController::class, 'restoreItem'])->name('restore.item');
+    Route::get('/items/deleteHistory/{id}', [ItemHistoryController::class, 'destroyHistoryEditOfItem'])->name('destroy.itemHistory');
 
     //Items
     Route::get('/items', [LayerItemController::class, 'index'])->name('items');
