@@ -22,6 +22,7 @@ class EditItemTest extends DuskTestCase
 
     /**
      * Asserts if the validation is correctly applied to the title field.
+     * @group items.edit
      * @return void
      */
     public function testEditValidation()
@@ -43,6 +44,7 @@ class EditItemTest extends DuskTestCase
 
     /**
      * Asserts if the item's old data is correctly displayed on the page.
+     * @group items.edit
      * @return void
      */
     public function testEditOldData()
@@ -78,13 +80,14 @@ class EditItemTest extends DuskTestCase
 
     /**
      * Tries to edit and save an item, complying with the validation rules.
+     * @group items.edit
      * @return void
      */
     public function testEditItemSave()
     {
         $this->browse(function (Browser $browser) {
             $item = $this->faker()->randomElement(LayerItem::all());
-            $browser->loginAs(User::find(1))
+            $browser->loginAs(User::first())
                     ->visitRoute('edit.item', $item->id)
                     ->assertPathIs('/items/' . $item->id . '/edit')
                     ->type('title', $this->faker->text(20))
