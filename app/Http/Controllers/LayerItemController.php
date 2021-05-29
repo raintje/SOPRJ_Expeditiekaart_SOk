@@ -71,10 +71,10 @@ class LayerItemController extends Controller
         $newBreadcrumb = BDEncoder::encode($BDitems);
 
         return view('items.show', [
-            'item' => $item, 
-            'categories' => $categories, 
-            'files' => $files, 
-            'linkedItems' => $linkedItems, 
+            'item' => $item,
+            'categories' => $categories,
+            'files' => $files,
+            'linkedItems' => $linkedItems,
             'histories' => $histories,
             'breadcrumb' => $newBreadcrumb,
             ]);
@@ -82,13 +82,13 @@ class LayerItemController extends Controller
 
     public function updateBreadcrumb($id, $breadcrumb, $bdItem){
         $items = BDEncoder::decode($breadcrumb);
-  
+
         $reItems = [];
-        
+
         for($i = 0; $i < $bdItem; $i++){
             array_push($reItems, $items[$i]);
         }
-        
+
         $breadcrumb = BDEncoder::encode($reItems);
 
         if(strlen($breadcrumb) > 0){
@@ -98,7 +98,7 @@ class LayerItemController extends Controller
         return redirect()->route('show.item', ['id' => $id]);
     }
 
-    
+
 
     public function downloadFile($id)
     {
