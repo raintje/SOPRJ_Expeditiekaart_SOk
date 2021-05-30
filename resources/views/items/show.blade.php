@@ -88,8 +88,8 @@
                 </div>
                 @endif
 
-
-                @if(!$histories->isEmpty())
+{{--                @auth--}}
+                    @if(!$histories->isEmpty())
 
                     <p>
                         <button class="btn btn-info w-100 mt-auto" type="button" id="showHistory">
@@ -109,15 +109,17 @@
                                                 <div class="col-md-11 p-3">
                                                     <a href="#">{{$historyData['key']}}</a>
                                                     <a href="#"
-                                                       class="float-right">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
+                                                       class="ml-5">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
                                                     <p>{!! $historyData['old']!!}</p>
                                                 </div>
                                                 <div class="col-md-1">
 
                                                     <div class="management--container">
                                                         <div class="content">
-                                                                <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Aanpassen"><i class="fa fa-edit"></i>
+                                                            <a href="{{route('restore.item', $history->id)}}">
+                                                                <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Terugzetten"><i class="fa fa-edit"></i>
                                                                 </div>
+                                                            </a>
                                                                 <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
                                                                 </div>
                                                             </div>
@@ -137,6 +139,7 @@
                         </div>
                     </div>
                 @endif
+{{--                @endauth--}}
             </div>
             @endsection
 

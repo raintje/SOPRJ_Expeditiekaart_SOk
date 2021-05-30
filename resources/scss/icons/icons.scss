@@ -66,3 +66,16 @@ $white		  : #FFFFFF;
         box-shadow: inset 0 0 0 1px $white;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .management--container {
+        border: none;
+        float: right;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .management--container {
+        border: none;
+    }
+}
