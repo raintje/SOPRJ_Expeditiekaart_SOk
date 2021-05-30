@@ -9,7 +9,6 @@ $white		  : #FFFFFF;
     height: 100%;
     width: 30px;
     border-radius: 0 18px 18px 0;
-    //padding-bottom: 5vh;
     margin: auto auto;
     @media (max-width: 900px){
     }
@@ -25,7 +24,6 @@ $white		  : #FFFFFF;
 .icon{
     cursor: pointer;
     position: relative;
-    //display: inline-block;
     width: $icon-size;
     height: $icon-size;
     margin: 12px;
@@ -67,15 +65,3 @@ $white		  : #FFFFFF;
     }
 }
 
-@media screen and (max-width: 768px) {
-    .management--container {
-        border: none;
-        float: right;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    .management--container {
-        border: none;
-    }
-}

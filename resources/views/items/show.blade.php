@@ -88,7 +88,7 @@
                 </div>
                 @endif
 
-{{--                @auth--}}
+                @auth
                     @if(!$histories->isEmpty())
 
                     <p>
@@ -120,8 +120,10 @@
                                                                 <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Terugzetten"><i class="fa fa-edit"></i>
                                                                 </div>
                                                             </a>
+                                                            <a href="{{route('destroy.itemHistory', $history->id)}}">
                                                                 <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
                                                                 </div>
+                                                            </a>
                                                             </div>
                                                         </div>
                                                 </div>
@@ -139,7 +141,7 @@
                         </div>
                     </div>
                 @endif
-{{--                @endauth--}}
+                @endauth
             </div>
             @endsection
 
