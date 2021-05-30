@@ -116,7 +116,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <select name="role" class="custom-select">
+                                            <select name="role" class="custom-select" dusk="role-select">
                                                 @foreach ($roles as $role)
                                                     <option @if ($user->hasRole($role))
                                                         selected
