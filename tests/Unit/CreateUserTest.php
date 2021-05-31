@@ -99,7 +99,6 @@ class CreateUserTest extends TestCase
             $response->assertSessionHasErrors('email');
         }
 
-        dd($response);
         //remove
         if($emailAssert && $nameAssert){
             $response->assertSessionHasNoErrors();
