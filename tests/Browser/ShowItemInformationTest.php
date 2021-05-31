@@ -7,12 +7,22 @@ use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use SebastianBergmann\Environment\Console;
 use Tests\DuskTestCase;
 
 class ShowItemInformationTest extends DuskTestCase
 {
+
+    use WithFaker;
+
+    protected function setUpFaker()
+    {
+        $this->faker = $this->makeFaker('nl_NL');
+
+    }
+
     /**
      * @group showItem
      * @group editItems
@@ -48,14 +58,20 @@ class ShowItemInformationTest extends DuskTestCase
      */
     public function testCanEditlink()
     {
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
 
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser) use ($user){
             $item =LayerItem::first();
             $browser->loginAs(User::first())
                     ->visit('/items/' . strval($item->id))
                     ->click('@edit-button')
                     ->assertPathIs('/items/' . strval($item->id) . '/edit');
         });
+
+        $user->delete();
     }
 
     /**
@@ -64,11 +80,14 @@ class ShowItemInformationTest extends DuskTestCase
      */
     public function testCanDeleteItem()
     {
-        $this->browse(function (Browser $browser) {
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
 
-
+        $this->browse(function (Browser $browser) use ($user){
             $item = LayerItem::first();
-            $browser->loginAs(User::first())
+            $browser->loginAs($user)
                     ->visit('/items/' . strval($item->id))
                     ->clickLink('Verwijderen')
                     ->pause(500)
@@ -80,6 +99,8 @@ class ShowItemInformationTest extends DuskTestCase
 
             $item->save();
         });
+
+        $user->delete();
     }
 
     /**

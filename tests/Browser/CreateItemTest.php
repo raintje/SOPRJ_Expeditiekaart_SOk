@@ -17,6 +17,7 @@ class CreateItemTest extends DuskTestCase
     protected function setUpFaker()
     {
         $this->faker = $this->makeFaker('nl_NL');
+
     }
 
     /**
@@ -26,41 +27,69 @@ class CreateItemTest extends DuskTestCase
      */
     public function testPageExists()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::first())
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user){
+            $browser->loginAs($user)
                 ->visit('/items/create')
                     ->assertSee('Items aanmaken');
         });
+
+        $user->delete();
+
     }
 
     public function testValidationWithoutData()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::first())
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use($user) {
+            $browser->loginAs($user)
                 ->visit('/items/create')
                 ->press('Opslaan')
                 ->assertSee('De titel van een item is verplicht.')
                 ->assertSee('De inhoud van het item mag niet leeg zijn.')
                 ->assertPathIs('/items/create');
         });
+
+        $user->delete();
     }
 
     public function testBodyValidation()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::first())
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user){
+            $browser->loginAs($user)
                 ->visit('/items/create')
                 ->type('title', 'this is a testTitle')
                 ->press('Opslaan')
                 ->assertSee('De inhoud van het item mag niet leeg zijn.')
                 ->assertPathIs('/items/create');
         });
+
+        $user->delete();
     }
 
     public function testDuplicateItemCreation()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::first())
+
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user){
+            $browser->loginAs($user)
                 ->visit('/items/create')
                 ->type('title', LayerItem::first()->title)
                 ->press('Opslaan')
@@ -68,6 +97,8 @@ class CreateItemTest extends DuskTestCase
                 ->assertSee('De inhoud van het item mag niet leeg zijn.')
                 ->assertPathIs('/items/create');
         });
+
+        $user->delete();
     }
 
 }
