@@ -28,7 +28,11 @@ class CreateRoleTest extends TestCase
      */
     public function testCreateRolePageResponse()
     {
-        $user = User::first();
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
         Auth::login($user);
         $response = $this->get(route('roles.create'));
         $response->assertViewIs('roles.create');

@@ -14,7 +14,9 @@
     <div class="text-center pb-3">
         <h2 class="mb-4 text-center">Gebruikers overzicht<i class="ml-2 fas fa-info-circle tooltip-icon" rel="tooltip" title="{{__('info.user_overview')}}"></i></h2>
         <a href="{{ route('users.create') }}"><button class="btn btn-primary">Gebruiker toevoegen</button></a>
-        <a href="{{ route('roles.create') }}"><button class="btn btn-primary">Rol aanmaken</button></a>
+        @role('super admin')
+            <a href="{{ route('roles.create') }}"><button class="btn btn-primary">Rol aanmaken</button></a>
+        @endrole
     </div>
 
     {{-- Styling for columns actions and delete are located in UserController.php in getUsers method --}}
