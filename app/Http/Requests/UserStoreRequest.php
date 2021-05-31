@@ -14,7 +14,7 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::check() && Auth::user()->hasRole('super admin')){
+        if (Auth::check() && Auth::user()->hasRole('admin')){
             return true;
         }
     }
