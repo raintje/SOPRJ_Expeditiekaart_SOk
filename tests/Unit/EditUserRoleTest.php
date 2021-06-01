@@ -91,7 +91,7 @@ class EditUserRoleTest extends TestCase
      * 
      * @return void
      */
-    public function testEditUserRoleControllerFunctionWithIncorrectData()
+    public function testEditUserRoleIncorrectData()
     {
         // Define variables
         $user = User::first();
