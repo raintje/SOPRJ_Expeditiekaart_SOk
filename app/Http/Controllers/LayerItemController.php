@@ -331,7 +331,6 @@ class LayerItemController extends Controller
     {
         if($item!= null)
         {
-            dd(Role::all());
             if(!Auth::user()->can('layerItem.edit.'.$item))
             {
                 abort(403);
