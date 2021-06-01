@@ -88,7 +88,7 @@
                 </div>
                 @endif
 
-                @auth
+
                     @if(!$histories->isEmpty())
 
                     <p>
@@ -112,6 +112,8 @@
                                                        class="ml-5">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
                                                     <p>{!! $historyData['old']!!}</p>
                                                 </div>
+
+                                                @auth
                                                 <div class="col-md-1">
 
                                                     <div class="management--container">
@@ -127,6 +129,7 @@
                                                             </div>
                                                         </div>
                                                 </div>
+                                                @endauth
                                             </div>
                                         </li>
 
@@ -141,7 +144,7 @@
                         </div>
                     </div>
                 @endif
-                @endauth
+
             </div>
             @endsection
 
