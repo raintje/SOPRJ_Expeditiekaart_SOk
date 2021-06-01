@@ -48,15 +48,14 @@ class EditUserRoleTest extends TestCase
     }
 
     /**
-     * Navigates to the relevant page and asserts that it contains the correct data.
+     * Navigates to the relevant page and asserts that it contains the required data.
      */
-    public function testEditUserPageContainsCorrectRoles() 
+    public function testEditUserPageContainsRoles() 
     {
         $user = User::first();
         $ranUser = $this->faker()->randomElement(User::all());
-        $roles = Role::all()->except('super admin')->toArray();
         Auth::login($user);
         $response = $this->get(route('users.edit', $ranUser->id));
-        $response->assertViewHasAll($roles);
+        $response->assertViewHas('roles');
     }
 }
