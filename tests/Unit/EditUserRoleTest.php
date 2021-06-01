@@ -87,7 +87,7 @@ class EditUserRoleTest extends TestCase
     }
 
     /**
-     * Tests the controller function for the updating of a user's role with incorrect data.
+     * Tests the route for the updating of a user's role with incorrect data.
      * 
      * @return void
      */
