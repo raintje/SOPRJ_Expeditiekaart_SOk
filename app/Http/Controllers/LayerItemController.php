@@ -14,6 +14,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class LayerItemController extends Controller
@@ -330,6 +331,7 @@ class LayerItemController extends Controller
     {
         if($item!= null)
         {
+            dd(Role::all());
             if(!Auth::user()->can('layerItem.edit.'.$item))
             {
                 abort(403);

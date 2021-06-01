@@ -39,7 +39,8 @@ class RoleController extends Controller
     public function store(RoleStoreRequest $request)
     {
         $role = Role::create(['name' => $request->input('name')]);
-        $permission = Permission::create(['name'=>'layerItem.edit.'.implode(",", $request->input('itemLinks')).'']);
+        $name = 'layerItem.edit.'.implode(",", $request->input('itemLinks')).'';
+        $permission = Permission::findOrCreate($name);
 
         $role->givePermissionTo($permission);
 
