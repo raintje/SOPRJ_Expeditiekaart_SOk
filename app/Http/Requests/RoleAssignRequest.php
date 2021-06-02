@@ -14,7 +14,7 @@ class RoleAssignRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::check()){
+        if (Auth::check() && Auth::user()->hasRole('super admin')){
             return true;
         }
     }
@@ -28,7 +28,6 @@ class RoleAssignRequest extends FormRequest
     {
         return [
             'role' => 'required|integer|exists:roles,id|max:191',
-
         ];
     }
 

@@ -41,7 +41,7 @@ class EditUserRoleTest extends DuskTestCase
      * @group edit.userrole
      * @return void
      */
-    public function testSelectContainsRoles() 
+    public function testSelectContainsRoles()
     {
         $this->browse(function (Browser $browser) {
             $ranUser = $this->faker()->randomElement(User::all()->where('name', '!=', 'admin'));
@@ -58,15 +58,22 @@ class EditUserRoleTest extends DuskTestCase
      * @group edit.userrole
      * @return void
      */
-    public function testSelectValueIsOldRole() 
+    public function testSelectValueIsOldRole()
     {
-        $this->browse(function (Browser $browser) {
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user) {
             $ranUser = $this->faker()->randomElement(User::all());
             $userRole = $ranUser->roles->first();
-            $browser->loginAs(User::first())
+            $browser->loginAs($user)
                     ->visitRoute('users.edit', ['user' => $ranUser->id])
                     ->assertPathIs('/users/' . $ranUser->id . '/edit')
                     ->assertValue('@role-select', $userRole->id);
         });
+
+        $user->delete();
     }
 }
