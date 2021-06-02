@@ -101,42 +101,44 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('user.update.role', $user->id) }}"
-                              enctype="multipart/form-data">
-                            @method('PUT')
-                            @csrf
-                            <input type="hidden" name="user" class="form-control" value="{{$user->id}}">
+            @role('super admin')
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('user.update.role', $user->id) }}"
+                                  enctype="multipart/form-data">
+                                @method('PUT')
+                                @csrf
+                                <input type="hidden" name="user" class="form-control" value="{{$user->id}}">
 
-                            <div class="col-12 col-sm-12 mb-3">
-                                <div class="mb-3"><b>Verander Deelbeheerders rol</b></div>
+                                <div class="col-12 col-sm-12 mb-3">
+                                    <div class="mb-3"><b>Verander Deelbeheerders rol</b></div>
 
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <select name="role" class="custom-select" dusk="role-select">
-                                                @foreach ($roles as $role)
-                                                    <option @if ($user->hasRole($role))
-                                                        selected
-                                                    @endif value="{{$role->id}}">{{$role->name}}</option>
-                                                @endforeach
-                                            </select>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <select name="role" class="custom-select" dusk="role-select">
+                                                    @foreach ($roles as $role)
+                                                        <option @if ($user->hasRole($role))
+                                                            selected
+                                                        @endif value="{{$role->id}}">{{$role->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="modal-footer">
-                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update
-                                        Deelbeheerders rol
-                                    </button>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Update
+                                            Deelbeheerders rol
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endrole
         </div>
 
 @endsection
