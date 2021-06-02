@@ -23,14 +23,21 @@ class CreateUserTest extends DuskTestCase
      * @return void
      */
     public function testValidationOnEmpty() {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::first())
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user){
+            $browser->loginAs($user)
                     ->visit('/users/create')
                     ->press('Gebruiker aanmaken')
                     ->assertPathIs('/users/create')
                     ->assertSee('De naam van de gebruiker kan niet leeggelaten worden.')
                     ->assertSee('Het emailadres van de gebruiker kan niet leeggelaten worden.');
         });
+
+        $user->delete();
     }
 
     /**
@@ -39,7 +46,13 @@ class CreateUserTest extends DuskTestCase
      * @return void
      */
     public function testValidationOnInvalidEmail() {
-        $this->browse(function (Browser $browser) {
+
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs(User::first())
                     ->visit('/users/create')
                     ->type('name', $this->faker->name)
@@ -48,6 +61,8 @@ class CreateUserTest extends DuskTestCase
                     ->assertPathIs('/users/create')
                     ->assertSee('Voer alstublieft een geldig emailadres in.');
         });
+
+        $user->delete();
     }
 
     /**
@@ -56,9 +71,15 @@ class CreateUserTest extends DuskTestCase
      * @return void
      */
     public function testValidationOnDuplicateUser() {
-        $this->browse(function (Browser $browser) {
+
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user) {
             $randomUser = $this->faker->randomElement(User::all());
-            $browser->loginAs(User::first())
+            $browser->loginAs($user)
                     ->visit('/users/create')
                     ->type('name', $randomUser->name)
                     ->type('email', $randomUser->email)
@@ -66,6 +87,8 @@ class CreateUserTest extends DuskTestCase
                     ->assertPathIs('/users/create')
                     ->assertSee('Er bestaat al een account met dit emailadres.');
         });
+
+        $user->delete();
     }
 
     /**

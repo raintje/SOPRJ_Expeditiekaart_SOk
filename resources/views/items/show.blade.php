@@ -29,11 +29,13 @@
     {{ Breadcrumbs::render('items', $breadcrumb) }}
 
         @auth
-            <div class="float-right">
-                <a dusk="edit-button" class="btn btn-outline-secondary"
-                   href="{{route('edit.item', $item->id)}}">Aanpassen</a>
-                <a dusk="delete-button" class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
-            </div>
+            @can('layerItem.edit.'.$item->id)
+                <div class="float-right">
+                    <a dusk="edit-button" class="btn btn-outline-secondary"
+                       href="{{route('edit.item', $item->id)}}">Aanpassen</a>
+                    <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
+                </div>
+            @endcan
         @endauth
         <h1 class="text-center">{{$item->title}}</h1>
 
@@ -96,24 +98,48 @@
             </p>
 
 
-            <div class="row">
-                <div class="col-md-6  " id="collapseHistory">
-                    <h4>Voorgaande aanpassingen</h4>
-                    <ul class="timeline">
-                        @foreach($histories as $history)
-                            @foreach($history->meta as $historyData)
-                                <li>
-                                    <a href="#">{{$historyData['key']}}</a>
-                                    <a href="#"
-                                       class="float-right">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
-                                    <p>{!! $historyData['old']!!}</p>
-                                </li>
-                            @endforeach
-                        @endforeach
+                <div class="row">
+                    <div class="col-md" id="collapseHistory">
+                        <h4>Voorgaande aanpassingen</h4>
+                        <ul class="timeline">
+                            @foreach($histories as $history)
+                                @foreach($history->meta as $historyData)
+                                    <li class="shadow ml-3">
+                                        <div class="row">
+                                            <div class="col-md-11 p-3">
+                                                <a href="#">{{$historyData['key']}}</a>
+                                                <a href="#"
+                                                   class="ml-5">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
+                                                <p>{!! $historyData['old']!!}</p>
+                                            </div>
 
-                    </ul>
+                                            @auth
+                                                @can('layerItem.edit.'.$item->id)
+                                                    <div class="col-md-1">
+
+                                                        <div class="management--container">
+                                                            <div class="content">
+                                                                <a href="{{route('restore.item', $history->id)}}">
+                                                                    <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Terugzetten"><i class="fa fa-edit"></i>
+                                                                    </div>
+                                                                </a>
+                                                                <a href="{{route('destroy.itemHistory', $history->id)}}">
+                                                                    <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endcan
+                                            @endauth
+                                        </div>
+                                    </li>
+
+                                @endforeach
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
         @endif
     </div>
 @endsection
