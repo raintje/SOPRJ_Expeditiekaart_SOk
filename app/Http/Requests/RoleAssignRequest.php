@@ -28,7 +28,6 @@ class RoleAssignRequest extends FormRequest
     {
         return [
             'role' => 'required|integer|exists:roles,id|max:191',
-
         ];
     }
 
