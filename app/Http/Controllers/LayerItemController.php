@@ -10,11 +10,11 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
-use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use PDO;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class LayerItemController extends Controller
@@ -28,6 +28,7 @@ class LayerItemController extends Controller
 
     public function create()
     {
+        $this->AuthorizeRole();
         $items = LayerItem::all();
         $categories = Category::all();
         return view('items.create', ['existingItems' => $items, 'categories' => $categories]);
@@ -35,6 +36,7 @@ class LayerItemController extends Controller
 
     public function store(LayerItemStoreRequest $request)
     {
+        $this->AuthorizeRole();
         $body = $request->input('body');
 
         $layerItem = new LayerItem();
@@ -116,6 +118,7 @@ class LayerItemController extends Controller
     public function edit($id)
     {
         $item = LayerItem::findOrFail($id);
+        $this->AuthorizeRole($item->id);
         $existingItems = LayerItem::all()->except($id);
         $categories = Category::all();
         $itemcategories = null;
@@ -133,6 +136,7 @@ class LayerItemController extends Controller
 
     public function deleteLayerItemAppendix($id, $fileId)
     {
+        $this->AuthorizeRole($id);
         $file = File::findOrFail($fileId);
         Storage::disk('public')->delete($file->path);
         $file->delete();
@@ -141,7 +145,7 @@ class LayerItemController extends Controller
 
     public function deleteLinkedLayerItem($id, $linkedItemId)
     {
-
+        $this->AuthorizeRole($id);
         $link = LayerItemsLayerItems::where(['layer_item_id' => $id, 'linked_layer_item_id' => $linkedItemId])->first();
         if ($link != null) {
             $link->delete();
@@ -158,6 +162,7 @@ class LayerItemController extends Controller
     public function update(LayerItemEditRequest $request, $id)
     {
         $oldItem = LayerItem::findOrFail($id);
+        $this->AuthorizeRole($oldItem->id);
         $body = $request->input('body');
         $oldItem->title = $request->input('title');
         $oldItem->body = $body;
@@ -180,6 +185,7 @@ class LayerItemController extends Controller
     {
         $layerItem = LayerItem::findOrFail($id);
         $firstLayerItem = FirstLayerItem::where('layer_item_id', $id);
+        $this->AuthorizeRole($id);
 
         if ($firstLayerItem != null) {
             $firstLayerItem->delete();
@@ -316,6 +322,25 @@ class LayerItemController extends Controller
                 $file->type = $formFile->getClientOriginalExtension();
                 $file->path = $filePath;
                 $file->save();
+            }
+        }
+    }
+
+
+    public function AuthorizeRole($item = null)
+    {
+        if($item!= null)
+        {
+            if(!Auth::user()->can('layerItem.edit.'.$item))
+            {
+                abort(403);
+            }
+        }
+        else
+        {
+            if(!Auth::user()->can('layerItem.edit.*'))
+            {
+                abort(403);
             }
         }
     }
