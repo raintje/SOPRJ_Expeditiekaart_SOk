@@ -1,0 +1,67 @@
+$icon-size	  : 42px;
+$border-radius: 0.5;//15% = 0.15, 50% = 0.50 etc.
+
+// Text
+$white		  : #FFFFFF;
+
+.management--container{
+    display: table;
+    height: 100%;
+    width: 30px;
+    border-radius: 0 18px 18px 0;
+    margin: auto auto;
+    @media (max-width: 900px){
+    }
+    border: 2px solid #00b0f0;
+    background: $white;
+    z-index: -1;
+}
+
+.content{
+    text-align: center;
+}
+
+.icon{
+    cursor: pointer;
+    position: relative;
+    width: $icon-size;
+    height: $icon-size;
+    margin: 12px;
+    border-radius: $icon-size*$border-radius;
+    overflow: hidden;
+    &::before, &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        transition: all 0.25s ease;
+        border-radius: $icon-size*$border-radius;
+    }
+    i{
+        position: relative;
+        color: #000000;
+        font-size: $icon-size/2;
+        margin-top: $icon-size/4;
+        transition: all 0.25s ease;
+    }
+}
+
+.icon-expand{
+    &::after{
+        box-shadow: inset 0 0 0 1px #00b0f0;
+    }
+    &::before{
+        background: #f04c00;
+        box-shadow: inset 0 0 0 $icon-size $white;
+        color: white;
+    }
+    &:hover::before{
+        box-shadow: inset 0 0 0 1px $white;
+    }
+    &:hover::after{
+        box-shadow: inset 0 0 0 1px $white;
+    }
+}
+
