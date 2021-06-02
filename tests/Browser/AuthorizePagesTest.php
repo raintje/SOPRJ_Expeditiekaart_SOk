@@ -95,8 +95,7 @@ class AuthorizePagesTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $routes = [ 
                 route('show.item', ['id' => LayerItem::first()]),
-                route('login'),
-                route('register')
+                route('login')
             ];
 
             $browser->logout();
