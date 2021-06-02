@@ -19,12 +19,18 @@
             <p class="font-weight-bold">Nieuws</p>
             <hr>
             @foreach($itemHistories as $history)
-                <div>
+                <div style="width: max-content" class="overflow-auto">
                 @if($history->message == 'Updating LayerItem ')
-                <p>item {{$history->model_id}} is aangepast door gebruiker {{$history->user_id}}</p>
+                <p>
+                    @if($history->model() != null)
+                        {{$history->model()->title}} is aangepast door {{$history->user()->getRoleNames()[0]}} {{$history->user()->name}}</p>
+                    @else
+                        item {{$history->model_id}} is aangepast door {{$history->user()->getRoleNames()[0]}} {{$history->user()->name}}</p>
+                    @endif
                 @elseif($history->message == 'Deleting LayerItem ')
-                    <p>item {{$history->model_id}} is verwijderd door gebruiker {{$history->user_id}}</p>
+                    <p>item {{$history->model_id}} is verwijderd door {{$history->user()->getRoleNames()[0]}} {{$history->user()->name}}</p>
                 @endif
+                    <hr>
                 </div>
             @endforeach
 
