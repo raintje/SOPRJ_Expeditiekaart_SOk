@@ -13,13 +13,25 @@ use Illuminate\Support\Facades\Route;
 // HomeController routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// UserController routes
+
 Route::group(['middleware' => ['auth']], function () {
+
+
     Route::get('api/users', [UserController::class, 'getUsers'])->name('get.user');
-    Route::put('/users/update/password/{user}', [UserController::class, 'updatePassword'])->name('user.update.password');
-    Route::put('/users/update/role/{user}', [UserController::class, 'updateRole'])->name('user.update.role');
-    Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
-    Route::resource('users', UserController::class);
+
+    Route::group(['middleware' => ['role:admin|super admin']], function () {
+
+        Route::put('/users/update/password/{user}', [UserController::class, 'updatePassword'])->name('user.update.password');
+        Route::resource('users', UserController::class);
+        Route::post('/users/delete', [UserController::class, 'destroy'])->name('destroy.user');
+        Route::put('/users/update/password/{user}', [UserController::class, 'updatePassword'])->name('user.update.password');
+
+        Route::group(['middleware' => ['role:super admin']], function () {
+            // RoleController routes
+            Route::put('/users/update/role/{user}', [UserController::class, 'updateRole'])->name('user.update.role');
+            Route::resource('roles', RoleController::class);
+        });
+    });
 
     //Item History
     Route::get('/items/restoreHistory/{id}', [ItemHistoryController::class, 'restoreItem'])->name('restore.item');
@@ -44,8 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/items/edit/location/save', [FirstLayerItemController::class, 'saveLocations'])->name('edit.item.location.save');
     Route::get('/items/edit/location', [LayerItemController::class, 'editLocation'])->name('edit.item.location');
 
-    // RoleController routes
-    Route::resource('roles', RoleController::class);
+
 });
 
 // LayerItemController routes
@@ -54,8 +65,6 @@ Route::get('/items/{id}', [LayerItemController::class, 'show'])->name('show.item
 route::get('/items/{id}/breadcrumb/{breadcrumb}', [LayerItemController::class, 'show'])->name('breadcrumb.add');
 route::get('/items/{id}/breadcrumb/{breadcrumb}/returnNr/{returnNr}', [LayerItemController::class, 'updateBreadcrumb'])->name('breadcrumb.update');
 
-
-Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 Route::get('/files/{id}', [LayerItemController::class, 'downloadFile'])->name('download.file');
 
 Route::get('api/items',[LayerItemController::class, 'getItems'])->name('get.item');
@@ -65,4 +74,4 @@ Route::get('/layeritems', [FirstLayerItemController::class, 'all']);
 
 
 // Auth routes
-Auth::routes();
+Auth::routes(['register' => false]);

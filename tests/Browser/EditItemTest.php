@@ -26,7 +26,12 @@ class EditItemTest extends DuskTestCase
      */
     public function testEditValidation()
     {
-        $this->browse(function (Browser $browser) {
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user){
             $item = $this->faker()->randomElement(LayerItem::all());
             $browser->loginAs(User::first())
                 ->visitRoute('edit.item', $item->id)
@@ -39,6 +44,8 @@ class EditItemTest extends DuskTestCase
                     ->assertPathIs('/items/' . $item->id . '/edit')
                     ->assertSeeIn('@error-container', 'De titel moet uniek zijn.');
         });
+
+        $user->delete();
     }
 
     /**
@@ -47,7 +54,13 @@ class EditItemTest extends DuskTestCase
      */
     public function testEditOldData()
     {
-        $this->browse(function (Browser $browser) {
+
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user){
 
             // Grabs a random LayerItem from the database.
             $item = $this->faker()->randomElement(LayerItem::all());
@@ -56,7 +69,7 @@ class EditItemTest extends DuskTestCase
             $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $item->id)->first();
 
             // Asserts if the title and body of the item are displayed in the correct location.
-            $browser->loginAs(User::first())
+            $browser->loginAs($user)
                 ->visitRoute('edit.item', $item->id)
                     ->assertInputValue('title', $item->title)
                     ->assertInputValue('body', $item->body);
@@ -74,6 +87,8 @@ class EditItemTest extends DuskTestCase
                         ->assertSee($item->title);
             }
         });
+
+        $user->delete();
     }
 
     /**
@@ -82,9 +97,15 @@ class EditItemTest extends DuskTestCase
      */
     public function testEditItemSave()
     {
-        $this->browse(function (Browser $browser) {
+
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
+
+        $this->browse(function (Browser $browser) use ($user){
             $item = $this->faker()->randomElement(LayerItem::all());
-            $browser->loginAs(User::find(1))
+            $browser->loginAs($user)
                     ->visitRoute('edit.item', $item->id)
                     ->assertPathIs('/items/' . $item->id . '/edit')
                     ->type('title', $this->faker->text(20))
@@ -92,5 +113,7 @@ class EditItemTest extends DuskTestCase
                     ->press('Wijzigingen opslaan')
                     ->assertPathIs('/items/' . $item->id);
         });
+
+        $user->delete();
     }
 }

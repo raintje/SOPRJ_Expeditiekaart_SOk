@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LayerItemStoreRequest extends FormRequest
 {
@@ -13,7 +14,9 @@ class LayerItemStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (Auth::check() && Auth::user()->hasRole('super admin')){
+            return true;
+        }
     }
 
     /**
