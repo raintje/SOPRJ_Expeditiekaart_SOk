@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Http\Controllers\LayerItemController;
 use App\Http\Requests\LayerItemEditRequest;
+use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -57,31 +58,4 @@ class ItemHistoryTest extends TestCase
         $response = $this->get(route('destroy.itemHistory', $id));
         $response->assertStatus(404);
     }
-
-    public function testRestoreItemHistoryWithCorrectID()
-    {
-        $user = User::first();
-        Auth::login($user);
-
-        $rndmItemId = $this->faker->randomElement(LayerItem::all())->id;
-        $response = $this->post(route('update.item', ['id' => $rndmItemId]), [
-            'title' => $this->faker->title,
-            'body' => 'test'
-        ]);
-
-        $this->assertEquals(302, $response->getStatusCode());
-
-        $lastHistory = History::latest('performed_at')->first();
-        dd($lastHistory);
-        $id = $lastHistory->id;
-        $this->assertAuthenticated();
-        $response = $this->get(route('restore.item', $id));
-        $response->assertStatus(404);
-    }
-
-    public function testDeleteItemHistoryWithCorrectID()
-    {
-
-    }
-
 }
