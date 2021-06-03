@@ -86,7 +86,6 @@ class CreateUserTest extends TestCase
             'email' => $email,
         ]);
 
-
         if($nameAssert){
             $response->assertSessionDoesntHaveErrors('name');
         } else {

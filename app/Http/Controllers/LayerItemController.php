@@ -101,7 +101,6 @@ class LayerItemController extends Controller
     }
 
 
-
     public function downloadFile($id)
     {
         $databaseFile = File::findOrFail($id);
