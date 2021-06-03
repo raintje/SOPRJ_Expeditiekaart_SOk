@@ -33,7 +33,7 @@
                 <div class="float-right">
                     <a dusk="edit-button" class="btn btn-outline-secondary"
                        href="{{route('edit.item', $item->id)}}">Aanpassen</a>
-                    <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
+                    <a dusk="delete-button" class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
                 </div>
             @endcan
         @endauth
