@@ -37,7 +37,7 @@
                 </div>
             @endcan
         @endauth
-        <h1 class="text-center">{{$item->title}}</h1>
+        <h1 class="text-center" id="item--title">{{$item->title}}</h1>
 
         @if($categories != null)
             <div class="row justify-content-center">
@@ -47,7 +47,7 @@
             </div>
         @endif
 
-        <div class="m-2">
+        <div class="m-2" id="item--body">
             {!! $item->body !!}
         </div>
 
@@ -104,7 +104,7 @@
                         <ul class="timeline">
                             @foreach($histories as $history)
                                 @foreach($history->meta as $historyData)
-                                    <li class="shadow ml-3">
+                                    <li class="shadow ml-3 history--item">
                                         <div class="row">
                                             <div class="col-md-11 p-3">
                                                 <a href="#">{{$historyData['key']}}</a>
@@ -120,11 +120,11 @@
                                                         <div class="management--container">
                                                             <div class="content">
                                                                 <a href="{{route('restore.item', $history->id)}}">
-                                                                    <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Terugzetten"><i class="fa fa-edit"></i>
+                                                                    <div class="icon icon-expand" id="res--itemhistory" data-toggle="tooltip" data-placement="right" title="Terugzetten"><i class="fa fa-edit"></i>
                                                                     </div>
                                                                 </a>
                                                                 <a href="{{route('destroy.itemHistory', $history->id)}}">
-                                                                    <div class="icon icon-expand" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
+                                                                    <div class="icon icon-expand" id="del--itemhistory" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
                                                                     </div>
                                                                 </a>
                                                             </div>
