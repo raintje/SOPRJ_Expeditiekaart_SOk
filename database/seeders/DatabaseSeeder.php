@@ -10,7 +10,6 @@ use Illuminate\Database\Seeder;
 use \App\Models\File;
 use Illuminate\Support\Facades\Hash;
 
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -27,10 +26,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Admin123!'), // password = Admin123!
         ]);
         User::factory(30)->create();
-        LayerItem::factory(10)->create();
-        FirstLayerItem::factory(10)->create();
+        $this->call(LayerItemSeeder::class);
+        FirstLayerItem::factory(LayerItem::all()->count())->create();
         $this->call(CategoriesTableSeeder::class);
         $this->call(LayerItemLayerItemSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
         File::factory(10)->create();
+
     }
 }

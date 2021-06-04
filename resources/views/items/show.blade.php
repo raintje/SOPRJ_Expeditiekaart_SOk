@@ -29,13 +29,15 @@
     {{ Breadcrumbs::render('items', $breadcrumb) }}
 
         @auth
-            <div class="float-right">
-                <a dusk="edit-button" class="btn btn-outline-secondary"
-                   href="{{route('edit.item', $item->id)}}">Aanpassen</a>
-                <a class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
-            </div>
+            @can('layerItem.edit.'.$item->id)
+                <div class="float-right">
+                    <a dusk="edit-button" class="btn btn-outline-secondary"
+                       href="{{route('edit.item', $item->id)}}">Aanpassen</a>
+                    <a dusk="delete-button" class="btn btn-outline-danger" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Verwijderen</a>
+                </div>
+            @endcan
         @endauth
-        <h1 class="text-center">{{$item->title}}</h1>
+        <h1 class="text-center" id="item--title">{{$item->title}}</h1>
 
         @if($categories != null)
             <div class="row justify-content-center">
@@ -45,7 +47,7 @@
             </div>
         @endif
 
-        <div class="m-2">
+        <div class="m-2" id="item--body">
             {!! $item->body !!}
         </div>
 
@@ -96,24 +98,48 @@
             </p>
 
 
-            <div class="row">
-                <div class="col-md-6  " id="collapseHistory">
-                    <h4>Voorgaande aanpassingen</h4>
-                    <ul class="timeline">
-                        @foreach($histories as $history)
-                            @foreach($history->meta as $historyData)
-                                <li>
-                                    <a href="#">{{$historyData['key']}}</a>
-                                    <a href="#"
-                                       class="float-right">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
-                                    <p>{!! $historyData['old']!!}</p>
-                                </li>
-                            @endforeach
-                        @endforeach
+                <div class="row">
+                    <div class="col-md" id="collapseHistory">
+                        <h4>Voorgaande aanpassingen</h4>
+                        <ul class="timeline">
+                            @foreach($histories as $history)
+                                @foreach($history->meta as $historyData)
+                                    <li class="shadow ml-3 history--item">
+                                        <div class="row">
+                                            <div class="col-md-11 p-3">
+                                                <a href="#">{{$historyData['key']}}</a>
+                                                <a href="#"
+                                                   class="ml-5">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
+                                                <p>{!! $historyData['old']!!}</p>
+                                            </div>
 
-                    </ul>
+                                            @auth
+                                                @can('layerItem.edit.'.$item->id)
+                                                    <div class="col-md-1">
+
+                                                        <div class="management--container">
+                                                            <div class="content">
+                                                                <a href="{{route('restore.item', $history->id)}}">
+                                                                    <div class="icon icon-expand" id="res--itemhistory" data-toggle="tooltip" data-placement="right" title="Terugzetten"><i class="fa fa-edit"></i>
+                                                                    </div>
+                                                                </a>
+                                                                <a href="{{route('destroy.itemHistory', $history->id)}}">
+                                                                    <div class="icon icon-expand" id="del--itemhistory" data-toggle="tooltip" data-placement="right" title="Verwijderen"><i class="fa fa-trash"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endcan
+                                            @endauth
+                                        </div>
+                                    </li>
+
+                                @endforeach
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
         @endif
     </div>
 @endsection

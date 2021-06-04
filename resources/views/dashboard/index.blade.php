@@ -14,6 +14,33 @@
     <a href="{{route('users.index')}}"><button class="btn btn-primary">Gebruikers overzicht</button></a>
     <a href="{{route('items')}}"><button class="btn btn-primary">Item overzicht</button></a>
 
+    <div class="row mt-5">
+        <div class="col-md p-2 w-100">
+            <p class="font-weight-bold">Nieuws</p>
+            <hr>
+            @foreach($itemHistories as $history)
+                <div style="width: max-content" class="overflow-auto">
+                @if($history->message == 'Updating LayerItem ')
+                <p>
+                    @if($history->model() != null)
+                        {{$history->model()->title}} is aangepast door {{$history->user()->getRoleNames()[0]}} {{$history->user()->name}}</p>
+                    @else
+                        item {{$history->model_id}} is aangepast door {{$history->user()->getRoleNames()[0]}} {{$history->user()->name}}</p>
+                    @endif
+                @elseif($history->message == 'Deleting LayerItem ')
+                    <p>item {{$history->model_id}} is verwijderd door {{$history->user()->getRoleNames()[0]}} {{$history->user()->name}}</p>
+                @endif
+                    <hr>
+                </div>
+            @endforeach
+
+        </div>
+        <div class="col-md p-2 w-100">
+            <p class="font-weight-bold">gebruiksgegevens</p>
+            <hr>
+        </div>
+    </div>
+
     <script src="{{ mix('js/app.js') }}"></script>
 
 @endsection

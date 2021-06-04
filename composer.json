@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "laravel/expeditiekaart",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Source code for expeditiekaart.nl",
     "keywords": [
         "framework",
         "laravel"
@@ -19,6 +19,7 @@
         "laravel/ui": "^3.2",
         "panoscape/history": "^2.2",
         "php-webdriver/webdriver": "1.9.0",
+        "spatie/laravel-permission": "^4.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

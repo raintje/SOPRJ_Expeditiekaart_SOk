@@ -28,6 +28,7 @@ class CreateUserTest extends TestCase
     public function testCreateUserPageResponse()
     {
         $user = User::first();
+        $user->assignRole('super admin');
         Auth::login($user);
         $response = $this->get(route('users.create'));
         $response->assertViewIs('users.create');
@@ -75,7 +76,10 @@ class CreateUserTest extends TestCase
      */
     public function testCreateInvalidInformation($name, $email, $nameAssert, $emailAssert)
     {
-        $user = new User(array('name' => 'fake'));
+        $user = User::factory()->create([
+            'email' => $this->faker->email,
+        ]);
+        $user->assignRole('super admin');
 
         $response = $this->be($user)->post('/users', [
             'name' => $name,
@@ -99,6 +103,8 @@ class CreateUserTest extends TestCase
             $response->assertSessionHasNoErrors();
             User::where('email', $email)->delete();
         }
+
+        $user->delete();
     }
 
     public function additionalInvalidInformation(): array

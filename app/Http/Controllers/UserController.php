@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleAssignRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Mail\UserDeleteMail;
 use App\Http\Requests\UserUpdatePasswordRequest;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Throwable;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -34,6 +36,10 @@ class UserController extends Controller
             $data = User::all();
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('Rol', function ($row) {
+                    $user = User::findOrFail($row->id);
+                    return $rol = implode(',', $user->getRoleNames()->toArray());;
+                })
                 ->addColumn('action', function ($row) {
                     return "<div class='d-flex'>
                                 <a href=".route('users.edit', ['user' => $row->id])." class='m-auto btn btn-outline-primary btn-xs pl-2'>aanpassen</a>
@@ -85,7 +91,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', ['user' => $user]);
+        $roles = $user->hasRole('super admin') ? Role::where('name', 'super admin')->get() : Role::where('name', '!=', 'super admin')->get();
+
+        return view('users.edit', ['user' => $user, 'roles' => $roles]);
     }
 
     public function update(UserUpdateRequest $request, $id)
@@ -124,6 +132,20 @@ class UserController extends Controller
         $message = ['message' =>'Wachtwoord succesvol aangepast', 'type' => 'success'];
 
         return redirect()->route('users.index')->with($message);
+    }
+
+    public function updateRole(RoleAssignRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $roles = $user->getRoleNames();
+
+
+
+        foreach ($roles as $role) { $user->removeRole($role); }
+
+        $user->assignRole($request->input('role'));
+
+        return redirect()->route('users.index')->with(['message' =>'Rol toegekend aan gebruiker', 'type' => 'success']);
     }
 
     public function destroy(Request $request)

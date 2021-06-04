@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Panoscape\History\HasOperations;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasOperations;
+    use HasFactory, Notifiable, HasOperations, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +52,9 @@ class User extends Authenticatable
         return $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
     }
 
+    public function getRoles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 
 }

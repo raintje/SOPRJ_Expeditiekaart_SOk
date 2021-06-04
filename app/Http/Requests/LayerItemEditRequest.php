@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LayerItemEditRequest extends FormRequest
 {
-    
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,7 +15,11 @@ class LayerItemEditRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $id = $this->route('id');
+
+        if (Auth::check() && Auth::user()->can('layerItem.edit.'.$id)){
+            return true;
+        }
     }
 
     /**
