@@ -8,9 +8,13 @@
 
     <div class="pb-3">
         <h2 class="mb-4">Dashboard</h2>
-        <div class="btn-group float-left">
-            <a href="{{ route('users.index') }}" class="btn btn-primary"><i class="fa fa-user"></i> Gebruikersoverzicht</a>
-            <a href="{{ route('items') }}" class="btn btn-primary"><i class="fa fa-list"></i> Itemoverzicht</a>
+        <p class="font-weight-bold">Snelle toegang</p>
+        <hr>
+        <div class="float-left">
+            <a href="{{ route('users.index') }}"><button class="btn btn-primary"><i class="fa fa-user"></i>
+                    Gebruikersoverzicht</button></a>
+            <a href="{{ route('items') }}"><button class="btn btn-primary"><i class="fa fa-list"></i>
+                    Itemoverzicht</button></a>
         </div>
     </div>
 
@@ -25,14 +29,14 @@
                         @if ($history->message == 'Updating LayerItem ')
                             @if ($history->model() != null)
                                 {{ $history->model()->title }} is aangepast door
-                                {{ $history->user()->getRoleNames()[0] }} {{ $history->user()->name }}
+                                {{ $history->user()->getRoleNames()->first() }} {{ $history->user()->name }}
                     </p>
                 @else
-                    Item {{ $history->model_id }} is aangemaakt door {{ $history->user()->getRoleNames()[0] }}
+                    Item {{ $history->model_id }} is aangemaakt door {{ $history->user()->getRoleNames()->first() }}
                     {{ $history->user()->name }}</p>
             @endif
         @elseif($history->message == 'Deleting LayerItem ')
-            Item {{ $history->model_id }} is verwijderd door {{ $history->user()->getRoleNames()[0] }}
+            Item {{ $history->model_id }} is verwijderd door {{ $history->user()->getRoleNames()->first() }}
             {{ $history->user()->name }}</p>
             @endif
             <hr>

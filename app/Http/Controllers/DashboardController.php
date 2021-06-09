@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Panoscape\History\History;
 
 class DashboardController extends Controller
