@@ -110,7 +110,12 @@
                                                 <a href="#">{{$historyData['key']}}</a>
                                                 <a href="#"
                                                    class="ml-5">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
-                                                <p>{!! $historyData['old']!!}</p>
+                                                @if($historyData['key'] == 'body')
+                                                    <p>{!! $historyData['old']!!}</p>
+                                                @else
+                                                    <p>{{$historyData['old']}}</p>
+                                                @endif
+
                                             </div>
 
                                             @auth
