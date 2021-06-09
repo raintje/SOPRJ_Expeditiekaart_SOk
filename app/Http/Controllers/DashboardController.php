@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Panoscape\History\History;
 
 class DashboardController extends Controller
@@ -16,7 +16,8 @@ class DashboardController extends Controller
 
     public function getItemHistories()
     {
-        return History::latest('performed_at')->take(10)->get();
+        $histories = History::latest('performed_at')->take(10)->get();
+        return $histories;
     }
 
 }

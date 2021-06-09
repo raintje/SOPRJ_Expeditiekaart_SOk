@@ -21,7 +21,7 @@
             @foreach ($itemHistories as $history)
                 <div style="width: max-content" class="overflow-auto">
                     <p>
-                        <b>{{ $history->performed_at }}</b> -
+                        <b>{{ $history->performed_at->format('d-m-Y H:i') }}</b> -
                         @if ($history->message == 'Updating LayerItem ')
                             @if ($history->model() != null)
                                 {{ $history->model()->title }} is aangepast door
