@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Panoscape\History\History;
 
 class DashboardController extends Controller
@@ -10,6 +11,9 @@ class DashboardController extends Controller
     public function index()
     {
         $histories = $this->getItemHistories();
+        if (Auth::user()->roles->first()->id != '1') {
+            abort(403);
+        }
         return view('dashboard.index', ['itemHistories' => $histories]);
     }
 
