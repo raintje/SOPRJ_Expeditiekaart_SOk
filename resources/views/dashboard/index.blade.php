@@ -10,16 +10,14 @@
         <h2 class="mb-4">Dashboard</h2>
         <p class="font-weight-bold">Snelle toegang</p>
         <hr>
-        <div class="float-left">
-            <a href="{{ route('users.index') }}"><button class="btn btn-primary"><i class="fa fa-user"></i>
-                    Gebruikersoverzicht</button></a>
-            <a href="{{ route('items') }}"><button class="btn btn-primary"><i class="fa fa-list"></i>
-                    Itemoverzicht</button></a>
-        </div>
+        <a href="{{ route('users.index') }}"><button class="btn btn-primary"><i class="fa fa-user"></i>
+                Gebruikersoverzicht</button></a>
+        <a href="{{ route('items') }}"><button class="btn btn-primary"><i class="fa fa-list"></i>
+                Itemoverzicht</button></a>
     </div>
 
     <div class="row mt-5">
-        <div class="col-md p-2 w-100">
+        <div class="w-100 col-md">
             <p class="font-weight-bold">Nieuws</p>
             <hr>
             @foreach ($itemHistories as $history)
@@ -44,7 +42,7 @@
         @endforeach
 
     </div>
-    <div class="col-md p-2 w-100">
+    <div class="col-md w-100">
         <p class="font-weight-bold">Gebruiksgegevens</p>
         <hr>
     </div>
