@@ -11,7 +11,7 @@ class DashboardController extends Controller
     public function index()
     {
         $histories = $this->getItemHistories();
-        if (Auth::user()->roles->first()->id != '1') {
+        if (!Auth::user()->hasRole('super admin')) {
             abort(403);
         }
         return view('dashboard.index', ['itemHistories' => $histories]);
