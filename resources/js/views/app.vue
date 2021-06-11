@@ -1,9 +1,6 @@
-<template>
-    
+  <template>
+
     <div>
-        <transition name="zoom" v-on:after-enter="afterEnter" enter-class="zoomOut" leaveClass="zoomIn">
-            <div v-if="show" class="animation-box" :class="{'zoomOut': zoomOut}"></div>
-        </transition>
 
         <Navigation></Navigation>
         <Legenda></Legenda>
@@ -35,7 +32,7 @@
                     />
 
                     <l-popup :options="{ autoClose: false, closeOnClick: false }">
-                        <div style="cursor: pointer;"  v-html="item.layer_item.title" @click="navigate(item)"></div>
+                        <div style="cursor: pointer;"  v-html="item.layer_item.title" @click="navigate(item.layer_item_id)"></div>
                     </l-popup>
                 </l-icon>
             </l-marker>
@@ -49,7 +46,6 @@ import Vue from 'vue';
 import SvgIcon from "../components/SvgIcon";
 import Navigation from "../components/Navigation";
 import Legenda from "../components/Legenda";
-
 export default {
     components: {
         SvgIcon, Navigation, Legenda
@@ -57,13 +53,11 @@ export default {
     data() {
         return {
             url: "/img/wallpaper.svg",
-            show: false,
             bounds: [[-120, -27], [1049, 1053]],
             maxBounds: [[298, 89], [659, 833]],
             minZoom: 1.4,
             crs: CRS.Simple,
             center: [2000, 3023],
-            selectedItem: null,
             items: [],
             staticAnchor: [15, 0],
             tooltipAnchor: [15, 0],
@@ -77,20 +71,9 @@ export default {
             .get('/layeritems')
             .then(response => (this.items = response.data))
     },
-
     methods: {
-        navigate: function (item){
-            this.selectedItem = item;
-
-            this.$refs.map.mapObject.flyTo(item.position, 5, {
-                animate: true,
-                duration: 1.5
-            });
-            
-            this.show = true;
-        },
-        afterEnter: function (el) {
-            window.location.href = `/items/${this.selectedItem.layer_item_id}`;
+        navigate: function (id){
+            window.location.href = `/items/${id}`;
         },
         location: function (x, y) {
             return new latLng(x, y);
@@ -101,11 +84,8 @@ export default {
             })
         },
         getClass: function (item) {
-
             let baseClass = "marker";
-
             let colors = item.categories.map(i => i.color);
-
             if (colors.length === 1) {
                 return baseClass + " " + item.categories[0].color;
             } else if (colors.includes("red", "green")) {
@@ -118,36 +98,11 @@ export default {
                 return baseClass;
             }
         },
-
     },
 };
 </script>
 
 <style>
-.animation-box {
-    top: 50%;
-    left: 50%;
-    width: 1.2%;
-    height: 1.2%;
-    position: fixed;
-    z-index: 1001;
-    background-color: whitesmoke;
-    transition: all 1.5s;
-}
-
-.zoomOut {  
-    transform: scale(10);
-}
-
-@keyframes zoom-in{
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(100);
-  }
-}
-
 .marker {
     border: 1px solid #333;
     border-radius: 20px 20px 20px 20px;
@@ -156,30 +111,22 @@ export default {
     width: 30px !important;
     height: 30px !important;
 }
-
 .blue {
     background-color: blue;
 }
-
 .red {
     background-color: red;
 }
-
 .green {
     background-color: lawngreen;
 }
-
 .blue-green {
     background-image: linear-gradient(blue, lawngreen);
 }
-
 .blue-red {
     background-image: linear-gradient(blue, red);
 }
-
 .red-green {
     background-image: linear-gradient(red, lawngreen);
 }
-
-
 </style>
