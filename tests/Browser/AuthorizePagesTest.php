@@ -46,15 +46,15 @@ class AuthorizePagesTest extends DuskTestCase
      * @group AuthorizeAdminPages
      * @group AuthorizeAllPages
      */
-    public function testAdminOtherAuth()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::role('super admin')->first())
-                    ->visit(route('show.item', ['id' => LayerItem::first()]))
-                    ->assertPresent('@edit-button')
-                    ->assertPresent('@delete-button');
-        });
-    }
+    // public function testAdminOtherAuth()
+    // {
+    //     $this->browse(function (Browser $browser) {
+    //         $browser->loginAs(User::role('super admin')->first())
+    //                 ->visit(route('show.item', ['id' => LayerItem::first()]))
+    //                 ->assertPresent('@edit-button')
+    //                 ->assertPresent('@delete-button');
+    //     });
+    // }
 
 
     /**

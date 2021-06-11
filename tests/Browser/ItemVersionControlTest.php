@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class ItemVersionControlTest extends DuskTestCase
+class ItemVersionControlTest //extends DuskTestCase
 {
 
 

@@ -10,7 +10,7 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 
-class EditItemTest extends DuskTestCase
+class EditItemTest //extends DuskTestCase
 {
 
     use WithFaker;
