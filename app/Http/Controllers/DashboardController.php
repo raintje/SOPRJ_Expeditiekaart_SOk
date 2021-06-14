@@ -17,7 +17,6 @@ class DashboardController extends Controller
             abort(403);
         }
 
-
         $itemHistories = $this->getItemHistories();
 
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(30));
@@ -28,7 +27,6 @@ class DashboardController extends Controller
         $dates = $dates->map(function ($date) {
             return Carbon::parse($date)->format('d/m/Y');
         });
-
 
         return view('dashboard.index', compact(['itemHistories', 'visitors', 'dates', 'mostVisitedPages']));
     }
