@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Items')
+
 @section('head_script')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.css"/>
 

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $item->title)
+
 @section('content')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
