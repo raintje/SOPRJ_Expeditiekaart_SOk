@@ -2,6 +2,11 @@
 
 @section('title', 'Gebruiker aanpassen')
 
+@section('head_script')
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('content')
 
     <h1 class="text-center mb-4">Gebruiker aanpassen</h1>
