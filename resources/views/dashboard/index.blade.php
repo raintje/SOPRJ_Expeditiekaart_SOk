@@ -55,9 +55,9 @@
         <div class="col-md w-100">
             <p class="font-weight-bold">Gebruiksgegevens</p>
             <hr>
-            <p class="font-weight-light">Aantal bezoekers deze maand</p>
+            <p class="font-weight-light">Aantal bezoekers per dag deze maand</p>
             <canvas id="this_week_vs_last"></canvas>
-            <p class="font-weight-light">Meest bezochte pagina's</p>
+            <p class="font-weight-light">Meest bezochte pagina's (top 10)</p>
             <canvas id="most_visited_pages"></canvas>
         </div>
     </div>
@@ -72,9 +72,7 @@
             datasets: [
                 {
                     label: "Deze maand",
-                    fillColor: "rgba(220,220,220,0.2)",
-                    strokeColor: "rgba(220,220,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
+                    borderColor: 'rgb(0, 123, 255)',
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     data: {!! json_encode($visitors) !!}
@@ -92,11 +90,20 @@
             datasets: [
                 {
                     label: "Deze maand",
-                    fillColor: "rgba(220,220,220,0.2)",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    fillColor: "rgba(0, 123, 255)",
                     strokeColor: "rgba(220,220,220,1)",
                     pointColor: "rgba(220,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
+                    pointStrokeColor: "#007bff",
+                    pointHighlightFill: "#007bff",
                     data: {!! json_encode($mostVisitedPages->pluck('pageViews')) !!}
                 },
             ]

@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $itemHistories = $this->getItemHistories();
 
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(30));
-        $mostVisitedPages = Analytics::fetchMostVisitedPages(Period::days(30));
+        $mostVisitedPages = Analytics::fetchMostVisitedPages(Period::days(30),  $maxResults = 10);
         $dates = $analyticsData->pluck('date');
         $visitors = $analyticsData->pluck('visitors');
 
