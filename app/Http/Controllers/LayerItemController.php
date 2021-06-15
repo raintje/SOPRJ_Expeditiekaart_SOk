@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\BDEncoder;
 use App\Http\Requests\LayerItemEditRequest;
 use App\Http\Requests\LayerItemStoreRequest;
-use App\Models\Category;
 use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
@@ -30,8 +29,7 @@ class LayerItemController extends Controller
     {
         $this->AuthorizeRole();
         $items = LayerItem::all();
-        $categories = Category::all();
-        return view('items.create', ['existingItems' => $items, 'categories' => $categories]);
+        return view('items.create', ['existingItems' => $items]);
     }
 
     public function store(LayerItemStoreRequest $request)
@@ -119,7 +117,6 @@ class LayerItemController extends Controller
         $item = LayerItem::findOrFail($id);
         $this->AuthorizeRole($item->id);
         $existingItems = LayerItem::all()->except($id);
-        $categories = Category::all();
         $itemcategories = null;
 
         $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
@@ -130,7 +127,7 @@ class LayerItemController extends Controller
         $linkedItems = $item->referencesLayerItems;
 
 
-        return view('items.edit', ['item' => $item, 'categories' => $categories, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
+        return view('items.edit', ['item' => $item, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
     }
 
     public function deleteLayerItemAppendix($id, $fileId)
