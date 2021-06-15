@@ -5,17 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Panoscape\History\HasHistories;
-
+/**
+ * App\Models\LayerItem
+ * 
+ * @property int $id
+ * @property string $title
+ * @property int $body
+ * @property int $level
+ * @property datetime $created_at
+ * @property datetime $updated_at
+ * @mixin Eloquent
+ */
 class LayerItem extends Model
 {
     use HasFactory;
     use HasHistories;
 
+    protected $fillable = ['title', 'body', 'level'];
+
     public function getModelLabel()
     {
         return $this->display_name;
     }
-
 
     public function referencesLayerItems()
     {
