@@ -30,8 +30,8 @@ class LayerItemController extends Controller
     {
         $this->AuthorizeRole();
         $items = LayerItem::all();
-        $categories = Category::all();
-        return view('items.create', ['existingItems' => $items, 'categories' => $categories]);
+//        $categories = Category::all();
+        return view('items.create', ['existingItems' => $items]);
     }
 
     public function store(LayerItemStoreRequest $request)
@@ -120,17 +120,17 @@ class LayerItemController extends Controller
         $this->AuthorizeRole($item->id);
         $existingItems = LayerItem::all()->except($id);
         $categories = Category::all();
-        $itemcategories = null;
+//        $itemcategories = null;
 
         $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
-        if ($firstLayerItem != null) {
-            $itemcategories = $firstLayerItem->categories;
-        }
+//        if ($firstLayerItem != null) {
+//            $itemcategories = $firstLayerItem->categories;
+//        }
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
 
-        return view('items.edit', ['item' => $item, 'categories' => $categories, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
+        return view('items.edit', ['item' => $item, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
     }
 
     public function deleteLayerItemAppendix($id, $fileId)
