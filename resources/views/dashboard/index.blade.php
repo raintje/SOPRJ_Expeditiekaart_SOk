@@ -10,9 +10,9 @@
         <h2 class="mb-4">Dashboard</h2>
         <p class="font-weight-bold">Snelle toegang</p>
         <hr>
-        <a href="{{ route('users.index') }}"><button class="btn btn-primary"><i class="fa fa-user"></i>
+        <a href="{{ route('users.index') }}"><button dusk="userButton" class="btn btn-primary"><i class="fa fa-user"></i>
                 Gebruikersoverzicht</button></a>
-        <a href="{{ route('items') }}"><button class="btn btn-primary"><i class="fa fa-list"></i>
+        <a href="{{ route('items') }}"><button dusk="itemButton" class="btn btn-primary"><i class="fa fa-list"></i>
                 Itemoverzicht</button></a>
     </div>
 
