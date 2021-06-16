@@ -120,7 +120,8 @@
     <script>
         tinymce.init({
             selector: '#inhoudInput',
-            language: 'nl'
+            language: 'nl',
+            plugins: 'link',
         });
 
         function ValidateSize(file) {

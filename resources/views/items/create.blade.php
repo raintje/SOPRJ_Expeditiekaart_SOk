@@ -71,8 +71,9 @@
     @section('script')
     <script>
         tinymce.init({
-          selector: '#inhoudInput',
-          language: 'nl'
+            selector: '#inhoudInput',
+            language: 'nl',
+            plugins: 'link',
         });
         function ValidateSize(file) {
             let FileSize = file.files[0].size / 1024 / 1024; // in MB
