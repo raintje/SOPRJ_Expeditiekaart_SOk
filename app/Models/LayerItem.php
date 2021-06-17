@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Panoscape\History\HasHistories;
-use Panoscape\History;
+use Panoscape\History\History;
 
 /**
  * App\Models\LayerItem
