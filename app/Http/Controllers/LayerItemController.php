@@ -126,8 +126,7 @@ class LayerItemController extends Controller
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
-
-        return view('items.edit', ['item' => $item, 'itemcategories' => $itemcategories, 'files' => $files, 'linkedItems' => $linkedItems, 'existingItems' => $existingItems]);
+        return view('items.edit', compact('item', 'itemcategories', 'files', 'linkedItems', 'existingItems'));
     }
 
     public function deleteLayerItemAppendix($id, $fileId)
