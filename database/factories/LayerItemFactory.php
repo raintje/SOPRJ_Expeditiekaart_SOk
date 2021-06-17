@@ -23,7 +23,8 @@ class LayerItemFactory extends Factory
     {
         return [
             'title' => $this->faker->unique()->sentence,
-            'body' => $this->faker->text
+            'body' => $this->faker->text,
+            'level' => $this->faker->numberBetween(2,4)
         ];
     }
 }

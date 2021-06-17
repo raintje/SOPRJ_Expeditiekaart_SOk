@@ -20,11 +20,14 @@ class LayerItemSeeder extends Seeder
         $data = json_decode($json);
         foreach($data as $obj){
             $body = $obj->body == '' ? "Nog te omschrijven..." : $obj->body;
-            
+
             Layeritem::create(array(
                 'title' => $obj->title,
-                'body' => $body
+                'body' => $body,
+                'level' => 1
             ));
         }
+
+
     }
 }
