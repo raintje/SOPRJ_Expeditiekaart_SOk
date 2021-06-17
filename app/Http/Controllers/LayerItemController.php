@@ -120,9 +120,9 @@ class LayerItemController extends Controller
         $itemcategories = null;
 
         $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
-        if ($firstLayerItem != null) {
-            $itemcategories = $firstLayerItem->categories;
-        }
+//        if ($firstLayerItem != null) {
+//            $itemcategories = $firstLayerItem->categories;
+//        }
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 

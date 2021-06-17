@@ -30,6 +30,17 @@
                        value="{{ old('title', $item->title) }}">
             </div>
 
+
+            <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
+                                                                              title="{{__('info.layer')}}"></i></label>
+                <select class="form-control" id="layerInput">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
+
             {{-- Categories --}}
             <div class="form-group">
                 <label> Categorie <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.category')}}"></i></label>
