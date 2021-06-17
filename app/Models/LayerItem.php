@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Panoscape\History\HasHistories;
+use Panoscape\History;
+
 /**
  * App\Models\LayerItem
  * 
@@ -12,9 +15,8 @@ use Panoscape\History\HasHistories;
  * @property string $title
  * @property int $body
  * @property int $level
- * @property datetime $created_at
- * @property datetime $updated_at
- * @mixin Eloquent
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class LayerItem extends Model
 {
