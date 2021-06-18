@@ -63,7 +63,7 @@ class SuperAdminDashboardTest extends DuskTestCase
                 ->waitFor('@itemButton')
                 ->press('@itemButton')
                 ->assertPathIs('/items')
-                ->assertSee('Items');
+                ->assertSee('Item overzicht');
         });
     }
 
