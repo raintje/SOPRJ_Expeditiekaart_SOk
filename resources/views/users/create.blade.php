@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title', 'Gebruiker toevoegen')
+
 @section('head_script')
     <meta name="csrf" content="{{ csrf_token() }}">
 @endsection
