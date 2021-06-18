@@ -29,7 +29,6 @@
                                 {{ $history->model()->title }} is aangepast door
                                 {{ $history->user()->getRoleNames()->first() }} {{ $history->user()->name }}
                     </p>
-
                 @else
                     Item {{ $history->model_id }} is aangemaakt door {{ $history->user()->getRoleNames()->first() }}
                     {{ $history->user()->name }}</p>
