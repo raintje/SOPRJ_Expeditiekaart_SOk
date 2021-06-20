@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        
     </div>
 </template>
 
@@ -13,11 +13,9 @@ export default {
         }
     },
     mounted() {
-        alert('works')
         axios
             .get('/api/all-layeritems')
             .then(response => (this.layerItems = response.data))
     },
-    
 }
 </script>

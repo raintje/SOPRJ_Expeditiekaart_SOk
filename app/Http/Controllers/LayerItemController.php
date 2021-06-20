@@ -9,12 +9,10 @@ use App\Models\File;
 use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class LayerItemController extends Controller
@@ -71,6 +69,7 @@ class LayerItemController extends Controller
         ]);
     }
 
+
     public function edit($id)
     {
         $item = LayerItem::findOrFail($id);
@@ -104,6 +103,8 @@ class LayerItemController extends Controller
         return redirect()->route('show.item', $id);
     }
 
+
+
     public function destroy($id)
     {
         $this->AuthorizeRole($id);
@@ -134,7 +135,9 @@ class LayerItemController extends Controller
         $items = BDEncoder::decode($breadcrumb);
         $reItems = [];
 
-        for ($i = 0; $i < $bdItem; $i++) { array_push($reItems, $items[$i]); }
+        for ($i = 0; $i < $bdItem; $i++) {
+            array_push($reItems, $items[$i]);
+        }
 
         $breadcrumb = BDEncoder::encode($reItems);
 
@@ -283,7 +286,9 @@ class LayerItemController extends Controller
         }
     }
 
-
+    /**
+     * @param LayerItemStoreRequest $request
+     */
     public function AuthorizeRole($item = null)
     {
         if ($item != null) {
@@ -297,20 +302,23 @@ class LayerItemController extends Controller
         }
     }
 
-    public function layerLevelCascade(LayerItem $layeritem){
+    /**
+     * @param LayerItem $request
+     */
+    public function layerLevelCascade(LayerItem $layeritem)
+    {
         $id = $layeritem->id;
- 
-        foreach(LayerItemsLayerItems::where('layer_item_id', $id)->get() as $LayerItemLinks){
-            if($LayerItemLinks->linkedLayerItem->level != ($layeritem->level + 1)){
+
+        foreach (LayerItemsLayerItems::where('layer_item_id', $id)->get() as $LayerItemLinks) {
+            if ($LayerItemLinks->linkedLayerItem->level != ($layeritem->level + 1)) {
                 $LayerItemLinks->delete();
             }
         }
 
-        foreach(LayerItemsLayerItems::where('linked_layer_item_id', $id)->get() as $LayerItemLinks){
-            if($LayerItemLinks->layerItem->level != ($layeritem->level - 1)){
+        foreach (LayerItemsLayerItems::where('linked_layer_item_id', $id)->get() as $LayerItemLinks) {
+            if ($LayerItemLinks->layerItem->level != ($layeritem->level - 1)) {
                 $LayerItemLinks->delete();
             }
         }
-
     }
 }
