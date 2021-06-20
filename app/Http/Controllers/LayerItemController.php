@@ -93,9 +93,8 @@ class LayerItemController extends Controller
     public function downloadFile($id)
     {
         $databaseFile = File::findOrFail($id);
-        $exists = Storage::disk('public')->exists(($databaseFile->path));
 
-        if (!$exists) {
+        if (!Storage::disk('public')->exists(($databaseFile->path))) {
             abort(404);
         }
 
