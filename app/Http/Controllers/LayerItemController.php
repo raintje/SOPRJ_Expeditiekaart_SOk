@@ -116,10 +116,10 @@ class LayerItemController extends Controller
     {
         $item = LayerItem::findOrFail($id);
         $this->AuthorizeRole($item->id);
-        $existingItems = LayerItem::all()->except($id);
+        $existingItems = LayerItem::all()->where('level', '>=', $item->level)->except($id);
         $itemcategories = null;
 
-        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
+//        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
 //        if ($firstLayerItem != null) {
 //            $itemcategories = $firstLayerItem->categories;
 //        }

@@ -40,23 +40,6 @@
                 </select>
             </div>
 
-{{--            <div class="form-group">--}}
-{{--                <label>Categorie <i class="fas fa-info-circle" rel="tooltip"--}}
-{{--                                    title="{{__('info.category')}}"></i></label>--}}
-{{--                <div class="d-flex">--}}
-{{--                    @foreach($categories as $category)--}}
-{{--                        <div class="form-check custom-category-check">--}}
-{{--                            <div class="pl-2 pr-2">--}}
-{{--                                <input class="form-check-input" type="checkbox" name="categories[]"--}}
-{{--                                       value="{{ $category->id }}" id="category-{{ $category->id }}">--}}
-{{--                                <label class="form-check-label" for="category-{{ $category->id }}">--}}
-{{--                                    {{ $category->name }}--}}
-{{--                                </label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-{{--            </div>--}}
             <div class="form-group">
                 <label for="titelInput">Vervolg pad <i class="fas fa-info-circle" rel="tooltip"
                                                        title="{{__('info.path')}}"></i></label>
