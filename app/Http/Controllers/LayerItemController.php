@@ -70,6 +70,68 @@ class LayerItemController extends Controller
         ]);
     }
 
+    public function edit($id)
+    {
+        $item = LayerItem::findOrFail($id);
+        $this->AuthorizeRole($item->id);
+
+        return view('items.edit', [
+            'item' => $item,
+            'files' => File::where('layer_item_id', $id)->get(),
+            'linkedItems' => $item->referencesLayerItems,
+            'existingItems' => LayerItem::all()->except($id),
+        ]);
+    }
+
+    public function update(LayerItemEditRequest $request, $id)
+    {
+        $layerItem = LayerItem::findOrFail($id);
+        $this->AuthorizeRole($layerItem->id);
+
+        $request->validated();
+
+        $layerItem->title = $request->input('title');
+        $layerItem->body = $request->input('body');
+        $layerItem->level = $request->input('level');
+        $layerItem->save();
+
+        if ($layerItem->level == 1) {
+            $this->UpdateFirstLayer($layerItem);
+        }
+
+        if (isset($request->itemLinks)) {
+            $layerItem->referencesLayerItems()->sync($request->itemLinks);
+        }
+
+        $this->UpdateFiles($request, $layerItem);
+
+        return redirect()->route('show.item', $id);
+    }
+
+    public function destroy($id)
+    {
+        $layerItem = LayerItem::findOrFail($id);
+        $firstLayerItem = FirstLayerItem::where('layer_item_id', $id);
+        $this->AuthorizeRole($id);
+
+        if ($firstLayerItem != null) {
+            $firstLayerItem->delete();
+        }
+
+        $files = File::where('layer_item_id', $id);
+        foreach ($files as $file) {
+            Storage::disk('public')->delete($file->path);
+            $file->delete();
+        }
+
+        $layerItem->delete($id);
+
+        if (LayerItem::find($id) != null) {
+            return redirect($this->show($id));
+        }
+        return view('items.confirmedDelete');
+    }
+
     public function updateBreadcrumb($id, $breadcrumb, $bdItem)
     {
         $items = BDEncoder::decode($breadcrumb);
@@ -101,18 +163,7 @@ class LayerItemController extends Controller
         return Storage::disk('public')->download($databaseFile->path);
     }
 
-    public function edit($id)
-    {
-        $item = LayerItem::findOrFail($id);
-        $this->AuthorizeRole($item->id);
 
-        return view('items.edit', [
-            'item' => $item,
-            'files' => File::where('layer_item_id', $id)->get(),
-            'linkedItems' => $item->referencesLayerItems,
-            'existingItems' => LayerItem::all()->except($id),
-        ]);
-    }
 
     public function deleteLayerItemAppendix($id, $fileId)
     {
@@ -139,50 +190,7 @@ class LayerItemController extends Controller
         return view('items.edit_location');
     }
 
-    public function update(LayerItemEditRequest $request, $id)
-    {
-        $oldItem = LayerItem::findOrFail($id);
-        $this->AuthorizeRole($oldItem->id);
-        $body = $request->input('body');
-        $oldItem->title = $request->input('title');
-        $oldItem->body = $body;
-        $oldItem->save();
-        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
 
-        $this->UpdateCategories($firstLayerItem, $request, $oldItem);
-
-        if (isset($request->itemLinks)) {
-            $oldItem->referencesLayerItems()->sync($request->itemLinks);
-        }
-
-        $this->UpdateFiles($request, $oldItem);
-
-        return redirect()->route('show.item', $id);
-    }
-
-    public function destroy($id)
-    {
-        $layerItem = LayerItem::findOrFail($id);
-        $firstLayerItem = FirstLayerItem::where('layer_item_id', $id);
-        $this->AuthorizeRole($id);
-
-        if ($firstLayerItem != null) {
-            $firstLayerItem->delete();
-        }
-
-        $files = File::where('layer_item_id', $id);
-        foreach ($files as $file) {
-            Storage::disk('public')->delete($file->path);
-            $file->delete();
-        }
-
-        $layerItem->delete($id);
-
-        if (LayerItem::find($id) != null) {
-            return redirect($this->show($id));
-        }
-        return view('items.confirmedDelete');
-    }
 
     public function getItems(Request $request)
     {
@@ -199,19 +207,6 @@ class LayerItemController extends Controller
         return null;
     }
 
-    /**
-     * @param LayerItem $layerItem
-     */
-    public function StoreFirstLayer(LayerItem $layerItem): void
-    {
-        if($layerItem->level != 1) return;
-
-        FirstLayerItem::create([
-            'layer_item_id' => $layerItem->id,
-            'x_pos' => rand(120, 750),
-            'y_pos' => rand(320, 620)
-        ]);
-    }
 
     /**
      * @param LayerItemStoreRequest $request
@@ -248,40 +243,43 @@ class LayerItemController extends Controller
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model|null $firstLayerItem
-     * @param LayerItemEditRequest $request
-     * @param $oldItem
-     * @throws \Exception
+     * @param LayerItem $layerItem
      */
-    public function UpdateCategories(?\Illuminate\Database\Eloquent\Model $firstLayerItem, LayerItemEditRequest $request, $oldItem): void
+    public function StoreFirstLayer(LayerItem $layerItem): void
     {
-        if ($firstLayerItem != null) {
-            if (isset($request->categories)) {
-                $firstLayerItem->categories()->sync($request->categories);
-            } else {
-                $firstLayerItem->delete($firstLayerItem->id);
-            }
-        } else {
-            if (isset($request->categories)) {
-                $firstLayerItem = new FirstLayerItem();
-                $firstLayerItem->layer_item_id = $oldItem->id;
-                $firstLayerItem->x_pos = rand(120, 750);
-                $firstLayerItem->y_pos = rand(320, 620);
+        if ($layerItem->level != 1) return;
 
-                $firstLayerItem->save();
+        FirstLayerItem::create([
+            'layer_item_id' => $layerItem->id,
+            'x_pos' => rand(120, 750),
+            'y_pos' => rand(320, 620)
+        ]);
+    }
 
-                foreach ($request->categories as $categoryId) {
-                    $firstLayerItem->categories()->attach($categoryId);
-                }
-            }
+
+    /**
+     * @param LayerItem $layerItem
+     */
+    public function UpdateFirstLayer(LayerItem $layerItem): void
+    {
+        $firstLayer = FirstLayerItem::where('layer_item_id', $layerItem->id)->first();
+
+        if ($layerItem->level == 1) {
+            if ($firstLayer) return;
+            $this->StoreFirstLayer($layerItem);
+        }
+
+        if ($layerItem->level != 1) {
+            if (!$firstLayer) return;
+            $firstLayer->delete($firstLayer->id);
         }
     }
 
     /**
      * @param LayerItemEditRequest $request
-     * @param $oldItem
+     * @param $layerItem
      */
-    public function UpdateFiles(LayerItemEditRequest $request, $oldItem): void
+    public function UpdateFiles(LayerItemEditRequest $request, $layerItem): void
     {
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $formFile) {
@@ -289,7 +287,7 @@ class LayerItemController extends Controller
                 $filePath = $formFile->storeAs('files', $name, 'public');
 
                 $file = new File();
-                $file->layer_item_id = $oldItem->id;
+                $file->layer_item_id = $layerItem->id;
                 $file->title = $name;
                 $file->type = $formFile->getClientOriginalExtension();
                 $file->path = $filePath;
