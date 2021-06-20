@@ -105,15 +105,13 @@ class LayerItemController extends Controller
     {
         $item = LayerItem::findOrFail($id);
         $this->AuthorizeRole($item->id);
-        $existingItems = LayerItem::all()->except($id);
-        $itemcategories = null;
 
-        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
-
-        $files = File::where('layer_item_id', $id)->get();
-        $linkedItems = $item->referencesLayerItems;
-
-        return view('items.edit', compact('item', 'itemcategories', 'files', 'linkedItems', 'existingItems'));
+        return view('items.edit', [
+            'item' => $item,
+            'files' => File::where('layer_item_id', $id)->get(),
+            'linkedItems' => $item->referencesLayerItems,
+            'existingItems' => LayerItem::all()->except($id),
+        ]);
     }
 
     public function deleteLayerItemAppendix($id, $fileId)
