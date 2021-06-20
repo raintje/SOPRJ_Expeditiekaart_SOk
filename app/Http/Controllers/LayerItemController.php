@@ -21,31 +21,33 @@ class LayerItemController extends Controller
 
     public function index()
     {
-        $items = LayerItem::all();
-        return view('items.index', ['items' => $items]);
+        return view('items.index', [
+            'items' => LayerItem::all()
+        ]);
     }
 
     public function create()
     {
         $this->AuthorizeRole();
-        $items = LayerItem::all();
-        return view('items.create', ['existingItems' => $items]);
+
+        return view('items.create', [
+            'existingItems' => LayerItem::all(),
+        ]);
     }
 
     public function store(LayerItemStoreRequest $request)
     {
         $this->AuthorizeRole();
-        $body = $request->input('body');
+        $request->validated();
 
-        $layerItem = new LayerItem();
-        $layerItem->title = $request->input('title');
-        $layerItem->body = $body;
-        $layerItem->save();
+        $layerItem = LayerItem::create([
+            'title' => $request->input('title'),
+            'body' => $request->input('title'),
+            'level' => $request->input('level')
+        ]);
 
-        $this->SaveCategories($request, $layerItem);
-
+        $this->StoreFirstLayer($layerItem);
         $this->SaveLinks($request, $layerItem);
-
         $this->SaveFiles($request, $layerItem);
 
         return redirect()->route('items');
@@ -201,23 +203,17 @@ class LayerItemController extends Controller
     }
 
     /**
-     * @param LayerItemStoreRequest $request
      * @param LayerItem $layerItem
      */
-    public function SaveCategories(LayerItemStoreRequest $request, LayerItem $layerItem): void
+    public function StoreFirstLayer(LayerItem $layerItem): void
     {
-        if (isset($request->categories)) {
-            $firstLayerItem = new FirstLayerItem();
-            $firstLayerItem->layer_item_id = $layerItem->id;
-            $firstLayerItem->x_pos = rand(120, 750);
-            $firstLayerItem->y_pos = rand(320, 620);
+        if($layerItem->level != 1) return;
 
-            $firstLayerItem->save();
-
-            foreach ($request->categories as $categoryId) {
-                $firstLayerItem->categories()->attach($categoryId);
-            }
-        }
+        FirstLayerItem::create([
+            'layer_item_id' => $layerItem->id,
+            'x_pos' => rand(120, 750),
+            'y_pos' => rand(320, 620)
+        ]);
     }
 
     /**
