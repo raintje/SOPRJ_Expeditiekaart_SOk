@@ -10,6 +10,7 @@ use App\Models\FirstLayerItem;
 use App\Models\LayerItem;
 use App\Models\LayerItemsLayerItems;
 use App\Models\User;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -47,7 +48,7 @@ class LayerItemController extends Controller
         ]);
 
         $this->StoreFirstLayer($layerItem);
-        $this->SaveLinks($request, $layerItem);
+        $this->syncLinkItems($request, $layerItem);
         $this->SaveFiles($request, $layerItem);
 
         return redirect()->route('items');
@@ -95,14 +96,8 @@ class LayerItemController extends Controller
         $layerItem->level = $request->input('level');
         $layerItem->save();
 
-        if ($layerItem->level == 1) {
-            $this->UpdateFirstLayer($layerItem);
-        }
-
-        if (isset($request->itemLinks)) {
-            $layerItem->referencesLayerItems()->sync($request->itemLinks);
-        }
-
+        $this->UpdateFirstLayer($layerItem);
+        $this->syncLinkItems($request, $layerItem);
         $this->UpdateFiles($request, $layerItem);
 
         return redirect()->route('show.item', $id);
@@ -129,18 +124,16 @@ class LayerItemController extends Controller
         if (LayerItem::find($id) != null) {
             return redirect()->route('show.item', $id);
         }
+
         return view('items.confirmedDelete');
     }
 
     public function updateBreadcrumb($id, $breadcrumb, $bdItem)
     {
         $items = BDEncoder::decode($breadcrumb);
-
         $reItems = [];
 
-        for ($i = 0; $i < $bdItem; $i++) {
-            array_push($reItems, $items[$i]);
-        }
+        for ($i = 0; $i < $bdItem; $i++) { array_push($reItems, $items[$i]); }
 
         $breadcrumb = BDEncoder::encode($reItems);
 
@@ -162,8 +155,6 @@ class LayerItemController extends Controller
 
         return Storage::disk('public')->download($databaseFile->path);
     }
-
-
 
     public function deleteLayerItemAppendix($id, $fileId)
     {
@@ -190,8 +181,6 @@ class LayerItemController extends Controller
         return view('items.edit_location');
     }
 
-
-
     public function getItems(Request $request)
     {
         if ($request->ajax()) {
@@ -206,7 +195,6 @@ class LayerItemController extends Controller
         }
         return null;
     }
-
 
     /**
      * @param LayerItemStoreRequest $request
@@ -230,15 +218,13 @@ class LayerItemController extends Controller
     }
 
     /**
-     * @param LayerItemStoreRequest $request
+     * @param FormRequest $request
      * @param LayerItem $layerItem
      */
-    public function SaveLinks(LayerItemStoreRequest $request, LayerItem $layerItem): void
+    public function syncLinkedItems(FormRequest $request, LayerItem $layerItem): void
     {
         if (isset($request->itemLinks)) {
-            foreach ($request->itemLinks as $linkedItemId) {
-                $layerItem->referencesLayerItems()->attach($linkedItemId);
-            }
+            $layerItem->referencesLayerItems()->sync($request->itemLinks);
         }
     }
 
