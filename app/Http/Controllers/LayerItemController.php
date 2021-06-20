@@ -54,17 +54,6 @@ class LayerItemController extends Controller
     public function show($id, $breadcrumb = '')
     {
         $item = LayerItem::findOrFail($id);
-        $histories = $item->histories()->orderBy('performed_at', 'desc')->get();
-        $categories = null;
-
-        $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
-
-        if ($firstLayerItem != null) {
-            $categories = $firstLayerItem->categories;
-        }
-
-        $files = File::where('layer_item_id', $id)->get();
-        $linkedItems = $item->referencesLayerItems;
 
         $BDitems = BDEncoder::decode($breadcrumb);
         array_push($BDitems, $item);
@@ -72,26 +61,26 @@ class LayerItemController extends Controller
 
         return view('items.show', [
             'item' => $item,
-            'categories' => $categories,
-            'files' => $files,
-            'linkedItems' => $linkedItems,
-            'histories' => $histories,
+            'files' => File::where('layer_item_id', $id)->get(),
+            'linkedItems' => $item->referencesLayerItems,
+            'histories' => $item->histories()->orderBy('performed_at', 'desc')->get(),
             'breadcrumb' => $newBreadcrumb,
-            ]);
+        ]);
     }
 
-    public function updateBreadcrumb($id, $breadcrumb, $bdItem){
+    public function updateBreadcrumb($id, $breadcrumb, $bdItem)
+    {
         $items = BDEncoder::decode($breadcrumb);
 
         $reItems = [];
 
-        for($i = 0; $i < $bdItem; $i++){
+        for ($i = 0; $i < $bdItem; $i++) {
             array_push($reItems, $items[$i]);
         }
 
         $breadcrumb = BDEncoder::encode($reItems);
 
-        if(strlen($breadcrumb) > 0){
+        if (strlen($breadcrumb) > 0) {
             return redirect()->route('breadcrumb.add', ['id' => $id, 'breadcrumb' => $breadcrumb]);
         }
 
@@ -109,7 +98,6 @@ class LayerItemController extends Controller
         }
 
         return Storage::disk('public')->download($databaseFile->path);
-
     }
 
     public function edit($id)
@@ -120,9 +108,7 @@ class LayerItemController extends Controller
         $itemcategories = null;
 
         $firstLayerItem = FirstLayerItem::with('categories')->where('layer_item_id', $id)->first();
-//        if ($firstLayerItem != null) {
-//            $itemcategories = $firstLayerItem->categories;
-//        }
+
         $files = File::where('layer_item_id', $id)->get();
         $linkedItems = $item->referencesLayerItems;
 
@@ -168,7 +154,6 @@ class LayerItemController extends Controller
 
         if (isset($request->itemLinks)) {
             $oldItem->referencesLayerItems()->sync($request->itemLinks);
-
         }
 
         $this->UpdateFiles($request, $oldItem);
@@ -232,7 +217,6 @@ class LayerItemController extends Controller
             foreach ($request->categories as $categoryId) {
                 $firstLayerItem->categories()->attach($categoryId);
             }
-
         }
     }
 
@@ -324,21 +308,14 @@ class LayerItemController extends Controller
 
     public function AuthorizeRole($item = null)
     {
-        if($item!= null)
-        {
-            if(!Auth::user()->can('layerItem.edit.'.$item))
-            {
+        if ($item != null) {
+            if (!Auth::user()->can('layerItem.edit.' . $item)) {
                 abort(403);
             }
-        }
-        else
-        {
-            if(!Auth::user()->can('layerItem.edit.*'))
-            {
+        } else {
+            if (!Auth::user()->can('layerItem.edit.*')) {
                 abort(403);
             }
         }
     }
-
 }
-
