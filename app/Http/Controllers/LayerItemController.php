@@ -99,6 +99,7 @@ class LayerItemController extends Controller
         $this->UpdateFirstLayer($layerItem);
         $this->syncLinkedItems($request, $layerItem);
         $this->UpdateFiles($request, $layerItem);
+        $this->layerLevelCascade($layerItem);
 
         return redirect()->route('show.item', $id);
     }
@@ -294,5 +295,22 @@ class LayerItemController extends Controller
                 abort(403);
             }
         }
+    }
+
+    public function layerLevelCascade(LayerItem $layeritem){
+        $id = $layeritem->id;
+ 
+        foreach(LayerItemsLayerItems::where('layer_item_id', $id)->get() as $LayerItemLinks){
+            if($LayerItemLinks->linkedLayerItem->level != ($layeritem->level + 1)){
+                $LayerItemLinks->delete();
+            }
+        }
+
+        foreach(LayerItemsLayerItems::where('linked_layer_item_id', $id)->get() as $LayerItemLinks){
+            if($LayerItemLinks->layerItem->level != ($layeritem->level - 1)){
+                $LayerItemLinks->delete();
+            }
+        }
+
     }
 }
