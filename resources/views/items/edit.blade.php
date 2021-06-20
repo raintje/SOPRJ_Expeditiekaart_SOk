@@ -33,7 +33,7 @@
 
             <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
                                                                               title="{{__('info.layer')}}"></i></label>
-                <select class="form-control" id="layerInput">
+                <select name="level" class="form-control" id="layerInput">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -41,7 +41,7 @@
                 </select>
             </div>
 
-            {{-- Categories --}}
+            {{-- Categories
             <div class="form-group">
                 <label> Categorie <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.category')}}"></i></label>
                 <div class="d-flex flex-column flex-sm-row">
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
+                </div> --}}
 
                 {{-- Selectlist linked items --}}
                 <div class="form-group">
