@@ -13,8 +13,10 @@ export default {
         }
     },
     mounted() {
-        const response = await axios.get('/api/all-layeritems');
-        if (response.status === 200) this.bijgerechten = response.data;
+        alert('works')
+        axios
+            .get('/api/all-layeritems')
+            .then(response => (this.layerItems = response.data))
     },
     
 }

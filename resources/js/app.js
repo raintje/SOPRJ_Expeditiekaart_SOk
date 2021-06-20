@@ -12,6 +12,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import App from './views/app.vue';
 import editLocation from './components/editLocation';
 
+
 Vue.component('l-image-overlay', LImageOverlay);
 Vue.component('l-popup', LPopup);
 Vue.component('l-icon', LIcon);
@@ -23,8 +24,10 @@ Vue.component('l-marker', LMarker);
 Vue.component('l-rectangle', LRectangle);
 Vue.component('edit-location', editLocation);
 
-//custom
-Vue.component('layeritem-selector', require('./components/LayerItemSelector').default);
+// //custom
+// import LayerItemSelector from './components/LayerItemSelector';
+// Vue.component('layeritem-selector', LayerItemSelector);
+
 
 
 

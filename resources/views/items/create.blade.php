@@ -29,6 +29,7 @@
                     placeholder="Titel" value="{{ old('title', '') }}">
             </div>
 
+            <layeritem-selector> </layeritem-selector>
 
             <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
                         title="{{ __('info.layer') }}"></i></label>

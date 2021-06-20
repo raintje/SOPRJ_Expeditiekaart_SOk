@@ -3,7 +3,6 @@
     <div>
 
         <Navigation></Navigation>
-        <Legenda></Legenda>
 
         <l-map
             ref="map"
@@ -86,11 +85,7 @@ export default {
             })
         },
         getClass: function (item) {
-
-            let baseClass = "marker";
-
-            let colors = item.categories.map(i => i.color);
-
+            return "marker";
             if (colors.length === 1) {
                 return baseClass + " " + item.categories[0].color;
             } else if (colors.includes("red", "green")) {
@@ -110,6 +105,7 @@ export default {
 
 <style>
 .marker {
+    background-image: linear-gradient(green, lawngreen);
     border: 1px solid #333;
     border-radius: 20px 20px 20px 20px;
     box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);

@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('all-layeritems', [LayerItemController::class, 'AllLayerItems']);
+Route::get('not-firstLayeritems', [LayerItemController::class, 'AllNotFirstLayerItems']);
