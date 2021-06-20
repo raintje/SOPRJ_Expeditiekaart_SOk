@@ -23,6 +23,11 @@ Vue.component('l-marker', LMarker);
 Vue.component('l-rectangle', LRectangle);
 Vue.component('edit-location', editLocation);
 
+//custom
+Vue.component('layeritem-selector', require('./components/LayerItemSelector').default);
+
+
+
 Vue.filter('str_limit', function (value, size) {
     if (!value) return '';
     value = value.toString();
