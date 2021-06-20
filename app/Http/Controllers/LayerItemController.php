@@ -48,7 +48,7 @@ class LayerItemController extends Controller
         ]);
 
         $this->StoreFirstLayer($layerItem);
-        $this->syncLinkItems($request, $layerItem);
+        $this->syncLinkedItems($request, $layerItem);
         $this->SaveFiles($request, $layerItem);
 
         return redirect()->route('items');
@@ -97,7 +97,7 @@ class LayerItemController extends Controller
         $layerItem->save();
 
         $this->UpdateFirstLayer($layerItem);
-        $this->syncLinkItems($request, $layerItem);
+        $this->syncLinkedItems($request, $layerItem);
         $this->UpdateFiles($request, $layerItem);
 
         return redirect()->route('show.item', $id);
