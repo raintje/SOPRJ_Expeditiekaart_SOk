@@ -110,24 +110,24 @@ class LayerItemController extends Controller
 
     public function destroy($id)
     {
+        $this->AuthorizeRole($id);
+
         $layerItem = LayerItem::findOrFail($id);
         $firstLayerItem = FirstLayerItem::where('layer_item_id', $id);
-        $this->AuthorizeRole($id);
+
+        foreach (File::where('layer_item_id', $id) as $file) {
+            Storage::disk('public')->delete($file->path);
+            $file->delete();
+        }
 
         if ($firstLayerItem != null) {
             $firstLayerItem->delete();
         }
 
-        $files = File::where('layer_item_id', $id);
-        foreach ($files as $file) {
-            Storage::disk('public')->delete($file->path);
-            $file->delete();
-        }
-
         $layerItem->delete($id);
 
         if (LayerItem::find($id) != null) {
-            return redirect($this->show($id));
+            return redirect()->route('show.item', $id);
         }
         return view('items.confirmedDelete');
     }
