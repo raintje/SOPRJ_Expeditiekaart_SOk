@@ -33,38 +33,13 @@
 
             <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
                                                                               title="{{__('info.layer')}}"></i></label>
-                <select name="level" class="form-control" id="layerInput">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                <select class="form-control" id="layerInput">
+                    <option value="1" @if (old('level', $item->level) === 1) selected="selected" @endif>1</option>
+                    <option  value="2" @if (old('level', $item->level) === 2) selected="selected" @endif>2</option>
+                    <option  value="3" @if (old('level', $item->level) === 3) selected="selected" @endif>3</option>
+                    <option  value="4" @if (old('level', $item->level) === 4) selected="selected" @endif>4</option>
                 </select>
             </div>
-
-            {{-- Categories
-            <div class="form-group">
-                <label> Categorie <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.category')}}"></i></label>
-                <div class="d-flex flex-column flex-sm-row">
-                    @foreach ($categories as $category)
-                        <div class="form-check custom-category-check mb-1">
-                            <div class="pl-2 pr-2">
-                                <input class="form-check-input" type="checkbox" dusk="categories-{{ $category->id }}"
-                                       name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}"
-                                       @if (!empty($itemcategories))
-                                       @if ($itemcategories->contains($category))
-                                       checked>
-                                @else
-                                    > @endif
-                                @else
-                                    >
-                                @endif
-                                <label class="form-check-label" for="category-{{ $category->id }}">
-                                    {{ $category->name }}
-                                </label>
-                            </div>
-                        </div>
-                    @endforeach
-                </div> --}}
 
                 {{-- Selectlist linked items --}}
                 <div class="form-group">

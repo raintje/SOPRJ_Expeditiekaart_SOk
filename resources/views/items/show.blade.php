@@ -39,14 +39,6 @@
         @endauth
         <h1 class="text-center" id="item--title">{{$item->title}}</h1>
 
-        {{-- @if($categories != null)
-            <div class="row justify-content-center">
-                @foreach($categories as $categorie)
-                    <p class="m-3 p-1 border border-dark">{{$categorie->name}}</p>
-                @endforeach
-            </div>
-        @endif --}}
-
         <div class="m-2" id="item--body">
             {!! $item->body !!}
         </div>
