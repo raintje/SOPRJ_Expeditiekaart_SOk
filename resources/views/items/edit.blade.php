@@ -5,6 +5,8 @@
             referrerpolicy="origin"></script>
 @endsection
 
+@section('title', 'Item aanpassen')
+
 @section('content')
     <div class="container">
         <h4 class="text-center">Item {{ $item->title }} aanpassen </h4>
