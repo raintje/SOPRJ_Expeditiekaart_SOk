@@ -91,7 +91,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = $user->hasRole('super admin') ? Role::where('name', 'super admin')->get() : Role::where('name', '!=', 'super admin')->get();
+        $roles = $user->hasRole('super admin') ? Role::all() : Role::where('name', '!=', 'super admin')->get();
 
         return view('users.edit', ['user' => $user, 'roles' => $roles]);
     }
