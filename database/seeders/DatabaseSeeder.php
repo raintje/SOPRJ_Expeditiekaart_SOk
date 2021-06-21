@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('Admin123!'), // password = Admin123!
         ]);
-        User::factory(30)->create();
+        User::factory(50)->create();
         $this->call(LayerItemSeeder::class);
         FirstLayerItem::factory(LayerItem::all()->count())->create();
         $this->call(CategoriesTableSeeder::class);

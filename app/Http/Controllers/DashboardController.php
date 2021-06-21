@@ -14,6 +14,7 @@ class DashboardController extends Controller
         if (!Auth::user()->hasRole('super admin')) {
             abort(403);
         }
+
         return view('dashboard.index', ['itemHistories' => $histories]);
     }
 
