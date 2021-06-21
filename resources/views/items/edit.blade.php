@@ -33,7 +33,7 @@
 
             <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
                                                                               title="{{__('info.layer')}}"></i></label>
-                <select class="form-control" id="layerInput">
+                <select name='level' class="form-control" id="layerInput">
                     <option value="1" @if (old('level', $item->level) === 1) selected="selected" @endif>1</option>
                     <option  value="2" @if (old('level', $item->level) === 2) selected="selected" @endif>2</option>
                     <option  value="3" @if (old('level', $item->level) === 3) selected="selected" @endif>3</option>
