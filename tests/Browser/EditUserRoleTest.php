@@ -45,10 +45,11 @@ class EditUserRoleTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $ranUser = $this->faker()->randomElement(User::all()->where('name', '!=', 'admin'));
-            $roles = Role::all()->where('name', '!=', 'super admin')->pluck('id')->toArray();
+            $roles = Role::all()->pluck('id')->toArray();
             $browser->loginAs(User::first())
                     ->visitRoute('users.edit', ['user' => $ranUser->id])
                     ->assertPathIs('/users/' . $ranUser->id . '/edit')
+                    ->waitFor('@role-select')
                     ->assertSelectHasOptions('@role-select', $roles);
         });
     }
