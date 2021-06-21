@@ -57,7 +57,7 @@ class CreateRoleTest extends DuskTestCase
                     ->assertSee('Er moet minimaal 1 item geselecteerd worden');
         });
 
-        $user->delete();
+         
     }
 
     /**
@@ -82,7 +82,7 @@ class CreateRoleTest extends DuskTestCase
                     ->assertSee('Een naam mag maximaal 191 karakters lang zijn');
         });
 
-        $user->delete();
+         
     }
 
 }

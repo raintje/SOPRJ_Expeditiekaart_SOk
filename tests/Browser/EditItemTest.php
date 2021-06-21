@@ -31,21 +31,19 @@ class EditItemTest extends DuskTestCase
         ]);
         $user->assignRole('super admin');
 
-        $this->browse(function (Browser $browser) use ($user){
+        $this->browse(function (Browser $browser) use ($user) {
             $item = $this->faker()->randomElement(LayerItem::all());
             $browser->loginAs(User::first())
                 ->visitRoute('edit.item', $item->id)
-                    ->type('title', '')
-                    ->press('Wijzigingen opslaan')
-                    ->assertPathIs('/items/' . $item->id . '/edit')
-                    ->assertSeeIn('@error-container', 'De titel van een item is verplicht.')
-                    ->type('title', $this->faker()->randomElement(LayerItem::all()->where('id', '!=', $item->id))->title)
-                    ->press('Wijzigingen opslaan')
-                    ->assertPathIs('/items/' . $item->id . '/edit')
-                    ->assertSeeIn('@error-container', 'De titel moet uniek zijn.');
+                ->type('title', '')
+                ->press('Wijzigingen opslaan')
+                ->assertPathIs('/items/' . $item->id . '/edit')
+                ->assertSeeIn('@error-container', 'De titel van een item is verplicht.')
+                ->type('title', $this->faker()->randomElement(LayerItem::all()->where('id', '!=', $item->id))->title)
+                ->press('Wijzigingen opslaan')
+                ->assertPathIs('/items/' . $item->id . '/edit')
+                ->assertSeeIn('@error-container', 'De titel moet uniek zijn.');
         });
-
-        $user->delete();
     }
 
     /**
@@ -60,7 +58,7 @@ class EditItemTest extends DuskTestCase
         ]);
         $user->assignRole('super admin');
 
-        $this->browse(function (Browser $browser) use ($user){
+        $this->browse(function (Browser $browser) use ($user) {
 
             // Grabs a random LayerItem from the database.
             $item = $this->faker()->randomElement(LayerItem::all());
@@ -71,24 +69,22 @@ class EditItemTest extends DuskTestCase
             // Asserts if the title and body of the item are displayed in the correct location.
             $browser->loginAs($user)
                 ->visitRoute('edit.item', $item->id)
-                    ->assertInputValue('title', $item->title)
-                    ->assertInputValue('body', $item->body);
+                ->assertInputValue('title', $item->title)
+                ->assertInputValue('body', $item->body);
 
             // Asserts if the item's categories are correctly checked.
             foreach ($firstLayerItem->categories as $category) {
                 $field = '@categories-' . $category->id;
                 $browser->visitRoute('edit.item', $item->id)
-                        ->assertChecked($field);
+                    ->assertChecked($field);
             }
 
             // Asserts if the titles of linked items are displayed on the page.
             foreach ($item->referencesLayerItems as $item) {
                 $browser->visitRoute('edit.item', $item->id)
-                        ->assertSee($item->title);
+                    ->assertSee($item->title);
             }
         });
-
-        $user->delete();
     }
 
     /**
@@ -103,17 +99,15 @@ class EditItemTest extends DuskTestCase
         ]);
         $user->assignRole('super admin');
 
-        $this->browse(function (Browser $browser) use ($user){
+        $this->browse(function (Browser $browser) use ($user) {
             $item = $this->faker()->randomElement(LayerItem::all());
             $browser->loginAs($user)
-                    ->visitRoute('edit.item', $item->id)
-                    ->assertPathIs('/items/' . $item->id . '/edit')
-                    ->type('title', $this->faker->text(20))
-                    ->check('@categories-' . random_int(1, 3))
-                    ->press('Wijzigingen opslaan')
-                    ->assertPathIs('/items/' . $item->id);
+                ->visitRoute('edit.item', $item->id)
+                ->assertPathIs('/items/' . $item->id . '/edit')
+                ->type('title', $this->faker->text(20))
+                ->check('@categories-' . random_int(1, 3))
+                ->press('Wijzigingen opslaan')
+                ->assertPathIs('/items/' . $item->id);
         });
-
-        $user->delete();
     }
 }
