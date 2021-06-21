@@ -41,7 +41,7 @@ class LayerItemController extends Controller
 
         $layerItem = LayerItem::create([
             'title' => $request->input('title'),
-            'body' => $request->input('title'),
+            'body' => $request->input('body'),
             'level' => $request->input('level')
         ]);
 
