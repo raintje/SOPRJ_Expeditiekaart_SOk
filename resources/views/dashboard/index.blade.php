@@ -15,12 +15,12 @@
         <p class="font-weight-bold">Snelle toegang</p>
         <hr>
         <a href="{{ route('users.index') }}">
-            <button class="btn btn-primary"><i class="fa fa-user"></i>
+            <button class="btn btn-primary" dusk="userButton"><i class="fa fa-user"></i>
                 Gebruikersoverzicht
             </button>
         </a>
         <a href="{{ route('items') }}">
-            <button class="btn btn-primary"><i class="fa fa-list"></i>
+            <button class="btn btn-primary" dusk="itemButton"><i class="fa fa-list"></i>
                 Itemoverzicht
             </button>
         </a>

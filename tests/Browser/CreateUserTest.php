@@ -37,7 +37,7 @@ class CreateUserTest extends DuskTestCase
                     ->assertSee('Het emailadres van de gebruiker kan niet leeggelaten worden.');
         });
 
-        $user->delete();
+         
     }
 
     /**
@@ -62,7 +62,7 @@ class CreateUserTest extends DuskTestCase
                     ->assertSee('Voer alstublieft een geldig emailadres in.');
         });
 
-        $user->delete();
+         
     }
 
     /**
@@ -88,7 +88,7 @@ class CreateUserTest extends DuskTestCase
                     ->assertSee('Er bestaat al een account met dit emailadres.');
         });
 
-        $user->delete();
+         
     }
 
     /**

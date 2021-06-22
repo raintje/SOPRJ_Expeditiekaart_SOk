@@ -71,7 +71,7 @@ class ShowItemInformationTest extends DuskTestCase
                     ->assertPathIs('/items/' . strval($item->id) . '/edit');
         });
 
-        $user->delete();
+         
     }
 
     /**
@@ -100,7 +100,7 @@ class ShowItemInformationTest extends DuskTestCase
             $item->save();
         });
 
-        $user->delete();
+         
     }
 
     /**
