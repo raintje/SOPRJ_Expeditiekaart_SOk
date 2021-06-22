@@ -13,8 +13,6 @@
 </head>
 <body>
 <div>
-
-
     <div id="app">
         <app dusk="home-component"></app>
     </div>
