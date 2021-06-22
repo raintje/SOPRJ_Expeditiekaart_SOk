@@ -7,7 +7,7 @@ use App\Models\LayerItemsLayerItems;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class BreadcrumbTest //extends DuskTestCase
+class BreadcrumbTest extends DuskTestCase
 {
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class ItemVersionControlTest //extends DuskTestCase
+class ItemVersionControlTest extends DuskTestCase
 {
 
 
@@ -25,7 +25,7 @@ class ItemVersionControlTest //extends DuskTestCase
      *
      * @return void
      */
-    public function testHistoryRestoration()
+    public function testHistoryRestoration() //TODO fix
     {
 
         $user = User::factory()->create([
@@ -52,10 +52,10 @@ class ItemVersionControlTest //extends DuskTestCase
                 ->press('#res--itemhistory');
                $this->assertNotEquals($browser->visitRoute('show.item', $usedItem->id)->text('#item--title'), $prevText);
         });
-         
+
     }
 
-    public function testHistoryDeletion()
+    public function testHistoryDeletion() //TODO fix
     {
 
         $user = User::factory()->create([
@@ -85,6 +85,6 @@ class ItemVersionControlTest //extends DuskTestCase
             $browser->visitRoute('show.item', $usedItem->id);
             $this->assertNotEquals($browser->driver->findElements(WebDriverBy::className('history--item')), $prevCount);
         });
-         
+
     }
 }

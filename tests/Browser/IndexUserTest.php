@@ -42,21 +42,21 @@ class IndexUserTest extends DuskTestCase
      * @group index.user
      * @return void
      */
-    // public function testSingleUserIsDisplayed() 
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $randomUser = $this->faker->randomElement(User::all());
-    //         $browser->loginAs(User::first())
-    //                 ->assertAuthenticated()
-    //                 ->visitRoute('users.index')
-    //                 ->assertPathIs('/users')
-    //                 ->pause(200)
-    //                 ->select('usersTable_length', 100)
-    //                 ->assertSelected('usersTable_length', 100)
-    //                 ->pause(500)
-    //                 ->assertSee($randomUser->email)
-    //                 ->assertSee($randomUser->name);
-    //     });
-    // }
+     public function testSingleUserIsDisplayed() //TODO fix
+     {
+         $this->browse(function (Browser $browser) {
+             $randomUser = $this->faker->randomElement(User::all());
+             $browser->loginAs(User::first())
+                     ->assertAuthenticated()
+                     ->visitRoute('users.index')
+                     ->assertPathIs('/users')
+                     ->pause(200)
+                     ->select('usersTable_length', 100)
+                     ->assertSelected('usersTable_length', 100)
+                     ->pause(500)
+                     ->assertSee($randomUser->email)
+                     ->assertSee($randomUser->name);
+         });
+     }
 
 }

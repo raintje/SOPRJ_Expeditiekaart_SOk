@@ -10,7 +10,7 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 
-class EditItemTest //extends DuskTestCase
+class EditItemTest extends DuskTestCase
 {
 
     use WithFaker;
@@ -45,14 +45,14 @@ class EditItemTest //extends DuskTestCase
                     ->assertSeeIn('@error-container', 'De titel moet uniek zijn.');
         });
 
-         
+
     }
 
     /**
      * Asserts if the item's old data is correctly displayed on the page.
      * @return void
      */
-    public function testEditOldData()
+    public function testEditOldData() //TODO fix
     {
 
         $user = User::factory()->create([
@@ -88,14 +88,14 @@ class EditItemTest //extends DuskTestCase
             }
         });
 
-         
+
     }
 
     /**
      * Tries to edit and save an item, complying with the validation rules.
      * @return void
      */
-    public function testEditItemSave()
+    public function testEditItemSave() //TODO fix
     {
 
         $user = User::factory()->create([
@@ -114,6 +114,6 @@ class EditItemTest //extends DuskTestCase
                     ->assertPathIs('/items/' . $item->id);
         });
 
-         
+
     }
 }

@@ -27,81 +27,81 @@ class ShowItemInformationTest extends DuskTestCase
      * @group showItem
      * @group editItems
      */
-    // public function testCanDownload()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->visit('/items/' . strval(File::first()->layer_item_id))
-    //             ->clickLink('Download')
-    //             ->assertPathBeginsWith('/files/');
-    //     });
-    // }
+     public function testCanDownload()
+     {
+         $this->browse(function (Browser $browser) {
+             $browser->visit('/items/' . strval(File::first()->layer_item_id))
+                 ->clickLink('Download')
+                 ->assertPathBeginsWith('/files/');
+         });
+     }
 
     /**
      * @group showItem
      * @group editItems
      * @group linkItem
      */
-    // public function testLinkedItem()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $value = $browser->visit('/items/' . strval(LayerItemsLayerItems::first()->id))
-    //                          ->text('@link-button');
+     public function testLinkedItem()
+     {
+         $this->browse(function (Browser $browser) {
+             $value = $browser->visit('/items/' . strval(LayerItemsLayerItems::first()->id))
+                              ->text('@link-button');
 
-    //         $browser->click('@link-button')
-    //                 ->assertSee($value);
-    //     });
-    // }
+             $browser->click('@link-button')
+                     ->assertSee($value);
+         });
+     }
 
     /**
      * @group showItem
      * @group editItems
      */
-    // public function testCanEditlink()
-    // {
-    //     $user = User::factory()->create([
-    //         'email' => $this->faker->email,
-    //     ]);
-    //     $user->assignRole('super admin');
+     public function testCanEditlink()
+     {
+         $user = User::factory()->create([
+             'email' => $this->faker->email,
+         ]);
+         $user->assignRole('super admin');
 
-    //     $this->browse(function (Browser $browser) use ($user){
-    //         $item =LayerItem::first();
-    //         $browser->loginAs(User::first())
-    //                 ->visit('/items/' . strval($item->id))
-    //                 ->click('@edit-button')
-    //                 ->assertPathIs('/items/' . strval($item->id) . '/edit');
-    //     });
+         $this->browse(function (Browser $browser) use ($user){
+             $item =LayerItem::first();
+             $browser->loginAs(User::first())
+                     ->visit('/items/' . strval($item->id))
+                     ->click('@edit-button')
+                     ->assertPathIs('/items/' . strval($item->id) . '/edit');
+         });
 
-    //     $user->delete();
-    // }
+         $user->delete();
+     }
 
     /**
      * @group showItem
      * @group deleteItem
      */
-    // public function testCanDeleteItem()
-    // {
-    //     $user = User::factory()->create([
-    //         'email' => $this->faker->email,
-    //     ]);
-    //     $user->assignRole('super admin');
+     public function testCanDeleteItem()
+     {
+         $user = User::factory()->create([
+             'email' => $this->faker->email,
+         ]);
+         $user->assignRole('super admin');
 
-    //     $this->browse(function (Browser $browser) use ($user){
-    //         $item = LayerItem::first();
-    //         $browser->loginAs($user)
-    //                 ->visit('/items/' . strval($item->id))
-    //                 ->clickLink('Verwijderen')
-    //                 ->pause(500)
-    //                 ->click('@modal-delete-button')
-    //                 ->assertPathIs('/items/'. strval($item->id) . '/delete')
-    //                 ->assertSee('Het item is succesvol verwijderd!')
-    //                 ->clickLink('Terug naar de expeditiekaart')
-    //                 ->assertPathIs('/');
+         $this->browse(function (Browser $browser) use ($user){
+             $item = LayerItem::first();
+             $browser->loginAs($user)
+                     ->visit('/items/' . strval($item->id))
+                     ->clickLink('Verwijderen')
+                     ->pause(500)
+                     ->click('@modal-delete-button')
+                     ->assertPathIs('/items/'. strval($item->id) . '/delete')
+                     ->assertSee('Het item is succesvol verwijderd!')
+                     ->clickLink('Terug naar de expeditiekaart')
+                     ->assertPathIs('/');
 
-    //         $item->save();
-    //     });
+             $item->save();
+         });
 
-    //     $user->delete();
-    // }
+         $user->delete();
+     }
 
     /**
      * @group linkItem
