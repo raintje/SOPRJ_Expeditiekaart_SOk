@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Spatie\Analytics\AnalyticsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'auth.password.tokens' => Illuminate\Auth\Passwords\TokenRepositoryInterface::class,
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
 
     ],
 

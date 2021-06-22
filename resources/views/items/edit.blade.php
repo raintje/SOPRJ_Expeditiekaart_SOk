@@ -5,6 +5,8 @@
             referrerpolicy="origin"></script>
 @endsection
 
+@section('title', 'Item aanpassen')
+
 @section('content')
     <div class="container">
         <h4 class="text-center">Item {{ $item->title }} aanpassen </h4>
@@ -110,7 +112,7 @@
                 </div>
 
                 {{-- Form submit --}}
-                <button type="submit" class="btn btn-primary mb-1"> Wijzigingen opslaan</button>
+                <button type="submit" dusk="saveButton" class="btn btn-primary mb-1"> Wijzigingen opslaan</button>
 
         </form>
     </div>
