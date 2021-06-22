@@ -11,6 +11,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 //Main pages
 import App from './views/app.vue';
 import editLocation from './components/editLocation';
+import LayerItemSelector from './components/LayerItemSelector';
 
 Vue.component('l-image-overlay', LImageOverlay);
 Vue.component('l-popup', LPopup);
@@ -22,6 +23,9 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-rectangle', LRectangle);
 Vue.component('edit-location', editLocation);
+
+//custom
+Vue.component('layeritem-selector', LayerItemSelector);
 
 Vue.filter('str_limit', function (value, size) {
     if (!value) return '';

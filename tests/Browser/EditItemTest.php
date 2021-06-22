@@ -45,7 +45,7 @@ class EditItemTest //extends DuskTestCase
                     ->assertSeeIn('@error-container', 'De titel moet uniek zijn.');
         });
 
-        $user->delete();
+         
     }
 
     /**
@@ -88,7 +88,7 @@ class EditItemTest //extends DuskTestCase
             }
         });
 
-        $user->delete();
+         
     }
 
     /**
@@ -114,6 +114,6 @@ class EditItemTest //extends DuskTestCase
                     ->assertPathIs('/items/' . $item->id);
         });
 
-        $user->delete();
+         
     }
 }

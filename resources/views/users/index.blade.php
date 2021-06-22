@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+@section('title', 'Gebruikers')
+
 @section('head_script')
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.css"/>
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
-
+    <script src="{{ mix('js/app.js') }}" defer></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
