@@ -42,7 +42,7 @@ class IndexUserTest extends DuskTestCase
      * @group index.user
      * @return void
      */
-     public function testSingleUserIsDisplayed() //TODO fix
+     public function testSingleUserIsDisplayed()
      {
          $this->browse(function (Browser $browser) {
              $randomUser = $this->faker->randomElement(User::all());

@@ -40,7 +40,7 @@ class DeleteUserTest extends DuskTestCase
     /**
      * @group deleteUser
      */
-     public function testDeleteUser() //TODO fix
+     public function testDeleteUser()
      {
          $this->browse(function (Browser $browser) {
              $users = User::all()->count();
@@ -67,7 +67,7 @@ class DeleteUserTest extends DuskTestCase
     /**
      * @group deleteUser
      */
-     public function testDeleteUserWrong() //TODO fix
+     public function testDeleteUserWrong()
      {
          $this->browse(function (Browser $browser) {
              $users = User::all()->count();
@@ -77,7 +77,7 @@ class DeleteUserTest extends DuskTestCase
                      ->visitRoute('users.index')
                      ->assertSee('Gebruikers overzicht')
                      ->select('usersTable_length', 100)
-                     ->pause(500)
+                     ->pause(1000)
                      ->click('@delete' . $user)
                      ->pause(500)
                      ->press('#deleteUser')
