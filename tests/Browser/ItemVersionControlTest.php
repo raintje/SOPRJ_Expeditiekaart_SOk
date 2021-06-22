@@ -52,7 +52,7 @@ class ItemVersionControlTest //extends DuskTestCase
                 ->press('#res--itemhistory');
                $this->assertNotEquals($browser->visitRoute('show.item', $usedItem->id)->text('#item--title'), $prevText);
         });
-        $user->delete();
+         
     }
 
     public function testHistoryDeletion()
@@ -85,6 +85,6 @@ class ItemVersionControlTest //extends DuskTestCase
             $browser->visitRoute('show.item', $usedItem->id);
             $this->assertNotEquals($browser->driver->findElements(WebDriverBy::className('history--item')), $prevCount);
         });
-        $user->delete();
+         
     }
 }

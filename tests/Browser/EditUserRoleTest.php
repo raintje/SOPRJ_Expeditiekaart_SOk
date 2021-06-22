@@ -74,6 +74,6 @@ class EditUserRoleTest extends DuskTestCase
                     ->assertValue('@role-select', $userRole->id);
         });
 
-        $user->delete();
+         
     }
 }

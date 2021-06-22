@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
-@section('head_script')
-    <script src="https://cdn.tiny.cloud/1/2t1jg49md5wferhnxq0lnsjm72c9ghml73cho300vr1sgv9w/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
-@endsection
+    @section('title', 'Item Toevoegen')
+
+    @section('head_script')
+    <script src="https://cdn.tiny.cloud/1/2t1jg49md5wferhnxq0lnsjm72c9ghml73cho300vr1sgv9w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    @endsection
 
 @section('content')
     <div class="container">
@@ -77,7 +78,8 @@
     <script>
         tinymce.init({
             selector: '#inhoudInput',
-            language: 'nl'
+            language: 'nl',
+            plugins: 'link',
         });
 
         function ValidateSize(file) {
