@@ -47,7 +47,8 @@ class ShowItemInformationTest extends DuskTestCase
              $value = $browser->visit('/items/' . strval(LayerItemsLayerItems::first()->id))
                               ->text('@link-button');
 
-             $browser->click('@link-button')
+             $browser->waitFor('@link-button')
+                     ->click('@link-button')
                      ->assertSee($value);
          });
      }
