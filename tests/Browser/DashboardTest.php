@@ -7,12 +7,12 @@ use App\Models\User;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class SuperAdminDashboardTest extends DuskTestCase
+class DashboardTest extends DuskTestCase
 {
 
     /**
      * Navigates to the webpage without logging in and asserts if we get redirected to the correct page.
-     * 
+     *
      * @group dashboard.tests
      * @return void
      */
@@ -46,11 +46,11 @@ class SuperAdminDashboardTest extends DuskTestCase
 
     /**
      * Asserts if the dashboard buttons direct to the correct pages.
-     * 
+     *
      * @group dashboard.tests
      * @return void
      */
-    public function testDashboardButtons()
+    public function testDashboardButtons() //TODO te lang wachten
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::first())
@@ -70,7 +70,7 @@ class SuperAdminDashboardTest extends DuskTestCase
 
     /**
      * Edits an item and asserts if the history is displayed on the dashboard.
-     * 
+     *
      * @group dashboard.tests
      * @return void
      */
