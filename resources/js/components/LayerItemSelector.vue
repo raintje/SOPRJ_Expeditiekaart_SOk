@@ -7,7 +7,8 @@
         </div>
 
         <div class="form-group">
-            <label for="itemPathSelect">Vervolgpaden<i class="fas fa-info-circle" rel="tooltip" :title="infoPath"></i></label>
+            <label for="itemPathSelect">Vervolgpaden<i class="fas fa-info-circle" rel="tooltip"
+                                                       :title="infoPath"></i></label>
             <select id="itemPathSelect" class="custom-select mb-2 sm:flex sm:flex-col">
                 <option selected>Opties</option>
                 <option v-for="item in this.getSelected" :value="item.id" v-text="item.title"></option>
@@ -46,17 +47,19 @@ export default {
                 child = e.lastElementChild;
             }
             this.getItems();
+            // this.generateSelect();
         },
         getItems() {
             axios
                 .get('/api/not-firstLayeritems')
                 .then(response => (this.layerItems = response.data)
                     .then(console.log(response.data)))
-        },
+        }
     },
     computed: {
         getSelected: function () {
-            return this.layerItems.filter(e => e.level === parseInt(this.option) + 1)
+            let result = JSON.parse(JSON.stringify(this.layerItems));
+            return result.filter(e => e.level === parseInt(this.option) + 1)
         }
     }
 }
