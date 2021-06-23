@@ -88,11 +88,7 @@ class LayerItemController extends Controller
         $layerItem = LayerItem::findOrFail($id);
         $this->AuthorizeRole($layerItem->id);
 
-        $request->validated();
-
-        $layerItem->title = $request->input('title');
-        $layerItem->body = $request->input('body');
-        $layerItem->level = $request->input('level');
+        $layerItem->fill($request->all());
         $layerItem->save();
 
         $this->UpdateFirstLayer($layerItem);
@@ -102,8 +98,6 @@ class LayerItemController extends Controller
 
         return redirect()->route('show.item', $id);
     }
-
-
 
     public function destroy($id)
     {

@@ -16,13 +16,13 @@ class BreadcrumbTest extends TestCase
      * 
      * @return void
      */
-    // public function testBreadcrumbShouldFail() : void
-    // {
-    //     $incorrectPath = 'should fail';
+    public function testBreadcrumbShouldFail() : void
+    {
+        $incorrectPath = 'should fail';
         
-    //     $response = $this->get(route('breadcrumb.add', ['id' => Layeritem::first()->id, 'breadcrumb' => $incorrectPath]));
-    //     $response->assertStatus(404);
-    // }
+        $response = $this->get(route('breadcrumb.add', ['id' => Layeritem::first()->id, 'breadcrumb' => $incorrectPath]));
+        $response->assertStatus(404);
+    }
 
     /**
      * A test to see if an the breadcrumb can be updated
