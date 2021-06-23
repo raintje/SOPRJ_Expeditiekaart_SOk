@@ -103,8 +103,6 @@ class CreateUserTest extends TestCase
             $response->assertSessionHasNoErrors();
             User::where('email', $email)->delete();
         }
-
-        $user->delete();
     }
 
     public function additionalInvalidInformation(): array

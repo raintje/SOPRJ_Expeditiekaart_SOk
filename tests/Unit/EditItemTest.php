@@ -96,6 +96,7 @@ class EditItemTest extends TestCase
         $response = $this->post(route('update.item', ['id' => LayerItem::first()->id]), [
             'title' => 'Nice title',
             'body' => 'Body text',
+            'level' => 1,
         ]);
 
         $response->assertSessionHasNoErrors();

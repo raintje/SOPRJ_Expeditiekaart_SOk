@@ -40,7 +40,6 @@ class ItemVersionControlTest extends DuskTestCase
                 ->visitRoute('edit.item', $item->id)
                 ->assertPathIs('/items/' . $item->id . '/edit')
                 ->type('title', $this->faker->text(20))
-                ->check('@categories-' . random_int(1, 3))
                 ->press('Wijzigingen opslaan')
                 ->assertPathIs('/items/' . $item->id);
             $prevText = $browser->visitRoute('show.item', $usedItem->id)->text('#item--title');
@@ -52,7 +51,7 @@ class ItemVersionControlTest extends DuskTestCase
                 ->press('#res--itemhistory');
                $this->assertNotEquals($browser->visitRoute('show.item', $usedItem->id)->text('#item--title'), $prevText);
         });
-         
+
     }
 
     public function testHistoryDeletion()
@@ -70,7 +69,6 @@ class ItemVersionControlTest extends DuskTestCase
                 ->visitRoute('edit.item', $item->id)
                 ->assertPathIs('/items/' . $item->id . '/edit')
                 ->type('title', $this->faker->text(20))
-                ->check('@categories-' . random_int(1, 3))
                 ->press('Wijzigingen opslaan')
                 ->assertPathIs('/items/' . $item->id);
             $browser->visitRoute('show.item', $usedItem->id);
@@ -85,6 +83,6 @@ class ItemVersionControlTest extends DuskTestCase
             $browser->visitRoute('show.item', $usedItem->id);
             $this->assertNotEquals($browser->driver->findElements(WebDriverBy::className('history--item')), $prevCount);
         });
-         
+
     }
 }

@@ -37,24 +37,6 @@ class EditUserRoleTest extends DuskTestCase
     }
 
     /**
-     * Navigates to the page and asserts if the select list contains the correct data.
-     * @group edit.userrole
-     * @return void
-     */
-    public function testSelectContainsRoles()
-    {
-        $this->browse(function (Browser $browser) {
-            $ranUser = $this->faker()->randomElement(User::all()->where('name', '!=', 'admin'));
-            $roles = Role::all()->where('name', '!=', 'super admin')->pluck('id')->toArray();
-            $browser->loginAs(User::first())
-                    ->visitRoute('users.edit', ['user' => $ranUser->id])
-                    ->assertPathIs('/users/' . $ranUser->id . '/edit')
-                    ->waitFor('@role-select')
-                    ->assertSelectHasOptions('@role-select', $roles);
-        });
-    }
-
-    /**
      * Navigates to the page and asserts if the select list's current value is equal to a random user's current role.
      * @group edit.userrole
      * @return void
@@ -75,6 +57,6 @@ class EditUserRoleTest extends DuskTestCase
                     ->assertValue('@role-select', $userRole->id);
         });
 
-         
+
     }
 }

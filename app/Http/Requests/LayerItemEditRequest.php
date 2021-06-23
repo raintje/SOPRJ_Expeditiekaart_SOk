@@ -33,7 +33,8 @@ class LayerItemEditRequest extends FormRequest
         return [
             'title' => 'required|max:255|unique:layer_items,title,' . $id,
             'body' => 'required|max:10000',
-            'files.*' => 'mimes:jpg,jpeg,png,mp4,mpeg,pdf'
+            'files.*' => 'mimes:jpg,jpeg,png,mp4,mpeg,pdf',
+            'level' => 'required|numeric|min:1'
         ];
     }
 
@@ -48,6 +49,7 @@ class LayerItemEditRequest extends FormRequest
             'title.required' => 'De titel van een item is verplicht.',
             'title.unique' => 'De titel moet uniek zijn.',
             'body.required' => 'De inhoud van het item mag niet leeg zijn.',
+            'level.required' => 'Je moet een Laag kiezen',
             'files.*.mimes' => 'Bestanden moeten een van de volgende extensies hebben: .jpg, .jpeg, .png, .mp4, .mpeg, .pdf',
         ];
     }

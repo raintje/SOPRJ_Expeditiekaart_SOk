@@ -4,13 +4,7 @@ function AddItemPath(elem, source){
         let tagElem = createTagElement(elem);
 
         sourceElem.appendChild(tagElem);
-
-        RemoveItemFromSelect(elem);
     }
-}
-
-function RemoveItemFromSelect(selectElement){
-    selectElement.remove(selectElement.selectedIndex);
 }
 
 function createTagElement(elem){
@@ -47,7 +41,6 @@ function createTagElement(elem){
 
 function RemoveItemPath(tagElem, selectElem){
     let optionElem = document.createElement("OPTION");
-    console.log(tagElem)
     optionElem.text = tagElem.querySelector(".tag-text").innerText;
     optionElem.setAttribute("value", tagElem.querySelector("Input").value);
     selectElem.add(optionElem);

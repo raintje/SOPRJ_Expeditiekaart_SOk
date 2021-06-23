@@ -33,17 +33,6 @@ class LayerItemControllerTest extends TestCase
     }
 
     /**
-     * Tests if all the information from the database is correctly parsed to a list.
-     * @return void
-     */
-    public function test_categories_are_present_in_database()
-    {
-        $haystack = Category::all();
-        $id = rand(1, 3);
-        $this->assertContains($haystack->find($id), $haystack);
-    }
-
-    /**
      * Tests if nothing goes wrong when data is applied to a model class.
      * @return void
      */
@@ -56,19 +45,7 @@ class LayerItemControllerTest extends TestCase
     }
 
     /**
-     * Tests if the given ID gets attached to the model.
-     * @return void
-     */
-    public function test_category_id_gets_attached_to_model()
-    {
-        $category = $this->faker->randomElement(Category::all()->pluck('id')->toArray());
-        $mock = new FirstLayerItem();
-        $mock->layer_item_id = $category;
-        $this->assertTrue($mock->layer_item_id == $category);
-    }
-
-    /**
-     * Tests going to existing item exists.
+     * Tests going to existing item works.
      * @return void
      */
     public function test_going_to_existing_item_works()
@@ -79,7 +56,7 @@ class LayerItemControllerTest extends TestCase
     }
 
     /**
-     * Tests going to non existing item exists.
+     * Tests going to non existing item returns 404.
      * @return void
      */
     public function test_going_to_non_existing_item_gives_404_on_show()

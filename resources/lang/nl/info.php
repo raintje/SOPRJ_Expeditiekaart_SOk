@@ -18,4 +18,5 @@ return [
     'role_create' => 'Hier kan u een nieuwe rol aanmaken, deze kan u vervolgens aan gebruikers toewijzen om ze gemakkelijk te bemachtigen om bepaalde items te beheren.',
     'role_name' => 'Dit is de naam van de rol.',
     'role_items' => 'De items die een gebruiker met de rol aan kan passen.',
+    'layer' => 'De laag is de plek waar dit item terecht komt! Laag 1 is op de expeditiekaart homepagina en de andere lagen zitten daaronder.',
 ];

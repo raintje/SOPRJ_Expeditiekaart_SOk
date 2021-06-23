@@ -38,7 +38,7 @@ class CreateItemTest extends DuskTestCase
                     ->assertSee('Items aanmaken');
         });
 
-         
+
 
     }
 
@@ -58,7 +58,7 @@ class CreateItemTest extends DuskTestCase
                 ->assertPathIs('/items/create');
         });
 
-         
+
     }
 
     public function testBodyValidation()
@@ -77,7 +77,7 @@ class CreateItemTest extends DuskTestCase
                 ->assertPathIs('/items/create');
         });
 
-         
+
     }
 
     public function testDuplicateItemCreation()
@@ -98,7 +98,7 @@ class CreateItemTest extends DuskTestCase
                 ->assertPathIs('/items/create');
         });
 
-         
+
     }
 
 }
