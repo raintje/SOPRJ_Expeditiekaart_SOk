@@ -40,22 +40,19 @@ class AuthorisationUserTest extends TestCase
         $response->assertStatus(403);
     }
 
-    // public function test_edit_item_with_role(){
-    //     $user = User::factory()->create();
-    //     $role = Role::create(['name' => 'test']);
-    //     $permission = Permission::create(['name' => 'layerItem.edit.1']);
-    //     $role->givePermissionTo($permission);
+    public function test_edit_item_with_role(){
+        $user = User::factory()->create();
+        $role = Role::create(['name' => 'test']);
+        $permission = Permission::create(['name' => 'layerItem.edit.1']);
+        $role->givePermissionTo($permission);
 
-    //     $user->assignRole($role);
+        $user->assignRole($role);
 
-    //     Auth::login($user);
-    //     $this->assertAuthenticated();
-    //     $response = $this->get(route('edit.item', 1));
-    //      ;
-    //     $role->delete();
-    //     $permission->delete();
-    //     $response->assertStatus(200);
-    // }
+        Auth::login($user);
+        $this->assertAuthenticated();
+        $response = $this->get(route('edit.item', 1));
+        $response->assertStatus(200);
+    }
 
     public function test_edit_item_without_role()
     {
