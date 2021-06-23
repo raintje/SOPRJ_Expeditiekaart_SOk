@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Admin123!'), // password = Admin123!
         ]);
         User::factory(30)->create();
+        $this->call(RolesAndPermissionsSeeder::class);
         $this->call(LayerItemSeeder::class);
         FirstLayerItem::factory(LayerItem::all()->count())->create();
         $this->call(CategoriesTableSeeder::class);
         $this->call(LayerItemLayerItemSeeder::class);
-        $this->call(RolesAndPermissionsSeeder::class);
         File::factory(10)->create();
 
     }
