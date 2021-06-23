@@ -77,22 +77,4 @@ class ChangeLocationMapTest extends DuskTestCase
                 ->assertVisible('.toast-body');
         });
     }
-
-    /**
-     * @group map
-     * @group changeLocation
-     */
-    public function testLegenda()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->resize(360, 640);
-            $browser->loginAs(User::first())
-                ->visitRoute('edit.item.location')
-                ->assertVisible('.legend');
-        });
-    }
-
-
-
-
 }
