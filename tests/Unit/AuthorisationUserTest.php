@@ -40,7 +40,7 @@ class AuthorisationUserTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_edit_item_with_role(){
+    public function test_edit_item_with_role() {
         $user = User::factory()->create();
         $role = Role::create(['name' => 'test']);
         $permission = Permission::create(['name' => 'layerItem.edit.1']);
@@ -52,6 +52,9 @@ class AuthorisationUserTest extends TestCase
         $this->assertAuthenticated();
         $response = $this->get(route('edit.item', 1));
         $response->assertStatus(200);
+        $user->delete();
+        $role->delete();
+        $permission->delete();
     }
 
     public function test_edit_item_without_role()
