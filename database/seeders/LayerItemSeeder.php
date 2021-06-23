@@ -94,8 +94,8 @@ class LayerItemSeeder extends Seeder
                 ),
         );
 
-//        $json = File::get("database/data/LayerItem.json");
-//        $data = json_decode($json);
+        $json = File::get("database/data/LayerItem.json");
+        $data = json_decode($json);
         foreach($data as $obj){
             $body = $obj->body == '' ? "Nog te omschrijven..." : $obj->body;
 
