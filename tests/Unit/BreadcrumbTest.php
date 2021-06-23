@@ -45,33 +45,33 @@ class BreadcrumbTest extends TestCase
      * 
      * @return void
      */
-    // public function testBreadcrumbShouldAdd() : void
-    // {
-    //     $linkItem = LayerItemsLayerItems::first();
+    public function testBreadcrumbShouldAdd() : void
+    {
+        $linkItem = LayerItemsLayerItems::first();
 
-    //     $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
-    //     $response->assertViewIs('items.show');
-    //     $response->assertStatus(200);
-    // }
+        $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
+        $response->assertViewIs('items.show');
+        $response->assertStatus(200);
+    }
 
     /**
      * A test to see if the breadcrumb is correctly handled after the links is deleted
      * 
      * @return void
      */
-    // public function testBreadcrumbRemoveAddedTest() : void
-    // {
-    //     $linkItem = LayerItemsLayerItems::first();
+    public function testBreadcrumbRemoveAddedTest() : void
+    {
+        $linkItem = LayerItemsLayerItems::first();
         
-    //     $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
-    //     $response->assertStatus(200);
+        $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
+        $response->assertStatus(200);
 
-    //     $linkItem->delete();
+        $linkItem->delete();
 
-    //     $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
-    //     $response->assertStatus(404);
+        $response = $this->get(route('breadcrumb.add', ['id' => $linkItem->linked_layer_item_id, 'breadcrumb' => $linkItem->layer_item_id]));
+        $response->assertStatus(404);
 
-    //     $linkItem->save();
-    // }
+        $linkItem->save();
+    }
 
 }
