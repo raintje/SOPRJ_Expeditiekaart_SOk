@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@expeditiekaart.nl',
             'email_verified_at' => now(),
-            'password' => Hash::make('Admin123!'), // password = Admin123!
+            'password' => Hash::make('!expAdmin302'), // password = !expAdmin302
         ]);
         User::factory(30)->create();
         $this->call(RolesAndPermissionsSeeder::class);
