@@ -22,6 +22,7 @@
 
             <l-control class="example-custom-control">
                 <b-button dusk="save-button" id="saveLocation" variant="primary" @click="saveLocations">Opslaan</b-button>
+                <b-button dusk="save-button" id="goHome" variant="primary" @click="goHome">Naar Homepagina</b-button>
             </l-control>
 
             <l-marker @add="openPopup" v-for="item in items"
@@ -94,6 +95,9 @@ export default {
                 event.target.openPopup();
             })
         },
+        goHome: function () {
+            document.location.href="/";
+        },
         saveLocations() {
             const requestOptions = {
                 method: 'POST',
@@ -112,6 +116,7 @@ export default {
                     }
                     this.makeToast('success', 'De locaties zijn succesvol opgeslagen.');
 
+
                 })
                 .catch(error => {
                     this.makeToast('danger', 'Er is iets mis gegaan, probeer het opnieuw.');
@@ -120,26 +125,8 @@ export default {
                 });
         },
         getClass: function (item) {
-
-
             return "marker";
-            let colors = item.categories.map(i => i.color);
 
-            if(colors.length === 1){
-                return baseClass +" "+ item.categories[0].color;
-            }
-            else if(colors.includes("red", "green")){
-                return baseClass + " red-green"
-            }
-            else if(colors.includes("red", "blue")){
-                return baseClass + " blue-red"
-            }
-            else if(colors.includes("blue", "green")){
-                return baseClass + " blue-green"
-            }
-            else{
-                return baseClass;
-            }
         },
 
     }
