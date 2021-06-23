@@ -64,8 +64,6 @@ class AuthorisationUserTest extends TestCase
         $this->assertAuthenticated();
         $response = $this->get(route('edit.item', 1));
         $response->assertStatus(403);
-
-         ;
     }
 
     public function test_edit_item_with_wrong_role(){
@@ -79,12 +77,9 @@ class AuthorisationUserTest extends TestCase
         Auth::login($user);
         $this->assertAuthenticated();
         $response = $this->get(route('edit.item', 1));
-         ;
         $role->delete();
         $permission->delete();
         $response->assertStatus(403);
-
-
     }
 
 }
