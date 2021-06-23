@@ -35,27 +35,13 @@
 
             <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
                                                                               title="{{__('info.layer')}}"></i></label>
-                <select name='level' class="form-control" id="layerInput">
-                    <option value="1" @if (old('level', $item->level) === 1) selected="selected" @endif>1</option>
-                    <option  value="2" @if (old('level', $item->level) === 2) selected="selected" @endif>2</option>
-                    <option  value="3" @if (old('level', $item->level) === 3) selected="selected" @endif>3</option>
-                    <option  value="4" @if (old('level', $item->level) === 4) selected="selected" @endif>4</option>
-                </select>
+
+                <layeritem-selector info-path="{{__('info.path')}}" level={{ old('level', $item->level) }}></layeritem-selector>
             </div>
 
                 {{-- Selectlist linked items --}}
                 <div class="form-group">
-                    <label for="itemPathSelect">Vervolgpaden <i class="fas fa-info-circle" rel="tooltip" title="{{__('info.path')}}"></i></label>
-                    @if (!empty($linkedItems))
-                        <select id="itemPathSelect" class="custom-select mb-2 sm:flex sm:flex-col">
-                            <option selected>Opties</option>
-                            @foreach ($existingItems as $itemLink)
-                                @if (!$linkedItems->contains($itemLink))
-                                    <option value="{{ $itemLink->id }}">{{ $itemLink->title }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    @endif
+
                     <div id="item-links-container">
                         @foreach($linkedItems as $linkedItem)
                             <div class="tag">
