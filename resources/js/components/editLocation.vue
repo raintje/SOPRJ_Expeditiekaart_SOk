@@ -2,9 +2,6 @@
 
     <div>
 
-        <Legenda></Legenda>
-
-
         <l-map
             ref="map"
             :min-zoom="minZoom"
@@ -124,8 +121,8 @@ export default {
         },
         getClass: function (item) {
 
-            let baseClass = "marker";
 
+            return "marker";
             let colors = item.categories.map(i => i.color);
 
             if(colors.length === 1){

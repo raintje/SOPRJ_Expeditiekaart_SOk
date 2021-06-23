@@ -11,7 +11,7 @@ class FirstLayerItemController extends Controller
     public function all()
     {
         $items = FirstLayerItem::with('layerItem')->get();
-
+//        dd($items);
         foreach ($items as $item) {
             $item->position = (['lng' => $item->x_pos, 'lat' => $item->y_pos]);
         }
