@@ -53,7 +53,7 @@ class IndexUserTest extends DuskTestCase
                      ->pause(200)
                      ->select('usersTable_length', 100)
                      ->assertSelected('usersTable_length', 100)
-                     ->pause(500)
+                     ->pause(2500)
                      ->assertSee($randomUser->email)
                      ->assertSee($randomUser->name);
          });
