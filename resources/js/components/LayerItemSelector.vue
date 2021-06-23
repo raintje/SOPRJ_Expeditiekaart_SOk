@@ -47,19 +47,21 @@ export default {
                 child = e.lastElementChild;
             }
             this.getItems();
-            // this.generateSelect();
+            this.generateSelect();
         },
         getItems() {
             axios
                 .get('/api/not-firstLayeritems')
                 .then(response => (this.layerItems = response.data)
                     .then(console.log(response.data)))
+        },
+        generateSelect(){
+            document.getElementById('itemPathSelect').selectedIndex = -1;
         }
     },
     computed: {
         getSelected: function () {
-            let result = JSON.parse(JSON.stringify(this.layerItems));
-            return result.filter(e => e.level === parseInt(this.option) + 1)
+            return this.layerItems.filter(e => e.level === parseInt(this.option) + 1)
         }
     }
 }

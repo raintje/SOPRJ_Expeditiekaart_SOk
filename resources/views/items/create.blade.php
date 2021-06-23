@@ -30,31 +30,33 @@
                     placeholder="Titel" value="{{ old('title', '') }}">
             </div>
 
+            <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
+                                                                              title="{{__('info.layer')}}"></i></label>
             <layeritem-selector> </layeritem-selector>
 
-            <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"
-                        title="{{ __('info.layer') }}"></i></label>
-                <select name="level" class="form-control" id="layerInput">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-            </div>
+{{--            <div class="form-group"><label for="layerInput">Selecteer Laag <i class="fas fa-info-circle" rel="tooltip"--}}
+{{--                        title="{{ __('info.layer') }}"></i></label>--}}
+{{--                <select name="level" class="form-control" id="layerInput">--}}
+{{--                    <option>1</option>--}}
+{{--                    <option>2</option>--}}
+{{--                    <option>3</option>--}}
+{{--                    <option>4</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
 
-            <div class="form-group">
-                <label for="titelInput">Vervolg pad <i class="fas fa-info-circle" rel="tooltip"
-                        title="{{ __('info.path') }}"></i></label>
-                <select id="itemPathSelect" class="custom-select">
-                    <option selected>Opties</option>
-                    @foreach ($existingItems as $item)
-                        <option value="{{ $item->id }}">{{ $item->title }}</option>
-                    @endforeach
-                </select>
-                <div id="item-links-container">
+{{--            <div class="form-group">--}}
+{{--                <label for="titelInput">Vervolg pad <i class="fas fa-info-circle" rel="tooltip"--}}
+{{--                        title="{{ __('info.path') }}"></i></label>--}}
+{{--                <select id="itemPathSelect" class="custom-select">--}}
+{{--                    <option selected>Opties</option>--}}
+{{--                    @foreach ($existingItems as $item)--}}
+{{--                        <option value="{{ $item->id }}">{{ $item->title }}</option>--}}
+{{--                    @endforeach--}}
+{{--                </select>--}}
+{{--                <div id="item-links-container">--}}
 
-                </div>
-            </div>
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="form-group">
                 <label for="inhoudInput">Inhoud <i class="fas fa-info-circle" rel="tooltip"
                         title="{{ __('info.body') }}"></i></label>
