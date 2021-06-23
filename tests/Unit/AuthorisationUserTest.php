@@ -40,22 +40,22 @@ class AuthorisationUserTest extends TestCase
         $response->assertStatus(403);
     }
 
-    // public function test_edit_item_with_role(){
-    //     $user = User::factory()->create();
-    //     $role = Role::create(['name' => 'test']);
-    //     $permission = Permission::create(['name' => 'layerItem.edit.1']);
-    //     $role->givePermissionTo($permission);
+    public function test_edit_item_with_role() {
+        $user = User::factory()->create();
+        $role = Role::create(['name' => 'test']);
+        $permission = Permission::create(['name' => 'layerItem.edit.1']);
+        $role->givePermissionTo($permission);
 
-    //     $user->assignRole($role);
+        $user->assignRole($role);
 
-    //     Auth::login($user);
-    //     $this->assertAuthenticated();
-    //     $response = $this->get(route('edit.item', 1));
-    //     $user->delete();
-    //     $role->delete();
-    //     $permission->delete();
-    //     $response->assertStatus(200);
-    // }
+        Auth::login($user);
+        $this->assertAuthenticated();
+        $response = $this->get(route('edit.item', 1));
+        $response->assertStatus(200);
+        $user->delete();
+        $role->delete();
+        $permission->delete();
+    }
 
     public function test_edit_item_without_role()
     {
@@ -65,7 +65,7 @@ class AuthorisationUserTest extends TestCase
         $response = $this->get(route('edit.item', 1));
         $response->assertStatus(403);
 
-        $user->delete();
+         ;
     }
 
     public function test_edit_item_with_wrong_role(){
@@ -79,7 +79,7 @@ class AuthorisationUserTest extends TestCase
         Auth::login($user);
         $this->assertAuthenticated();
         $response = $this->get(route('edit.item', 1));
-        $user->delete();
+         ;
         $role->delete();
         $permission->delete();
         $response->assertStatus(403);

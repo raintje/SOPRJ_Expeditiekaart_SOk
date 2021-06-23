@@ -37,7 +37,7 @@ class CreateUserTest extends DuskTestCase
                     ->assertSee('Het emailadres van de gebruiker kan niet leeggelaten worden.');
         });
 
-         
+
     }
 
     /**
@@ -62,7 +62,7 @@ class CreateUserTest extends DuskTestCase
                     ->assertSee('Voer alstublieft een geldig emailadres in.');
         });
 
-         
+
     }
 
     /**
@@ -88,7 +88,7 @@ class CreateUserTest extends DuskTestCase
                     ->assertSee('Er bestaat al een account met dit emailadres.');
         });
 
-         
+
     }
 
     /**
@@ -96,17 +96,17 @@ class CreateUserTest extends DuskTestCase
      * @group create.user
      * @return void
      */
-    // public function testSuccesfulUserCreation() {
-    //     $this->browse(function (Browser $browser) {
-    //         $randomName = $this->faker->name;
-    //         $randomEmail = 'laraveldusktestadres@gmail.com';
-    //         $browser->loginAs(User::first())
-    //                 ->visit('/users/create')
-    //                 ->type('name', $randomName)
-    //                 ->type('email', $randomEmail)
-    //                 ->press('Gebruiker aanmaken')
-    //                 ->assertPathIs('/users');
-    //     });
-    // }
+     public function testSuccesfulUserCreation() {
+         $this->browse(function (Browser $browser) {
+             $randomName = $this->faker->name;
+             $randomEmail = 'laraveldusktestadres@gmail.com';
+             $browser->loginAs(User::first())
+                     ->visit('/users/create')
+                     ->type('name', $randomName)
+                     ->type('email', $randomEmail)
+                     ->press('Gebruiker aanmaken')
+                     ->assertPathIs('/users');
+         });
+     }
 
 }

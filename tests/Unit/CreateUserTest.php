@@ -104,7 +104,7 @@ class CreateUserTest extends TestCase
             User::where('email', $email)->delete();
         }
 
-        $user->delete();
+         ;
     }
 
     public function additionalInvalidInformation(): array

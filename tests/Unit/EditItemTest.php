@@ -19,14 +19,14 @@ class EditItemTest extends TestCase
      *
      * @return void
      */
-    // public function testEditItemPageResponse()
-    // {
-    //     $user = User::first();
-    //     Auth::login($user);
-    //     $response = $this->get(route('edit.item', LayerItem::first()->id));
-    //     $response->assertViewIs('items.edit');
-    //     $response->assertStatus(200);
-    // }
+    public function testEditItemPageResponse()
+    {
+        $user = User::first();
+        Auth::login($user);
+        $response = $this->get(route('edit.item', LayerItem::first()->id));
+        $response->assertViewIs('items.edit');
+        $response->assertStatus(200);
+    }
 
     /**
      * A test to see if the returns 404 if route gets called without existing ID.
@@ -46,27 +46,27 @@ class EditItemTest extends TestCase
      *
      * @return void
      */
-    // public function testUpdateMethod()
-    // {
-    //     $user = User::first();
-    //     Auth::login($user);
+    public function testUpdateMethod()
+    {
+        $user = User::first();
+        Auth::login($user);
 
-    //     $id = LayerItem::first()->id;
+        $id = LayerItem::first()->id;
 
-    //     // create LayerItemEditRequest to pass parameter.
-    //     $request = LayerItemEditRequest::create('/items/' . $id, 'POST', [
-    //         'title' => 'foo',
-    //         'body' => "<p>hoi</p>",
-    //         'files[]' => UploadedFile::fake()->image('photo1.jpg'),
-    //     ]);
+        // create LayerItemEditRequest to pass parameter.
+        $request = LayerItemEditRequest::create('/items/' . $id, 'POST', [
+            'title' => 'foo',
+            'body' => "<p>hoi</p>",
+            'files[]' => UploadedFile::fake()->image('photo1.jpg'),
+        ]);
 
-    //     // create controller and execute update method.
-    //     $controller = new LayerItemController();
-    //     $response = $controller->update($request, $id);
+        // create controller and execute update method.
+        $controller = new LayerItemController();
+        $response = $controller->update($request, $id);
 
-    //     //Get statuscode and see if its expected
-    //     $this->assertEquals(302, $response->getStatusCode());
-    // }
+        //Get statuscode and see if its expected
+        $this->assertEquals(302, $response->getStatusCode());
+    }
 
     /**
      * A test to see when a route gets called with wrong inputs, if it has errors.

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class CreateItemTest //extends DuskTestCase
+class CreateItemTest extends DuskTestCase
 {
 
     use WithFaker;
@@ -38,7 +38,7 @@ class CreateItemTest //extends DuskTestCase
                     ->assertSee('Items aanmaken');
         });
 
-         
+
 
     }
 
@@ -58,7 +58,7 @@ class CreateItemTest //extends DuskTestCase
                 ->assertPathIs('/items/create');
         });
 
-         
+
     }
 
     public function testBodyValidation()
@@ -77,7 +77,7 @@ class CreateItemTest //extends DuskTestCase
                 ->assertPathIs('/items/create');
         });
 
-         
+
     }
 
     public function testDuplicateItemCreation()
@@ -98,7 +98,7 @@ class CreateItemTest //extends DuskTestCase
                 ->assertPathIs('/items/create');
         });
 
-         
+
     }
 
 }

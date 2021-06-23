@@ -18,7 +18,7 @@ class AuthorizePagesTest extends DuskTestCase
     public function testAdminAuthAllPages()
     {
         $this->browse(function (Browser $browser) {
-            $routes = [ 
+            $routes = [
                 route('users.edit', ['user' => User::first()]),
                 route('users.show', ['user' => user::first()]),
                 route('users.index'),
@@ -46,15 +46,15 @@ class AuthorizePagesTest extends DuskTestCase
      * @group AuthorizeAdminPages
      * @group AuthorizeAllPages
      */
-    // public function testAdminOtherAuth()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->loginAs(User::role('super admin')->first())
-    //                 ->visit(route('show.item', ['id' => LayerItem::first()]))
-    //                 ->assertPresent('@edit-button')
-    //                 ->assertPresent('@delete-button');
-    //     });
-    // }
+     public function testAdminOtherAuth()
+     {
+         $this->browse(function (Browser $browser) {
+             $browser->loginAs(User::role('super admin')->first())
+                     ->visit(route('show.item', ['id' => LayerItem::first()]))
+                     ->assertPresent('@edit-button')
+                     ->assertPresent('@delete-button');
+         });
+     }
 
 
     /**
@@ -64,7 +64,7 @@ class AuthorizePagesTest extends DuskTestCase
     public function testDefaultUserNotAuthorizePages()
     {
         $this->browse(function (Browser $browser) {
-            $routes = [ 
+            $routes = [
                 route('users.edit', ['user' => User::first()]),
                 route('users.show', ['user' => user::first()]),
                 route('users.index'),
@@ -93,7 +93,7 @@ class AuthorizePagesTest extends DuskTestCase
     public function testDefaultUserAuthorizePages()
     {
         $this->browse(function (Browser $browser) {
-            $routes = [ 
+            $routes = [
                 route('show.item', ['id' => LayerItem::first()]),
                 route('login')
             ];
@@ -117,7 +117,7 @@ class AuthorizePagesTest extends DuskTestCase
                     ->visit(route('show.item', ['id' => LayerItem::first()]))
                     ->assertNotPresent('@edit-button')
                     ->assertNotPresent('@delete-button');
-    
+
         });
     }
 }
