@@ -7,13 +7,13 @@
     <title>Expeditiekaart - Home</title>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NL7J9FVP0E"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-199335145-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-NL7J9FVP0E');
+        gtag('config', 'UA-199335145-2');
     </script>
 
     <!-- Fonts -->
