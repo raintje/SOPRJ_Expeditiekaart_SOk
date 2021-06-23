@@ -228,7 +228,8 @@ class LayerItemController extends Controller
     public function syncLinkedItems(FormRequest $request, LayerItem $layerItem): void
     {
         if (isset($request->itemLinks)) {
-            $layerItem->referencesLayerItems()->sync($request->itemLinks);
+            $unique =array_unique($request->itemLinks) ;
+            $layerItem->referencesLayerItems()->sync($unique);
         }
     }
 

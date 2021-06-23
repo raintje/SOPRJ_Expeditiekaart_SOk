@@ -58,15 +58,15 @@
 {{--                            @endforeach--}}
 {{--                        </select>--}}
 {{--                    @endif--}}
-{{--                    <div id="item-links-container">--}}
-{{--                        @foreach($linkedItems as $linkedItem)--}}
-{{--                            <div class="tag">--}}
-{{--                                <div class="tag-text">{{ $linkedItem->title }}</div>--}}
-{{--                                <div class="tag-close">x</div>--}}
-{{--                                <input type="hidden" name="itemLinks[]" value={{ $linkedItem->id }}>--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
-{{--                    </div>--}}
+                    <div id="item-links-container">
+                        @foreach($linkedItems as $linkedItem)
+                            <div class="tag">
+                                <div class="tag-text">{{ $linkedItem->title }}</div>
+                                <div class="tag-close">x</div>
+                                <input type="hidden" name="itemLinks[]" value={{ $linkedItem->id }}>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
 
                 {{-- Body --}}

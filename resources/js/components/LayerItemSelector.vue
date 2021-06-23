@@ -14,11 +14,9 @@
                 <option v-for="item in this.getSelected" :value="item.id" v-text="item.title"></option>
             </select>
         </div>
-        <div id="item-links-container">
-            <div class="tag">
-                <div class="tag-text">Nemo est eius et quia consequuntur et commodi vel.</div>
-                <div class="tag-close">x</div>
-                <input type="hidden" name="itemLinks[]" value="19"></div>
+
+        <div id="link-wrapper">
+
         </div>
 
     </div>
@@ -40,24 +38,27 @@ export default {
     methods: {
         onChange() {
             let e = document.querySelector("#item-links-container");
-
-            let child = e.lastElementChild;
-            while (child) {
-                e.removeChild(child);
-                child = e.lastElementChild;
+            console.log(e)
+            if(e == null) {
+                let wrap = document.getElementById("link-wrapper");
+                let item = document.createElement("div");
+                item.id = "item-links-container";
+                wrap.appendChild(item);
+            }else{
+                let child = e.lastElementChild;
+                while (child) {
+                    e.removeChild(child);
+                    child = e.lastElementChild;
+                }
             }
             this.getItems();
-            this.generateSelect();
         },
         getItems() {
             axios
                 .get('/api/not-firstLayeritems')
-                .then(response => (this.layerItems = response.data)
-                    .then(console.log(response.data)))
+                .then(response => (this.layerItems = response.data))
+
         },
-        generateSelect(){
-            document.getElementById('itemPathSelect').selectedIndex = -1;
-        }
     },
     computed: {
         getSelected: function () {

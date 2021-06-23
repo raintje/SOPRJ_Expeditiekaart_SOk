@@ -114,7 +114,6 @@ export default {
                         return Promise.reject(error);
                     }
                     this.makeToast('success', 'De locaties zijn succesvol opgeslagen.');
-
                 })
                 .catch(error => {
                     this.makeToast('danger', 'Er is iets mis gegaan, probeer het opnieuw.');

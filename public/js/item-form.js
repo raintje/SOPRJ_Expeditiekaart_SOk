@@ -5,7 +5,7 @@ function AddItemPath(elem, source){
 
         sourceElem.appendChild(tagElem);
 
-        RemoveItemFromSelect(elem);
+        // RemoveItemFromSelect(elem);
     }
 }
 
