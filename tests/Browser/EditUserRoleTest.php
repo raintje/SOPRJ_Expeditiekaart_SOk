@@ -49,6 +49,7 @@ class EditUserRoleTest extends DuskTestCase
             $browser->loginAs(User::first())
                     ->visitRoute('users.edit', ['user' => $ranUser->id])
                     ->assertPathIs('/users/' . $ranUser->id . '/edit')
+                    ->waitFor('@role-select')
                     ->assertSelectHasOptions('@role-select', $roles);
         });
     }
@@ -74,6 +75,6 @@ class EditUserRoleTest extends DuskTestCase
                     ->assertValue('@role-select', $userRole->id);
         });
 
-        $user->delete();
+         
     }
 }

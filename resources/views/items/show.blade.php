@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $item->title)
+
 @section('content')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -110,7 +112,12 @@
                                                 <a href="#">{{$historyData['key']}}</a>
                                                 <a href="#"
                                                    class="ml-5">{{date('d-m-Y', strtotime($history->performed_at))}}</a>
-                                                <p>{!! $historyData['old']!!}</p>
+                                                @if($historyData['key'] == 'body')
+                                                    <p>{!! $historyData['old']!!}</p>
+                                                @else
+                                                    <p>{{$historyData['old']}}</p>
+                                                @endif
+
                                             </div>
 
                                             @auth
