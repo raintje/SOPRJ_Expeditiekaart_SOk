@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LayerItemSeeder::class);
         FirstLayerItem::factory(LayerItem::where('level', 1)->count())->create();
         $this->call(LayerItemLayerItemSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
         File::factory(10)->create();
 
     }
