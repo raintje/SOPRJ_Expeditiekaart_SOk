@@ -22,7 +22,7 @@ class DashboardTest extends DuskTestCase
             $browser->visitRoute('dashboard')
                 ->assertPathIs('/login')
                 ->assertSee('Login')
-                ->type('email', 'admin@gmail.com')
+                ->type('email', 'admin@expeditiekaart.nl')
                 ->type('password', 'Admin123!')
                 ->press('Login')
                 ->assertPathIs('/dashboard');
