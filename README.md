@@ -11,8 +11,6 @@
 
 ---
 
-TEST
-
 ### Git guidelines
 
 * We werken vanaf de `develop` branch waar feature branches op gecommit worden. De `develop` branch wordt niet direct gebruikt.
